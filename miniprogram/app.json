@@ -1,6 +1,9 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/admin/index",
+    "pages/noticeBoard/index",
+    "pages/serviceCenter/index",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
@@ -13,7 +16,39 @@
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarTitleText": "场地借用系统",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/serviceCenter/index",
+        "text": "办事大厅",
+        "iconPath": "images/star.png",
+        "selectedIconPath": "images/star.png"
+      },
+      {
+        "pagePath": "pages/noticeBoard/index",
+        "text": "公告版",
+        "iconPath": "images/notification.png",
+        "selectedIconPath": "images/notification.png"
+      },
+      {
+        "pagePath": "pages/admin/index",
+        "text": "后台管理",
+        "iconPath": "images/key.png",
+        "selectedIconPath": "images/key.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "quickstart",
+        "iconPath": "images/icon_component.png",
+        "selectedIconPath": "images/icon_component_HL.png"
+      }
+    ]
   }
 }
