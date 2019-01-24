@@ -1,0 +1,77 @@
+<view class="container">
+  <form bindsubmit='submit'>
+
+    <view id="form_associationName">
+      <text>协会名称:</text>
+      <input name="associationName" class="form_input" placeholder='' />
+    </view>
+
+    <view id="form_eventName">
+      <text>活动名称:</text>
+      <input name="eventName" class="form_input" placeholder=''/>
+    </view>
+
+    <view id="form_attendNumber">
+      <text>参加人数:</text>
+      <input name="attendNumber" class="form_input" placeholder='' />
+    </view>
+
+    <view id="form_eventDate">
+      <text> 活动日期:</text>
+      <picker name="eventDate" 
+              mode="date"
+              value="{{date}}"
+              start="2019-01-01"
+              end="9999-12-31"
+              bindchange="bindDateChange">
+        <view>
+          当前选择：{{date}}
+        </view>
+      </picker>
+    </view>
+
+    <view id="form_eventTime">
+      <text>活动时间:</text>
+        <picker name="eventTime1"
+                mode="time"
+                value="{{time1}}"
+                start="06:00"
+                end="23:00"
+                bindchange="bindTimeChange1">
+          <view>
+            当前选择: {{time1}}
+          </view>
+        </picker>
+      <text>至</text>
+        <picker name="eventTime2"
+                mode="time"
+                value="{{time1}}"
+                start="06:00"
+                end="23:00"
+                bindchange="bindTimeChange2">
+          <view>
+            当前选择: {{time2}}
+          </view>
+        </picker>
+     
+    </view>
+
+    <view id="form_classroomNumber">
+      <text>借用教室编号:</text>
+      <input name="classroomNumber" class="form_input" placeholder=''/>
+    </view>
+
+    <view id="form_eventContent">
+      <text>活动内容:</text>
+      <input name="eventContent" class="form_input2" placeholder=''/>
+    </view>
+
+    <view id="form_eventResponser">
+      <text>活动负责人:</text>
+      <input name="eventResponser" class="form_input" placeholder=''/>
+    </view>
+
+    <button type="primary" form-type='submit'>提交</button>
+
+  </form>
+</view>
