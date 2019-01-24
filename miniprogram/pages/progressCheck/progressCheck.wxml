@@ -1,0 +1,31 @@
+<view>
+    <!-- 使用列表渲染，渲染表格 -->
+    <view class="progressList" wx:for="{{ progressList }}" wx:key="id">
+    <!-- <view wx:if="{{ item.isRender }}"> -->
+    <view class="infoForm">
+    <view class="flex-row">
+        <text class="flex-cell flex-row rowText">姓名</text>
+        <text class="flex-cell flex-row cellText">{{ item.name }}</text>
+        <text class="flex-cell flex-row rowText">教室</text>
+        <text class="flex-cell flex-row cellText">{{ item.classroom }}</text>
+    </view>
+
+    <view class="flex-row">
+        <text class="flex-cell flex-row rowText">联系方式</text>
+        <text class="flex-cell flex-row cellText">{{ item.tel }}</text>
+        <text class="flex-cell flex-row rowText">申请日期</text>
+        <text class="flex-cell flex-row cellText">{{ item.date }}</text>
+    </view>
+
+    <view class="flex-row">
+    <text class="flex-cell flex-row rowText">是否通过</text>
+        <text class="flex-cell flex-row cellText">{{ item.isPass?'通过':'未通过' }}</text>
+    </view>
+
+    <view class='flex-row'>
+    <!-- 弹出一个窗口，可以看申请失败原因（如果有 -->
+    <text class='flex-cell flex-row infoBottom' bindtap='tapBottom'>详细信息</text>
+    </view>
+    </view>
+    </view>
+</view>

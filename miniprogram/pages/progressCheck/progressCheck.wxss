@@ -1,0 +1,56 @@
+/* miniprogram/pages/progressCheck/progressCheck.wxss */
+/* .name{
+  font-size: 28rpx;
+  color: #999999;
+  margin-bottom: 10rpx;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+} */
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.flex-cell{
+  flex: 1;
+  border-bottom: 2rpx solid gray;
+  border-right: 2rpx solid gray;
+}
+
+.progressList{
+    margin: 20px
+}
+
+.infoForm{
+  flex: 0;
+  border-color: gray;
+  border-width: 2px;
+  border-style: solid;
+
+  font-size: 32rpx;
+}
+
+.rowText{
+    font-weight: bolder;
+}
+
+.cellText{
+    color: gray;
+    font-weight: lighter;
+}
+
+.infoBottom{
+    color: darkblue;
+    font-weight: 700;
+    text-decoration: underline;
+}
