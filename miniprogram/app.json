@@ -6,6 +6,7 @@
     "pages/serviceCenter/index",
     "pages/userConsole/userConsole",
     "pages/borrowClassroom/borrowClassroom",
+
     "pages/progressCheck/progressCheck",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",

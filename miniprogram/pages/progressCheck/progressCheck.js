@@ -1,71 +1,88 @@
 // miniprogram/pages/progressCheck/progressCheck.js
 Page({
+
   /**
    * 页面的初始数据
    */
   data: {
     // 这个是提交的表单简略信息
-    progressList: [{
-        id: 1,
-        name: "买买提字",
-        classroom: 204,
-        tel: 132512412332,
-        date: "12/2",
-        isPass: 1
+
+    progressList: [
+      {
+        id:1,
+        name:"买买提字",
+        classroom:204,
+        tel:132512412332,
+        date:"12/2",
+        isPass:1
       },
       {
-        id: 2,
-        name: "lmh",
-        classroom: 123,
-        tel: 13223992144,
-        date: "12/2",
-        isPass: 0
+        id:2,
+        name:"lmh",
+        classroom:123,
+        tel:13223992144,
+        date:"12/2",
+        isPass:0
+
       }
     ]
   },
 
+
   tapBottom() {
+
 
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
+
   onLoad: function(options) {
+
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
+
   onReady: function() {
+
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
+    
   onShow: function() {
+
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
+
   onHide: function() {
+
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
+
   onUnload: function() {
+
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
+
   onPullDownRefresh: function() {
 
   },
@@ -73,14 +90,18 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
+
   onReachBottom: function() {
+
 
   },
 
   /**
    * 用户点击右上角分享
    */
+
   onShareAppMessage: function() {
+
 
   }
 })
