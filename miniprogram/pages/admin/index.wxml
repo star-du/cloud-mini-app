@@ -15,21 +15,14 @@
         <view style="display: inline-block; vertical-align: middle">未审批</view>
         <view class="weui-badge" style="margin-left: 5px;">666</view>
       </view>
-      <view class="weui-cell__ft weui-cell__ft_in-access">Flex content</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access" bindtap="tapToApproval" data-is-pass="0">查看</view>
     </view>
     <view class="weui-cell weui-cell_access">
       <view class="weui-cell__bd">
         <view style="display: inline-block; vertical-align: middle">已审批</view>
         <view class="weui-badge" style="margin-left: 5px;">888</view>
       </view>
-      <view class="weui-cell__ft weui-cell__ft_in-access">Flex content</view>
-    </view>
-    <view class="weui-cell weui-cell_access">
-      <view class="weui-cell__bd">
-        <view style="display: inline-block; vertical-align: middle">单行列表</view>
-        <view class="weui-badge" style="margin-left: 5px;">New</view>
-      </view>
-      <view class="weui-cell__ft weui-cell__ft_in-access">Flex content</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access" bindtap="tapToApproval" data-is-pass="1">查看</view>
     </view>
   </view>
 
