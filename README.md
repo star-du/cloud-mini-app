@@ -17,6 +17,9 @@ _Extra_
 - 管理者能取消借用审批
 - 填表过程进度保存
 
+### Docs
+
+- [后台管理 开发文档](./miniprogram/docs/bg_management.md)
 
 ### Timetable
 
