@@ -1,10 +1,9 @@
-
-
 .form_input {
-    border:1px solid #ccc;
+  border: 1px solid #ccc;
 }
-  
-.form_input2{
-  border:1px solid #ccc;
+
+.form_input2 {
+  border: 1px solid #ccc;
   height: 100px;
 }
+

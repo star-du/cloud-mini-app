@@ -1,3 +1,4 @@
+
  //初始化数据库
 wx.cloud.init();
 
@@ -6,11 +7,13 @@ wx.cloud.init();
  const forms = db.collection('forms');
 
  const date = new Date();
+
 Page({
   data:{
     index:0,
     date:"2019-01-01"
   },
+
   
   /*在线填表页面点击报名的函数*/
   submit:function (e) {
@@ -34,6 +37,7 @@ Page({
         console.log(res)
       }
     )
+
   },
 
   /*活动日期picker改变的函数*/
@@ -59,6 +63,7 @@ Page({
       time2: e.detail.value
     })
   }
+
 });
 
 
