@@ -6,8 +6,7 @@ page {
   flex-direction: column;
   justify-content: flex-start;
 }
-
-.userinfo, .uploader, .tunnel {
+.userinfo, .uploader, .tunnel{
   margin-top: 40rpx;
   height: 140rpx;
   width: 100%;
@@ -135,3 +134,22 @@ page {
   line-height: 36rpx;
   word-break: break-all;
 }
+
+.rule {
+  line-height: 200%;
+  margin-top: 40rpx;
+  padding: 40rpx;
+  width: 100%;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: none;
+  border-right: none;
+  display: flex;
+  flex-direction: column;
+}
+.rule-text{
+  margin:0 40rpx;
+  font-size: 35rpx;
+}
+
+

@@ -10,9 +10,70 @@
       style="background-image: url({{avatarUrl}})"
     ></button>
     <view>
-      <button class="userinfo-nickname" bindtap="onGetOpenid">点击获取 openid</button>
+     <button class="userinfo-nickname" bindtap="onGetOpenid">点击获取 openid</button> 
     </view>
   </view>
+ <!-- 公告 -->
+  <view class="rule">
+     <text class="rule-text">{{text}}</text>
+  </view>
+  
+  <view class='table'>
+    <view class='tr'>
+      <view class="lou36">201</view>
+      <view class='activitydate'></view>
+      <view class='nameofassociation'></view>
+      <view class='telephone'></view>
+    </view>
 
+    <view class='tr'>
+      <view class="lou36">202</view>
+      <view class='activitydate'></view>
+      <view class='nameofassociation'></view>
+      <view class='telephone'></view>
+    </view>
 
+    <view class='tr'>
+      <view class="lou36">203</view>
+      <view class='activitydate'></view>
+      <view class='nameofassociation'></view>
+      <view class='telephone'></view>
+    </view>
+
+    <view class='tr'>
+      <view class="lou36">204</view>
+      <view class='activitydate'></view>
+      <view class='nameofassociation'></view>
+      <view class='telephone'></view>
+    </view>
+
+    <view class='tr'>
+      <view class="lou36">205</view>
+      <view class='activitydate'></view>
+      <view class='nameofassociation'></view>
+      <view class='telephone'></view>
+    </view>
+
+    <view class='tr'>
+      <view class="lou36">206</view>
+      <view class='activitydate'></view>
+      <view class='nameofassociation'></view>
+      <view class='telephone'></view>
+    </view>
+
+    <view class='tr'>
+      <view class="lou36">207</view>
+      <view class='activitydate'></view>
+      <view class='nameofassociation'></view>
+      <view class='telephone'></view>
+    </view>
+
+    <view class='tr'>
+      <view class="lou36">208</view>
+      <view class='activitydate'></view>
+      <view class='nameofassociation'></view>
+      <view class='telephone'></view>
+    </view>      
+                                           
+  </view>
 </view>
