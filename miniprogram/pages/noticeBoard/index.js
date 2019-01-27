@@ -9,7 +9,24 @@ Page({
     logged: false,
     takeSession: false,
     requestResult: '',
-    text: rule
+    text: rule,
+    listData: [
+      { "code": "201", "morning": "", "noon": "" ,"afternoon": "", "evening": "" },
+      { "code": "202", "morning": "", "noon": "", "afternoon": "", "evening": "" },
+      { "code": "203", "morning": "", "noon": "", "afternoon": "", "evening": "" },
+      { "code": "204", "morning": "", "noon": "", "afternoon": "", "evening": "" },
+      { "code": "205", "morning": "", "noon": "", "afternoon": "", "evening": "" },
+      { "code": "206", "morning": "", "noon": "", "afternoon": "", "evening": "" },
+      { "code": "207", "morning": "", "noon": "", "afternoon": "", "evening": "" },
+      { "code": "208", "morning": "", "noon": "", "afternoon": "", "evening": "" }],
+      date:"2019-01-01", 
+
+  },
+  bindDateChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      date: e.detail.value
+    })
   },
 
   onLoad: function() {
@@ -19,6 +36,7 @@ Page({
       })
       return
     }
+
 
     // 获取用户信息
     wx.getSetting({

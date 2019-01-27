@@ -17,63 +17,42 @@
   <view class="rule">
      <text class="rule-text">{{text}}</text>
   </view>
-  
-  <view class='table'>
-    <view class='tr'>
-      <view class="lou36">201</view>
-      <view class='activitydate'></view>
-      <view class='nameofassociation'></view>
-      <view class='telephone'></view>
+<!-- 具体日期选择 -->
+<view class="section">
+  <view class="section__title">请选择查询日期:</view>
+  <picker mode="date" value="{{date}}" start="2019-01-01" end="2020-01-01" bindchange="bindDateChange">
+    <view class="picker">
+      当前选择: {{date}}
     </view>
-
-    <view class='tr'>
-      <view class="lou36">202</view>
-      <view class='activitydate'></view>
-      <view class='nameofassociation'></view>
-      <view class='telephone'></view>
-    </view>
-
-    <view class='tr'>
-      <view class="lou36">203</view>
-      <view class='activitydate'></view>
-      <view class='nameofassociation'></view>
-      <view class='telephone'></view>
-    </view>
-
-    <view class='tr'>
-      <view class="lou36">204</view>
-      <view class='activitydate'></view>
-      <view class='nameofassociation'></view>
-      <view class='telephone'></view>
-    </view>
-
-    <view class='tr'>
-      <view class="lou36">205</view>
-      <view class='activitydate'></view>
-      <view class='nameofassociation'></view>
-      <view class='telephone'></view>
-    </view>
-
-    <view class='tr'>
-      <view class="lou36">206</view>
-      <view class='activitydate'></view>
-      <view class='nameofassociation'></view>
-      <view class='telephone'></view>
-    </view>
-
-    <view class='tr'>
-      <view class="lou36">207</view>
-      <view class='activitydate'></view>
-      <view class='nameofassociation'></view>
-      <view class='telephone'></view>
-    </view>
-
-    <view class='tr'>
-      <view class="lou36">208</view>
-      <view class='activitydate'></view>
-      <view class='nameofassociation'></view>
-      <view class='telephone'></view>
-    </view>      
-                                           
-  </view>
+  </picker>
 </view>
+
+<!-- 表格样式 -->
+<view class="table">
+  <view class="tr bg-w">
+    <view class="th">房间号</view>
+    <view class="th">早上</view>
+    <view class="th">中午</view>
+    <view class="th">下午</view>
+    <view class="th">晚上</view>
+  </view>
+  <block wx:for="{{listData}}" wx:key="{{code}}">
+    <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+      <view class="td">{{item.code}}</view>
+      <view class="td">{{item.morning}}</view>
+      <view class="td">{{item.noon}}</view>
+      <view class="td">{{item.afternoon}}</view>
+      <view class="td">{{item.evening}}</view>
+    </view>
+    <view class="tr" wx:else>
+     <view class="td">{{item.code}}</view>
+      <view class="td">{{item.morning}}</view>
+      <view class="td">{{item.noon}}</view>
+      <view class="td">{{item.afternoon}}</view>
+      <view class="td">{{item.evening}}</view>
+    </view>
+  </block>
+</view>
+</view>
+
+
