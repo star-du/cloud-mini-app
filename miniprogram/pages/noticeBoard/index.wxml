@@ -14,8 +14,13 @@
     </view>
   </view>
  <!-- 公告 -->
+
   <view class="rule">
-     <text class="rule-text">{{text}}</text>
+    <view class='title' data-index='1' catchtap='panel'>
+      <view class='rule1'>注意事项及后续流程</view>
+      <view class=" {{showIndex == 1 ? 'title_3' : 'title_2' }} "></view>
+    </view>
+     <view  wx:if="{{showIndex == 1}}"><text class="rule-text">{{text}}</text></view>
   </view>
 <!-- 具体日期选择 -->
 <view class="section">
@@ -52,6 +57,13 @@
       <view class="td">{{item.evening}}</view>
     </view>
   </block>
+ <!--> <view class='help_item'>
+    <view class='title' data-index='1' catchtap='panel'>
+      <view class='title_1'>便签小程序使用免费吗</view>
+      <view class='title_2'></view>
+    </view>
+    <view class='detail' wx:if="{{showIndex == 1}}">便签小程序是一款免费应用，并承诺永不收费1</view>
+  </view>-->
 </view>
 </view>
 
