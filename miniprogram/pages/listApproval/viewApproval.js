@@ -1,16 +1,30 @@
 // miniprogram/pages/listApproval/viewApproval.js
 const base64 = require("images/base64");
+wx.cloud.init();
+const db = wx.cloud.database();
 
 Page({
   data: {
+    icon: base64.icon20
   },
   onLoad: function (options) {
-    console.log(options, this);
-    this.setData({
-      id: Number(options.id),
-      tel: "",
-      name: "Unknown",
-      icon: base64.icon20
+    const PAGE = this; // 使得get回调函数可以访问this.setData
+    // 获取db数据
+    db.collection('forms').where({
+      _id : options.id
+    }).get({
+      success(e) {
+        console.log(e.data);
+        if(e.data&&e.data.length===1){
+          let x = e.data[0];
+          x.submitDate = x.submitDate.toLocaleDateString();
+          PAGE.setData({
+            appr: x || {}
+          });
+          console.log(PAGE.data);
+        }
+      },
+      fail: console.error
     });
   },
 
