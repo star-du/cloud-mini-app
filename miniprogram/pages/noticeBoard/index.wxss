@@ -6,8 +6,7 @@ page {
   flex-direction: column;
   justify-content: flex-start;
 }
-
-.userinfo, .uploader, .tunnel {
+.userinfo, .uploader, .tunnel{
   margin-top: 40rpx;
   height: 140rpx;
   width: 100%;
@@ -135,3 +134,108 @@ page {
   line-height: 36rpx;
   word-break: break-all;
 }
+
+.rule {
+  line-height: 200%;
+  margin-top: 40rpx;
+  padding: 10rpx;
+  width: 100%;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: none;
+  border-right: none;
+  display: flex;
+  flex-direction: column;
+  border-radius: 32rpx;
+}
+
+.rule1 {
+text-align: center;
+font-weight: bold;
+font-size: 40rpx;
+}
+.rule-text{
+  margin:0 40rpx;
+  font-size: 35rpx;
+}
+
+
+.title_2{
+ 
+width: 10px;
+ 
+height: 10px;
+ 
+border-top: 2px solid #999;
+ 
+border-right: 2px solid #999;
+ 
+position: absolute;
+ 
+right: 20rpx;
+top: 23%;
+ 
+transform: rotate(45deg);
+ 
+margin-top:10rpx;
+ 
+}
+
+.title_3 {
+width: 10px;
+ 
+height: 10px;
+ 
+border-top: 2px solid #999;
+ 
+border-right: 2px solid #999;
+ 
+position: absolute;
+ 
+right: 20rpx;
+top: 23%;
+ 
+transform: rotate(135deg);
+ 
+margin-top:10rpx;
+}
+
+
+.table {
+  border: 0px solid darkgray;
+}
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: auto;
+  align-items: center;
+}
+.td {
+    width:4rem;
+    justify-content: center;
+    text-align: center;
+}
+.bg-w{
+  background: snow;
+}
+.bg-g{
+  background: #E6F3F9;
+}
+.th {
+  width: 40%;
+  justify-content: center;
+  background: #3366FF;
+  color: #fff;
+  display: flex;
+  height: 3rem;
+  align-items: center;
+}
+.section{
+font-size: 80%;
+position:relative;
+right: 200rpx;
+
+}
+
+
