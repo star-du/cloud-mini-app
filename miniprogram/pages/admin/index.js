@@ -117,12 +117,12 @@ Page({
     })
   },
   tapToApproval: function(e) {
-    console.log(e);
+    // console.log(e);
     let data = e.currentTarget.dataset;
     if (!data.hasOwnProperty("isPass")) {
       data.isPass = 0;
     }
-    console.log(data);
+    console.log("navigateTo", data);
 
     wx.navigateTo({
       url: '../listApproval/listApproval?isPass=' + data.isPass

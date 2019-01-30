@@ -33,7 +33,7 @@ page {
 
 .page__desc {
   margin-top: 5px;
-  color: #888;
+  color: #222;
   text-align: left;
   font-size: 14px;
 }

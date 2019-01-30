@@ -5,31 +5,34 @@
     <view class="page__desc">表单预览</view>
   </view>
   <view class="page__bd">
-    <view class="weui-form-preview" wx:for="{{progressList}}" wx:for-index="i" wx:for-item="it" wx:key="id">
-      <view class="weui-form-preview__hd">
-        <view class="weui-form-preview__item">
-          <view class="weui-form-preview__label">借用场地 时间</view>
-          <text class="weui-form-preview__value_in-hd" decode="true" selectable="true">{{it.classroom}}&emsp;{{it.date}}</text>
+    <block wx:if="{{progressList.length}}">
+      <view class="weui-form-preview" wx:for="{{progressList}}" wx:for-index="i" wx:for-item="it" wx:key="id">
+        <view class="weui-form-preview__hd">
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">借用场地 时间</view>
+            <text class="weui-form-preview__value_in-hd" decode="true" selectable="true">{{it.classroom}}&emsp;{{it.eventDate}}</text>
+          </view>
+        </view>
+        <view class="weui-form-preview__bd">
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">申请组织</view>
+            <view class="weui-form-preview__value">{{it.associationName}}</view>
+          </view>
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">申请人 / 联系方式</view>
+            <view class="weui-form-preview__value">{{it.eventResponser}} / {{it.tel}}</view>
+          </view>
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">是否通过</view>
+            <view class="weui-form-preview__value">{{it.done ? "通过" : "未通过"}}</view>
+          </view>
+        </view>
+        <view class="weui-form-preview__ft">
+          <navigator url="viewApproval?id={{it._id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">{{it.done ? "详细信息" : "去审批"}}</navigator>
         </view>
       </view>
-      <view class="weui-form-preview__bd">
-        <view class="weui-form-preview__item">
-          <view class="weui-form-preview__label">申请人</view>
-          <view class="weui-form-preview__value">{{it.name}}</view>
-        </view>
-        <view class="weui-form-preview__item">
-          <view class="weui-form-preview__label">联系方式</view>
-          <view class="weui-form-preview__value">{{it.tel}}</view>
-        </view>
-        <view class="weui-form-preview__item">
-          <view class="weui-form-preview__label">是否通过</view>
-          <view class="weui-form-preview__value">{{it.isPass ? "通过" : "未通过"}}</view>
-        </view>
-      </view>
-      <view class="weui-form-preview__ft">
-        <navigator url="viewApproval?id={{it.id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">{{it.isPass ? "详细信息" : "去审批"}}</navigator>
-      </view>
-    </view>
-    <!-- end wx:for -->
+      <!-- end wx:for -->
+    </block>
+    <block wx:else></block>
   </view>
 </view>
