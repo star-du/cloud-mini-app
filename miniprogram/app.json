@@ -6,7 +6,6 @@
     "pages/serviceCenter/index",
     "pages/userConsole/userConsole",
     "pages/borrowClassroom/borrowClassroom",
-
     "pages/progressCheck/progressCheck",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
@@ -15,7 +14,8 @@
     "pages/chooseLib/chooseLib",
     "pages/test/test",
     "pages/listApproval/listApproval",
-    "pages/listApproval/viewApproval"
+    "pages/listApproval/viewApproval",
+    "pages/Login/Login"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -30,6 +30,12 @@
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [
+      {
+        "pagePath": "pages/Login/Login",
+        "text": "登录",
+        "iconPath": "images/star.png",
+        "selectedIconPath": "images/star.png"
+      },
       {
         "pagePath": "pages/serviceCenter/index",
         "text": "办事大厅",

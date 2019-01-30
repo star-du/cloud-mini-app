@@ -1,0 +1,2 @@
+/* miniprogram/pages/Login/Login.wxss */
+@import "../../assets/weui.wxss";

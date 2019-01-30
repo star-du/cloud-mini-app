@@ -1,0 +1,1 @@
+<button class="wxui-btn wxui-btn_primary" bindtap="userLogin">使用微信登录</button>

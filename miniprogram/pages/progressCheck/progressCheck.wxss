@@ -1,3 +1,4 @@
+@import "../../assets/weui.wxss";
 /* miniprogram/pages/progressCheck/progressCheck.wxss */
 /* .name{
   font-size: 28rpx;

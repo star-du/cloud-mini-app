@@ -1,3 +1,5 @@
+@import "../../assets/weui.wxss";
+
 .form_input {
   border: 1px solid #ccc;
 }
