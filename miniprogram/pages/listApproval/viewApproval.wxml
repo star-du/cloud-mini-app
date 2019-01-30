@@ -30,8 +30,8 @@
         <view class="weui-cell__hd">
           <image src="{{icon}}" style="margin-right: 3px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
-        <view class="weui-cell__bd">负责人 / 联系方式</view>
-        <view class="weui-cell__ft">{{appr.eventResponser}} / {{appr.tel}}</view>
+        <text class="weui-cell__bd" decode="true" selectable="true">负责人&ensp;联系方式</text>
+        <view class="weui-cell__ft">{{appr.eventResponser}}  {{appr.tel}}</view>
       </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">

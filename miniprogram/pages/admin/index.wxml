@@ -8,7 +8,7 @@
       <button class="userinfo-nickname" bindtap="onGetOpenid">点击获取 openid</button>
     </view>
   </view>
-  <view class="weui-cells__title">空闲教室审批状态</view>
+  <view class="weui-cells__title">教室借用审批状态</view>
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell weui-cell_access">
       <view class="weui-cell__bd">

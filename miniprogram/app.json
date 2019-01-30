@@ -2,20 +2,20 @@
   "pages": [
     "pages/index/index",
     "pages/admin/index",
+    "pages/borrowClassroom/borrowClassroom",
+    "pages/listApproval/listApproval",
+    "pages/listApproval/viewApproval",
     "pages/noticeBoard/index",
+    "pages/progressCheck/progressCheck",
     "pages/serviceCenter/index",
     "pages/userConsole/userConsole",
-    "pages/borrowClassroom/borrowClassroom",
-
-    "pages/progressCheck/progressCheck",
+    
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
     "pages/addFunction/addFunction",
     "pages/deployFunctions/deployFunctions",
     "pages/chooseLib/chooseLib",
-    "pages/test/test",
-    "pages/listApproval/listApproval",
-    "pages/listApproval/viewApproval"
+    "pages/test/test"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

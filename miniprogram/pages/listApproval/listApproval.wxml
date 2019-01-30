@@ -10,7 +10,7 @@
         <view class="weui-form-preview__hd">
           <view class="weui-form-preview__item">
             <view class="weui-form-preview__label">借用场地 时间</view>
-            <text class="weui-form-preview__value_in-hd" decode="true" selectable="true">{{it.classroom}}&emsp;{{it.eventDate}}</text>
+            <text class="weui-form-preview__value_in-hd" decode="true" selectable="true">{{it.classroomNumber}}&ensp;{{it.eventDate}}</text>
           </view>
         </view>
         <view class="weui-form-preview__bd">
