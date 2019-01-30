@@ -7,6 +7,8 @@ const forms = db.collection('forms');
 
 const date = new Date();
 
+const judge = /\d{11}/
+
 Page({
   data: {
     index: 0,
@@ -18,13 +20,13 @@ Page({
 
   /*在线填表页面点击报名的函数*/
   submit: function(e) {
-    let form=e.detail.value
-    if (form["classroomNumber"]!=="请选择") {
+    let formsData = e.detail.value
+    if ((formsData["classroomNumber"] !== "请选择") && (judge.test(formsData["responserPhone"])) && (formsData["classroomNumber"] !== "200")) {
       wx.showModal({
         title: '提交成功',
         content: '请耐心等待审核结果',
       })
-      let formsData = e.detail.value;
+
       forms.add({
         data: {
           associationName: formsData["associationName"],
@@ -36,6 +38,7 @@ Page({
           classroomNumber: formsData["classroomNumber"],
           eventContent: formsData["eventContent"],
           eventResponser: formsData["eventResponser"],
+          responserPhone:formsData["responserPhone"],
           submitDate: date,
           done: false
         }
