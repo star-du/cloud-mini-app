@@ -1,36 +1,46 @@
 // miniprogram/pages/Login/Login.js
-
-const code = `// 云函数入口函数
-exports.main = (event, context) => {
-  console.log(event)
-  console.log(context)
-  return {
-    sum: event.a + event.b
-  }
-};
-
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    
   },
 
-  userLogin: function(){
+  userLogin: function () {
+    const that = this
+
+    function _getUserInfo() {
+        wx.getUserInfo({
+          success(res) {
+            that.setData({
+              hasUserInfo: true,
+              userInfo: res.userInfo
+            })
+          }
+        })
+    }
+
+    if (app.globalData.hasLogin === false) {
+        wx.login({
+          success: _getUserInfo
+        })
+      } else {
+        _getUserInfo()
+      }
+    
+    
     wx.cloud.callFunction({
-      name:'login',
-      data:{},
+      name: 'login',
+      data: {},
       success: res => {
-        app.globalData.opid = res.result.openid;
-        console.log(res.result.openid);
-        wx.navigateTo({
-          url:'../borrowClassroom/borrowClassroom',
-        });
+        console.log('[云函数] [login] user openid: ', res.result.openid)
+        app.globalData.openid = res.result.openid
       },
-      fail: res => {
-        console.error(err)
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
       }
     })
   },

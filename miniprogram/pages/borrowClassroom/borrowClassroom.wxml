@@ -58,7 +58,14 @@
 
     <view id="form_classroomNumber">
       <text>借用教室编号:</text>
-      <input name="classroomNumber" class="form_input" placeholder=''/>
+      <picker name="classroomNumber"
+                range="{{ classroom }}"
+                value="{{ index }}"
+                bindchange="bindClassroomChange">
+          <view>
+            当前选择: {{ classroom[index] }}
+          </view>
+        </picker>
     </view>
 
     <view id="form_eventContent">
