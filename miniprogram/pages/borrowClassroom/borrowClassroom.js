@@ -13,7 +13,6 @@ const judge = /\d{11}/
 
 Page({
   data: {
-    formid :0,
     index: 0,
     date: "2019-01-01",
     classroomNumber:"请选择",
@@ -24,6 +23,7 @@ Page({
     const PAGE = this; // 使得get回调函数可以访问this.setData
     // 获取db数据
     const _ = db.command;
+    /*
     db.collection('formid').where({
       name:'latest_id'
     }).get({
@@ -35,78 +35,60 @@ Page({
         console.log(PAGE.data);
       },
       fail: console.error
-    });
+    });*/
   },
 
   /*在线填表页面点击报名的函数*/
   submit: function(e) {
     const formsData = e.detail.value;
     const PAGE = this;
-    forms.add({
-      data: {
-        openid: app.globalData.openid,
-        _id: PAGE.formid,
-        eventName: formsData["eventName"],
-        attendNumber: formsData["attendNumber"],
-        eventDate: formsData["eventDate"],
-        eventTime1: formsData["eventTime1"],
-        eventTime2: formsData["eventTime2"],
-        classroomNumber: formsData["classroomNumber"],
-        eventContent: formsData["eventContent"],
-        eventResponser: formsData["eventResponser"],
-        submitDate: date,
-        exam: 0 //0代表未审核 1代表已审核通过 2代表未审核通过
-      }
-    }).then(
-      res => {
-        console.log(res)
-        let newid=this.formid+1;
-        db.collection('formid').doc('latest_id').update({
+    
 
+    //TODO:仿照hustauEntrance:join-us中对不同错误给出不同提示
+    if ((formsData["classroomNumber"] == "请选择") || !(judge.test(formsData["responserPhone"])) || (formsData["classroomNumber"] == "200")) {
+      wx.showModal({
+        title: "提交失败",
+        content: "请检查表单填写是否正确",
+        showCancel: false,
+        confirmText: "回去修改"
+      });
+      return;
+  }
+    
+    db.collection('forms')
+    .orderBy('formid', 'desc')
+    .get({
+      success(res) {
+        const maxFormid = res.data[0].formid;
+        console.log("The existing maximum formid is: ",maxFormid);
+        forms.add({
           data: {
-            formid: newid
+            openid: app.globalData.openid,
+            formid: maxFormid +1,
+            eventName: formsData["eventName"],
+            attendNumber: formsData["attendNumber"],
+            eventDate: formsData["eventDate"],
+            eventTime1: formsData["eventTime1"],
+            eventTime2: formsData["eventTime2"],
+            classroomNumber: formsData["classroomNumber"],
+            eventContent: formsData["eventContent"],
+            eventResponser: formsData["eventResponser"],
+            submitDate: date,
+            exam: 0 //0代表未审核 1代表已审核通过 2代表未审核通过
           },
-          success(res) {
-            console.log(res.data)
-          }
-        })
+              success(res) {
+                console.log("Successfully add to db!")
+                wx.showModal({
+                  title: '提交成功',
+                  content: '请耐心等待审核结果',
+              })
+              }
+            })
       }
-    )
-    // TODO: 把合法性验证放在提交表单之前，提交成功的弹窗放在回调的success里面
-    if ((formsData["classroomNumber"] !== "请选择") && (judge.test(formsData["responserPhone"])) && (formsData["classroomNumber"] !== "200")) {
-      wx.showModal({
-        title: '提交成功',
-        content: '请耐心等待审核结果',
-
-
-      forms.add({
-        data: {
-          associationName: formsData["associationName"],
-          eventName: formsData["eventName"],
-          attendNumber: formsData["attendNumber"],
-          eventDate: formsData["eventDate"],
-          eventTime1: formsData["eventTime1"],
-          eventTime2: formsData["eventTime2"],
-          classroomNumber: formsData["classroomNumber"],
-          eventContent: formsData["eventContent"],
-          eventResponser: formsData["eventResponser"],
-          responserPhone:formsData["responserPhone"],
-          submitDate: date,
-          done: false
-        }
-      }).then(
-        res => {
-          console.log(res)
-        }
-      )
-    }
-    else {
-      wx.showModal({
-        title: '提交失败',
-        content: '请检查表单填写是否正确',
-      })
-    }
-  },
+    })
+    
+   
+      },
 
   /*活动日期picker改变的函数*/
   bindDateChange: function(e) {
@@ -138,7 +120,7 @@ Page({
     this.setData({
       index: e.detail.value
     })
-  }
+  },
 
 
   /*借用教室picker改变的函数*/
