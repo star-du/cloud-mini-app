@@ -59,11 +59,11 @@
     <view id="form_classroomNumber">
       <text>借用教室编号:</text>
       <picker name="classroomNumber"
-                range="{{ classroom }}"
-                value="{{ index }}"
-                bindchange="bindClassroomChange">
+                range="{{range}}"
+                value="{{classroomNumber}}"
+                bindchange="bindNumberChange">
           <view>
-            当前选择: {{ classroom[index] }}
+            当前选择: {{classroomNumber}}
           </view>
         </picker>
     </view>
@@ -76,6 +76,11 @@
     <view id="form_eventResponser">
       <text>活动负责人:</text>
       <input name="eventResponser" class="form_input" placeholder=''/>
+    </view>
+
+    <view id="form_responserPhone">
+      <text>活动负责人的联系方式:</text>
+      <input name="responserPhone" class="form_input" placeholder=''/>
     </view>
 
     <button type="primary" form-type='submit'>提交</button>
