@@ -7,36 +7,53 @@ const forms = db.collection('forms');
 
 const date = new Date();
 
+const judge = /\d{11}/
+
 Page({
   data: {
     index: 0,
-    date: "2019-01-01"
+    date: "2019-01-01",
+    classroomNumber:"请选择",
+    range:["请选择","201","202","203","204","205","206","207","208"]
   },
 
 
   /*在线填表页面点击报名的函数*/
   submit: function(e) {
-    let formsData = e.detail.value;
-    forms.add({
-      data: {
-        associationName: formsData["associationName"],
-        eventName: formsData["eventName"],
-        attendNumber: formsData["attendNumber"],
-        eventDate: formsData["eventDate"],
-        eventTime1: formsData["eventTime1"],
-        eventTime2: formsData["eventTime2"],
-        classroomNumber: formsData["classroomNumber"],
-        eventContent: formsData["eventContent"],
-        eventResponser: formsData["eventResponser"],
-        submitDate: date,
-        done: false
-      }
-    }).then(
-      res => {
-        console.log(res)
-      }
-    )
+    let formsData = e.detail.value
+    if ((formsData["classroomNumber"] !== "请选择") && (judge.test(formsData["responserPhone"])) && (formsData["classroomNumber"] !== "200")) {
+      wx.showModal({
+        title: '提交成功',
+        content: '请耐心等待审核结果',
+      })
 
+      forms.add({
+        data: {
+          associationName: formsData["associationName"],
+          eventName: formsData["eventName"],
+          attendNumber: formsData["attendNumber"],
+          eventDate: formsData["eventDate"],
+          eventTime1: formsData["eventTime1"],
+          eventTime2: formsData["eventTime2"],
+          classroomNumber: formsData["classroomNumber"],
+          eventContent: formsData["eventContent"],
+          eventResponser: formsData["eventResponser"],
+          responserPhone:formsData["responserPhone"],
+          submitDate: date,
+          done: false
+        }
+      }).then(
+        res => {
+          console.log(res)
+        }
+      )
+    }
+    else {
+      wx.showModal({
+        title: '提交失败',
+        content: '请检查表单填写是否正确',
+      })
+    }
   },
 
   /*活动日期picker改变的函数*/
@@ -61,6 +78,13 @@ Page({
     this.setData({
       time2: e.detail.value
     })
-  }
+  },
 
+  /*借用教室picker改变的函数*/
+  bindNumberChange: function (e) {
+    console.log("picker_classroomNumber发生选择改变，携带值为",20+e.detail.value)
+    this.setData({
+      classroomNumber:20+e.detail.value
+    })
+  } 
 });
