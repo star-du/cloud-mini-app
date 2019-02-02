@@ -1,37 +1,54 @@
-<view>
-
-  <!-- 使用列表渲染，渲染表格 -->
-  <view class="progressList" wx:for="{{ progressList }}" wx:key="id">
-    <!-- <view wx:if="{{ item.isRender }}"> -->
-    <view class="infoForm">
-      <view class="flex-row">
-
-        <text class="flex-cell flex-row rowText">姓名</text>
-        <text class="flex-cell flex-row cellText">{{ item.name }}</text>
-        <text class="flex-cell flex-row rowText">教室</text>
-        <text class="flex-cell flex-row cellText">{{ item.classroom }}</text>
-
-      </view>
-
-      <view class="flex-row">
-
-        <text class="flex-cell flex-row rowText">联系方式</text>
-        <text class="flex-cell flex-row cellText">{{ item.tel }}</text>
-        <text class="flex-cell flex-row rowText">申请日期</text>
-        <text class="flex-cell flex-row cellText">{{ item.date }}</text>
-
-      </view>
-
-      <view class="flex-row">
-        <text class="flex-cell flex-row rowText">是否通过</text>
-        <text class="flex-cell flex-row cellText">{{ item.isPass?'通过':'未通过' }}</text>
-      </view>
-
-      <view class='flex-row'>
-        <!-- 弹出一个窗口，可以看申请失败原因（如果有 -->
-        <text class='flex-cell flex-row infoBottom' bindtap='tapBottom'>详细信息</text>
-      </view>
-    </view>
+<!--miniprogram/pages/listApproval/listApproval.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">审批状态</view>
+    <view class="page__desc">表单预览</view>
   </view>
-
+  <view class="page__bd">
+    <block wx:if="{{progressList.length}}">
+      <view class="weui-form-preview" wx:for="{{progressList}}" wx:for-index="i" wx:for-item="it" wx:key="id">
+        <view class="weui-form-preview__hd">
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">借用场地 时间</view>
+            <text class="weui-form-preview__value_in-hd" decode="true" selectable="true">{{it.classroom}}&emsp;{{it.eventDate}}</text>
+          </view>
+        </view>
+        <view class="weui-form-preview__bd">
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">申请组织</view>
+            <view class="weui-form-preview__value">{{it.associationName}}</view>
+          </view>
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">申请人 / 联系方式</view>
+            <view class="weui-form-preview__value">{{it.eventResponser}} / {{it.tel}}</view>
+          </view>
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">是否通过</view>
+            <view class="weui-form-preview__value">{{it.done ? "通过" : "未通过"}}</view>
+          </view>
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">理由</view>
+            <view class="weui-form-preview__value">{{}}</view>
+          </view>
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label"></view>
+            <view class="weui-form-preview__value">{{it.done ? "通过" : "未通过"}}</view>
+          </view>
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label"></view>
+            <view class="weui-form-preview__value">{{it.done ? "通过" : "未通过"}}</view>
+          </view>
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label"></view>
+            <view class="weui-form-preview__value">{{it.done ? "通过" : "未通过"}}</view>
+          </view>
+        </view>
+        <view class="weui-form-preview__ft">
+          <navigator url="viewApproval?id={{it._id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">详细信息</navigator>
+        </view>
+      </view>
+      <!-- end wx:for -->
+    </block>
+    <block wx:else></block>
+  </view>
 </view>
