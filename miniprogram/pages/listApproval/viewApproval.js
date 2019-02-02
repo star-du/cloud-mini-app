@@ -1,72 +1,85 @@
 // miniprogram/pages/listApproval/viewApproval.js
-const base64 = require("images/base64");
 wx.cloud.init();
 const db = wx.cloud.database();
+const base64 = require("images/base64");
+
+function toDate(d) {
+  return d instanceof Date ? d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate() : "";
+}
+
+function fetchDB(PAGE) {
+  return db.collection('forms').doc(PAGE.data.id).get().then(res => {
+    console.log(res.data);
+    if (res.data) {
+      let x = res.data;
+      x.submitDate = toDate(x.submitDate);
+      x.eventDate = toDate(new Date(x.eventDate));
+      PAGE.setData({ appr: x || {} });
+      if (x.check && x.check.comment) {
+        PAGE.setData({ commentLength: x.check.comment.length });
+      }
+    }
+    else {
+      console.error("Cannot get data");
+    }
+  });
+}
 
 Page({
   data: {
-    icon: base64.icon20
+    icon: base64.icon20,
+    examState: ["未审批", "撤回", "未通过", "通过"],
+    commentLength: 0,
+    maxCommentLength: 100
   },
-  onLoad: function(options) {
-    const PAGE = this; // 使得get回调函数可以访问this.setData
-    // 获取db数据
+  onLoad: function (options) {
+    // get url_get info
+    console.log(options);
     if (!options.id) {
       wx.showToast({
         title: "无效访问",
         icon: "none",
         mask: true,
         duration: 3000,
-        complete: function() {
-          setTimeout(function() {
-            wx.navigateBack({
-              delta: 1
-            });
-          }, 3200);
-        }
+        complete() { setTimeout(() => { wx.navigateBack({ delta: 1 }); }, 3200); }
       });
       return;
     }
-    db.collection('forms').where({
-      _id: options.id
-    }).get({
-      success(e) {
-        console.log(e.data);
-        if (e.data && e.data.length === 1) {
-          let x = e.data[0];
-          x.submitDate = x.submitDate.toLocaleDateString();
-          x.eventDate = x.eventDate ? new Date(x.eventDate).toLocaleDateString() : "";
-          PAGE.setData({
-            appr: x || {}
-          });
-          console.log(PAGE.data);
-        }
+    this.setData(options);
+    // get database
+    fetchDB(this);
+  },
+  /* 用户下拉动作刷新 */
+  onPullDownRefresh: function () {
+    fetchDB(this).then(() => { wx.stopPullDownRefresh(); });
+  },
+  submit: function (e) {
+    const flag = Number(e.detail.target.dataset.flag);
+    const value = e.detail.value;
+    console.log(flag, value, this.data.id);
+    const PAGE = this;
+    db.collection("forms").doc(this.data.id).update({
+      data: {
+        check: value,
+        exam: flag
+      },
+      success(res) {
+        console.log("Update success", res);
+        wx.showToast({
+          title: '提交成功',
+          icon: 'success',
+          duration: 3000
+        });
+        fetchDB(PAGE);
       },
       fail: console.error
     });
   },
-  onReady: function() {},
-  onShow: function() {},
-  onHide: function() {},
-  onUnload: function() {},
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
+  //统计输入长度
+  userInput: function (e) {
+    console.log(e.detail.value.length);
+    this.setData({
+      commentLength: e.detail.value.length
+    })
   }
 })

@@ -1,5 +1,7 @@
 //index.js
-const app = getApp()
+wx.cloud.init();
+const db = wx.cloud.database();
+const app = getApp();
 
 Page({
   data: {
@@ -7,15 +9,27 @@ Page({
     userInfo: {},
     logged: false,
     takeSession: false,
-    requestResult: ''
+    requestResult: '',
+    exam: [{
+      num: null,
+      text: "未审批"
+    }, {
+      num: null,
+      text: "撤回"
+    }, {
+      num: null,
+      text: "未通过"
+    }, {
+      num: null,
+      text: "通过"
+    }]
   },
-
-  onLoad: function() {
+  onLoad: function () {
     if (!wx.cloud) {
       wx.redirectTo({
         url: '../chooseLib/chooseLib',
-      })
-      return
+      });
+      return;
     }
 
     // 获取用户信息
@@ -28,15 +42,32 @@ Page({
               this.setData({
                 avatarUrl: res.userInfo.avatarUrl,
                 userInfo: res.userInfo
-              })
+              });
             }
           })
         }
       }
-    })
-  },
+    });
 
-  onGetUserInfo: function(e) {
+    // 获取各状态的数量
+    for (let i = 0; i < this.data.exam.length; i++) {
+      this.updateNumber(i);
+    }
+  },
+  updateNumber: function (flag) {
+    const PAGE = this;
+    db.collection('forms').where({
+      exam: flag
+    }).count({
+      success(res) {
+        console.log(flag + " : " + res.total);
+        PAGE.setData({
+          ["exam[" + flag + "].num"]: res.total
+        });
+      }
+    });
+  },
+  onGetUserInfo: function (e) {
     if (!this.logged && e.detail.userInfo) {
       this.setData({
         logged: true,
@@ -45,8 +76,7 @@ Page({
       })
     }
   },
-
-  onGetOpenid: function() {
+  onGetOpenid: function () {
     // 调用云函数
     wx.cloud.callFunction({
       name: 'login',
@@ -66,66 +96,24 @@ Page({
       }
     })
   },
-
-  // 上传图片
-  doUpload: function() {
-    // 选择图片
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['compressed'],
-      sourceType: ['album', 'camera'],
-      success: function(res) {
-
-        wx.showLoading({
-          title: '上传中',
-        })
-
-        const filePath = res.tempFilePaths[0]
-
-        // 上传图片
-        const cloudPath = 'my-image' + filePath.match(/\.[^.]+?$/)[0]
-        wx.cloud.uploadFile({
-          cloudPath,
-          filePath,
-          success: res => {
-            console.log('[上传文件] 成功：', res)
-
-            app.globalData.fileID = res.fileID
-            app.globalData.cloudPath = cloudPath
-            app.globalData.imagePath = filePath
-
-            wx.navigateTo({
-              url: '../storageConsole/storageConsole'
-            })
-          },
-          fail: e => {
-            console.error('[上传文件] 失败：', e)
-            wx.showToast({
-              icon: 'none',
-              title: '上传失败',
-            })
-          },
-          complete: () => {
-            wx.hideLoading()
-          }
-        })
-
-      },
-      fail: e => {
-        console.error(e)
-      }
-    })
-  },
-  tapToApproval: function(e) {
+  // 链接至 listApproval
+  tapToApproval: function (e) {
     // console.log(e);
     let data = e.currentTarget.dataset;
-    if (!data.hasOwnProperty("isPass")) {
-      data.isPass = 0;
+    if (this.data.exam[data.flag].num) {
+      console.log("navigateTo", data);
+      wx.navigateTo({
+        url: '../listApproval/listApproval?flag=' + data.flag
+      });
     }
-    console.log("navigateTo", data);
-
-    wx.navigateTo({
-      url: '../listApproval/listApproval?isPass=' + data.isPass
-    });
+  },
+  /* 用户下拉动作刷新 */
+  onPullDownRefresh: function () {
+    const PAGE = this;
+    Promise.resolve().then(() => {
+      for (let i = 0; i < PAGE.data.exam.length; i++) {
+        PAGE.updateNumber(i);
+      }
+    }).then(() => { console.log("DONE"); wx.stopPullDownRefresh(); });
   }
 })

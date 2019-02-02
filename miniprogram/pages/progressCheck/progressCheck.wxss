@@ -1,56 +1,47 @@
-/* miniprogram/pages/progressCheck/progressCheck.wxss */
-/* .name{
-  font-size: 28rpx;
-  color: #999999;
-  margin-bottom: 10rpx;
-  padding-left: 30rpx;
-  padding-right: 30rpx;
-} */
+/* miniprogram/pages/listApproval/listApproval.wxss */
+@import "../../assets/weui.wxss";
 
-.flex-row{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+page {
+  background-color: #f8f8f8;
+  font-size: 16px;
+  font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
 }
 
-.flex-column{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
+.page__hd {
+  padding: 40px;
 }
 
-.flex-cell{
-  flex: 1;
-  border-bottom: 2rpx solid gray;
-  border-right: 2rpx solid gray;
+.page__bd {
+  padding-bottom: 40px;
 }
 
-.progressList{
-    margin: 20px
+.page__bd_spacing {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
-.infoForm{
-  flex: 0;
-  border-color: gray;
-  border-width: 2px;
-  border-style: solid;
-
-  font-size: 32rpx;
+.page__ft {
+  padding-bottom: 10px;
+  text-align: center;
 }
 
-.rowText{
-    font-weight: bolder;
+.page__title {
+  text-align: left;
+  font-size: 20px;
+  font-weight: 400;
 }
 
-.cellText{
-    color: gray;
-    font-weight: lighter;
+.page__desc {
+  margin-top: 5px;
+  color: #888;
+  text-align: left;
+  font-size: 14px;
 }
 
-.infoBottom{
-    color: darkblue;
-    font-weight: 700;
-    text-decoration: underline;
+.weui-form-preview {
+  margin-bottom: 5rpx;
+}
+
+.weui-form-preview__hd {
+  padding: 5rpx 15px 0;
 }

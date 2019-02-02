@@ -5,7 +5,7 @@
 ### 需求
 **主要功能**
 - 空闲状况公示
-- 前端交表->秘书部审批（通过/不通过/备注）
+- 前端交表->秘书部审批（通过/不通过 + 备注）
 - 审批通过后申请人能打印凭证
 - 后台能导出表格存档
 
@@ -19,9 +19,8 @@ _Extra_
 
 ### Docs
 
-- [后台管理 开发文档](./miniprogram/docs/bg_management.md)
-
-### Timetable
+- [后台管理 开发文档](./miniprogram/docs/management.md)
+- [数据库字段](./miniprogram/docs/database.md)
 
 ## 参考文档
 
