@@ -16,56 +16,68 @@
       <input name="attendNumber" class="form_input" placeholder='' />
     </view>
 
-    <view id="form_eventDate">
-      <text> 活动日期:</text>
-      <picker name="eventDate" 
-              mode="date"
-              value="{{date}}"
-              start="2019-01-01"
-              end="9999-12-31"
-              bindchange="bindDateChange">
-        <view>
-          当前选择：{{date}}
+   
+
+    <view class="picker——title">活动日期:</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">当前选择</view>
         </view>
-      </picker>
+        <view class="weui-cell__bd">
+          <picker mode="date" value="{{date}}" start="2019-01-01" end="2999-01-01" bindchange="bindDateChange">
+            <view class="weui-input">{{date}}</view>
+          </picker>
+        </view>
+      </view>
     </view>
 
+
+
     <view id="form_eventTime">
-      <text>活动时间:</text>
-        <picker name="eventTime1"
-                mode="time"
-                value="{{time1}}"
-                start="06:00"
-                end="23:00"
-                bindchange="bindTimeChange1">
-          <view>
-            当前选择: {{time1}}
+      <view class='picker_title'>活动时间:</view>
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">当前选择</view>
+            </view>
+            <view class="weui-cell__bd">
+              <picker mode="time" value="{{time1}}" start="07:00" end="22:00" bindchange="bindTimeChange1">
+                <view class="weui-input">{{time1}}</view>
+              </picker>
+            </view>
           </view>
-        </picker>
-      <text>至</text>
-        <picker name="eventTime2"
-                mode="time"
-                value="{{time1}}"
-                start="06:00"
-                end="23:00"
-                bindchange="bindTimeChange2">
-          <view>
-            当前选择: {{time2}}
+        </view>
+        <view class="weui-cells__title">至</view>
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">当前选择</view>
+              </view>
+              <view class="weui-cell__bd">
+                <picker mode="time" value="{{time2}}" start="07:01" end="22:00" bindchange="bindTimeChange">
+                  <view class="weui-input">{{time2}}</view>
+                </picker>
+              </view>
+            </view>
           </view>
-        </picker>
-     
+        
     </view>
 
     <view id="form_classroomNumber">
-      <text>借用教室编号:</text>
-      <picker name="classroomNumber"
-                range="{{range}}"
-                value="{{classroomNumber}}"
-                bindchange="bindNumberChange">
-          <view>
-            当前选择: {{classroomNumber}}
+      <view class='picker_title'>借用教室编号:</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">当前选择</view>
           </view>
-        </picker>
+          <view class="weui-cell__bd">
+            <picker bindchange="bindNumberChange" value="{{index}}" range="{{array}}">
+              <view class="weui-input">{{array[index]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
     </view>
 
     <view id="form_eventContent">

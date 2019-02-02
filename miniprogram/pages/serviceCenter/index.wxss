@@ -1,3 +1,6 @@
 navigator{
     border: 2rpx solid black;
+    margin-top:170px;
+    width:200px;
+    text-align: center;
 }

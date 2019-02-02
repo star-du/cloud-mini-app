@@ -15,8 +15,10 @@ Page({
   data: {
     index: 0,
     date: "2019-01-01",
-    classroomNumber:"请选择",
-    range:["请选择","201","202","203","204","205","206","207","208"]
+    time1:"07:00",
+    time2:"07:00",
+    index:"请选择",
+    array:["请选择","201","202","203","204","205","206","207","208"]
   },
 
   onLoad() {
@@ -92,7 +94,7 @@ Page({
 
   /*活动日期picker改变的函数*/
   bindDateChange: function(e) {
-    console.log("picker_date发送选择改变，携带值为", e.detail.value)
+    console.log("eventDate发送选择改变，携带值为", e.detail.value)
     this.setData({
       date: e.detail.value
     })
@@ -100,7 +102,7 @@ Page({
 
   /*活动时间picker改变的函数1*/
   bindTimeChange1: function(e) {
-    console.log("picker_time1发送选择改变，携带值为", e.detail.value)
+    console.log("eventTime1发送选择改变，携带值为", e.detail.value)
     this.setData({
       time1: e.detail.value
     })
@@ -108,7 +110,7 @@ Page({
 
   /*活动时间picker改变的函数2*/
   bindTimeChange2: function(e) {
-    console.log("picker_time2发送选择改变，携带值为", e.detail.value)
+    console.log("eventTime2发送选择改变，携带值为", e.detail.value)
     this.setData({
       time2: e.detail.value
     })
@@ -125,9 +127,9 @@ Page({
 
   /*借用教室picker改变的函数*/
   bindNumberChange: function (e) {
-    console.log("picker_classroomNumber发生选择改变，携带值为",20+e.detail.value)
+    console.log("classroomNumber发生选择改变，携带值为",20+e.detail.value)
     this.setData({
-      classroomNumber:20+e.detail.value
+      index:e.detail.value
     })
   } 
 });
