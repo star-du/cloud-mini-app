@@ -16,7 +16,7 @@ Page({
     index: 0,
     date: "2019-01-01",
     time1:"07:00",
-    time2:"07:00",
+    time2:"07:00", //Todo: time2 有效范围从time1 - 24.00
     index:"请选择",
     array:["请选择","201","202","203","204","205","206","207","208"]
   },
@@ -47,7 +47,9 @@ Page({
     
 
     //TODO:仿照hustauEntrance:join-us中对不同错误给出不同提示
-    if ((formsData["classroomNumber"] == "请选择") || !(judge.test(formsData["responserPhone"])) || (formsData["classroomNumber"] == "200")) {
+
+    if ((formsData["classroomNumber"] == "请选择") || !(judge.test(formsData["responserPhone"])) 
+    || (formsData["classroomNumber"] == "200")) {
       wx.showModal({
         title: "提交失败",
         content: "请检查表单填写是否正确",
