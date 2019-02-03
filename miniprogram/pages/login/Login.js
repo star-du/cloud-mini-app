@@ -1,4 +1,4 @@
-// miniprogram/pages/Login/Login.js
+// miniprogram/pages/login/Login.js
 const app = getApp();
 Page({
 
@@ -6,32 +6,32 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+
   },
 
   userLogin: function () {
     const that = this
 
     function _getUserInfo() {
-        wx.getUserInfo({
-          success(res) {
-            that.setData({
-              hasUserInfo: true,
-              userInfo: res.userInfo
-            })
-          }
-        })
+      wx.getUserInfo({
+        success(res) {
+          that.setData({
+            hasUserInfo: true,
+            userInfo: res.userInfo
+          })
+        }
+      })
     }
 
     if (app.globalData.hasLogin === false) {
-        wx.login({
-          success: _getUserInfo
-        })
-      } else {
-        _getUserInfo()
-      }
-    
-    
+      wx.login({
+        success: _getUserInfo
+      })
+    } else {
+      _getUserInfo()
+    }
+
+
     wx.cloud.callFunction({
       name: 'login',
       data: {},

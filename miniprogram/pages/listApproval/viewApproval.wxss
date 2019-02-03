@@ -12,7 +12,7 @@ page {
 }
 
 .page__bd {
-  padding-bottom: 40px;
+  padding-bottom: 800rpx;
 }
 
 .page__bd_spacing {
@@ -36,4 +36,8 @@ page {
   color: #222;
   text-align: left;
   font-size: 14px;
+}
+
+.weui-textarea {
+  height: 4em;
 }
