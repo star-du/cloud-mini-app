@@ -8,15 +8,13 @@
 
     <view id="form_eventName">
       <text>活动名称:</text>
-      <input name="eventName" class="form_input" placeholder=''/>
+      <input name="eventName" class="form_input" placeholder='' />
     </view>
 
     <view id="form_attendNumber">
       <text>参加人数:</text>
-      <input name="attendNumber" class="form_input" placeholder='' />
+      <input name="attendNumber" class="form_input" type="number" placeholder="" />
     </view>
-
-   
 
     <view class="picker——title">活动日期:</view>
     <view class="weui-cells weui-cells_after-title">
@@ -36,44 +34,41 @@
 
     <view id="form_eventTime">
       <view class='picker_title'>活动时间:</view>
-        <view class="weui-cells weui-cells_after-title">
-          <view class="weui-cell weui-cell_input">
-            <view class="weui-cell_hd">
-              <view class="weui-label">当前选择</view>
-            </view>
-            <view class="weui-cell_bd">
-              <picker mode="time" value="{{time1}}" start="07:00" end="22:00" bindchange="bindTimeChange1">
-                <view class="weui-input">{{time1}}</view>
-              </picker>
-            </view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell_hd">
+            <view class="weui-label">当前选择</view>
+          </view>
+          <view class="weui-cell_bd">
+            <picker mode="time" value="{{time1}}" start="07:00" end="22:00" bindchange="bindTimeChange1">
+              <view class="weui-input">{{time1}}</view>
+            </picker>
           </view>
         </view>
-        <view class="weui-cells__title">至</view>
-          <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell_hd">
-                <view class="weui-label">当前选择</view>
-              </view>
-              <view class="weui-cell_bd"> 
-                <picker mode="time" value="{{time2}}" start="07:01" end="22:00" bindchange="bindTimeChange2">
-                  <view class="weui-input">{{time2}}</view>
-                </picker>
-              </view>
-            </view>
+      </view>
+      <view class="weui-cells__title">至</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell_hd">
+            <view class="weui-label">当前选择</view>
           </view>
-    
+          <view class="weui-cell__bd">
+            <picker mode="time" value="{{time2}}" start="07:01" end="22:00" bindchange="bindTimeChange2">
+              <view class="weui-input">{{time2}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+
     </view>
 
     <view id="form_classroomNumber">
       <view class='picker_title'>借用教室编号:</view>
       <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">当前选择</view>
-          </view>
+        <view class="weui-cell weui-cell_select">
           <view class="weui-cell__bd">
-            <picker bindchange="bindNumberChange" value="{{index}}" range="{{array}}">
-              <view class="weui-input">{{array[index]}}</view>
+            <picker mode="selector" bindchange="bindNumberChange" value="{{index}}" range="{{array}}">
+              <view class="weui-select">{{array[index]}}</view>
             </picker>
           </view>
         </view>
@@ -82,12 +77,17 @@
 
     <view id="form_eventContent">
       <text>活动内容:</text>
-      <input name="eventContent" class="form_input2" placeholder=''/>
+      <input name="eventContent" class="form_input2" placeholder='' />
     </view>
 
     <view id="form_eventResponser">
       <text>活动负责人:</text>
-      <input name="eventResponser" class="form_input" placeholder=''/>
+      <input name="eventResponser" class="form_input" placeholder='' />
+    </view>
+
+    <view id="form_responserPhone">
+      <text>活动负责人的联系方式:</text>
+      <input name="responserPhone" class="form_input" placeholder='' />
     </view>
 
     <view id="form_responserPhone">
