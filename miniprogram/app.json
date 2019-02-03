@@ -9,7 +9,7 @@
     "pages/progressCheck/progressCheck",
     "pages/serviceCenter/index",
     "pages/userConsole/userConsole",
-    
+    "pages/login/Login",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
     "pages/addFunction/addFunction",
@@ -30,12 +30,6 @@
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [
-      {
-        "pagePath": "pages/Login/Login",
-        "text": "登录",
-        "iconPath": "images/star.png",
-        "selectedIconPath": "images/star.png"
-      },
       {
         "pagePath": "pages/serviceCenter/index",
         "text": "办事大厅",

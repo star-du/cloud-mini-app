@@ -5,8 +5,6 @@ const db = wx.cloud.database();
 const forms = db.collection('forms');
 const judge = /\d{11}/;
 
-const judge = /\d{11}/
-
 Page({
   data: {
     index: 0,
