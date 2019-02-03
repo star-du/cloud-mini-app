@@ -90,10 +90,6 @@
       <input name="responserPhone" class="form_input" placeholder='' />
     </view>
 
-    <view id="form_responserPhone">
-      <text>活动负责人的联系方式:</text>
-      <input name="responserPhone" class="form_input" placeholder=''/>
-    </view>
 
     <button type="primary" form-type='submit'>提交</button>
 
