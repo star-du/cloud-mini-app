@@ -1,4 +1,4 @@
-/* miniprogram/pages/Login/Login.wxss */
+/* miniprogram/pages/login/login.wxss */
 @import "../../assets/weui.wxss";
 /**index.wxss**/
 .userinfo {

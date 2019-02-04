@@ -13,7 +13,7 @@
       </view>
       <view class="weui-cell">
         <view class="weui-cell__bd">借用时间</view>
-        <text class="weui-cell__ft" decode="true" selectable="true">{{appr.eventDate}}&emsp;{{appr.eventTime1}}-{{appr.eventTime2}}</text>
+        <text class="weui-cell__ft">{{appr.eventDate}} {{appr.eventTime1}}-{{appr.eventTime2}}</text>
       </view>
     </view>
 

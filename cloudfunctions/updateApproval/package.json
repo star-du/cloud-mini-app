@@ -1,0 +1,14 @@
+{
+  "name": "updateApproval",
+  "version": "1.0.0",
+  "description": "Update infomation of collection 'forms' in db.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dorence",
+  "license": "ISC",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}

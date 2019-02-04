@@ -1,4 +1,4 @@
-// miniprogram/pages/login/Login.js
+// miniprogram/pages/login/login.js
 const app = getApp();
 Page({
 

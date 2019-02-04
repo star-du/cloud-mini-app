@@ -4,7 +4,7 @@ const db = wx.cloud.database();
 const base64 = require("images/base64");
 
 function toDate(d) {
-  return d instanceof Date ? d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate() : "";
+  return d instanceof Date ? d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() : "";
 }
 
 function fetchDB(PAGE) {
@@ -35,7 +35,7 @@ Page({
   onLoad: function (options) {
     // get url_get info
     console.log(options);
-    if (!options.id) {
+    if (!options.id || !(/[0-9A-Za-z]{16}/.test(options.id))) {
       wx.showToast({
         title: "无效访问",
         icon: "none",
@@ -58,21 +58,36 @@ Page({
     const value = e.detail.value;
     console.log(flag, value, this.data.id);
     const PAGE = this;
-    db.collection("forms").doc(this.data.id).update({
+    wx.showLoading({ title: "提交中", mask: true });
+    // call cloud function
+    wx.cloud.callFunction({
+      name: 'updateApproval',
       data: {
+        updateID: this.data.id,
         check: value,
         exam: flag
-      },
-      success(res) {
-        console.log("Update success", res);
+      }
+    }).then((res) => {
+      console.log("Update success", res);
+      wx.hideLoading();
+      // [Boolean]res.error indicates if calling has error
+      if (res.error || res.updated === 0) {
         wx.showToast({
-          title: '提交成功',
-          icon: 'success',
-          duration: 3000
+          title: "出错了, 请稍后重试",
+          icon: "none",
+          duration: 2000,
+          mask: true
         });
-        fetchDB(PAGE);
-      },
-      fail: console.error
+      }
+      else {
+        wx.showToast({
+          title: "提交成功",
+          icon: "success",
+          duration: 2000,
+          mask: true
+        });
+      }
+      fetchDB(PAGE);
     });
   },
   //统计输入长度

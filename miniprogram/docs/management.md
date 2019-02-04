@@ -12,7 +12,7 @@
     /* PATH => the path of miniprogram */
 ```
 
-### 2 本组负责的页面
+### 2 本组负责的内容
 
  Page         |   Description
 ------------- | ----------------------
@@ -20,9 +20,13 @@
  listApproval | 列出符合条件的所有审批，计划是每次访问传进来查询条件，比如`未审批`, `已审批 && 一个月内` 等。 用到 `WeUI` 里面的 `Preview` 模块。
  viewApproval | 显示单个的审批， 即 借用信息 + 活动信息 + 审核情况（同意也需要有审批意见；审批意见可反复修改） + 操作按钮(同意/拒绝/撤回)。 用到 `WeUI` 里面的 `List` 中的部分。 
 
+ Cloud Function | Input Object            | Description
+---------------:| ----------------------- | ----------------------------------
+ updateApproval |`{updateID, check, exam}`| 用于 `viewApproval` 中更新审批情况, 其中 `updateID` 表示要修改的 `doc` 的字段 `_id`. 返回一个对象 `{error: Boolean, msg: String [, updated : Number]}`, 若调用成功则 `error` 为 `true` 且有 `updated`, 若失败则 `error` 为 `false` 且 `msg` 为错误信息, 无 `updated` 属性.
+
 ### 3 DB
 
-上一次pull的问题基本都有所解决。但仍有几个问题:
+上一次pull的问题基本都有所解决。但仍有几个小问题 :
 
 0. `formid` 审批编号的格式未确定，代码未实现。格式可以为 `2019\d{n}`。
 0. `submitDate` 可以使用 [`db.serverDate`](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/reference-client-api/database/db.serverDate.html) API，因为客户端时间和格式可能与服务端有差距，而且该API提供了额外字段，参见 [数据类型文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/database/data-type.html)。

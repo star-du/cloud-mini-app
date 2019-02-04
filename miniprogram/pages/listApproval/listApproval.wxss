@@ -8,7 +8,7 @@ page {
 }
 
 .page__hd {
-  padding: 40px;
+  padding: 15px 40px;
 }
 
 .page__bd {
@@ -39,9 +39,14 @@ page {
 }
 
 .weui-form-preview {
-  margin-bottom: 5rpx;
+  margin: 6rpx;
 }
 
 .weui-form-preview__hd {
   padding: 5rpx 15px 0;
+}
+
+.weui-form-preview__ft{
+  line-height: 40px;
+  letter-spacing: 4px;
 }
