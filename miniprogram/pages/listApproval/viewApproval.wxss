@@ -12,7 +12,7 @@ page {
 }
 
 .page__bd {
-  padding-bottom: 800rpx;
+  margin-bottom: 800rpx;
 }
 
 .page__bd_spacing {

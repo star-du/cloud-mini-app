@@ -23,6 +23,7 @@ check    |  Type  | Description
 --------:| ------ | --------------
 approver | String | 审批人
 comment  | String | 审批意见
+openid   | String | 审批人的openid
 
 - [Object] event
 

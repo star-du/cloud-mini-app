@@ -9,7 +9,7 @@
     "pages/progressCheck/progressCheck",
     "pages/serviceCenter/index",
     "pages/userConsole/userConsole",
-    "pages/Login/Login",
+    "pages/login/login",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
     "pages/addFunction/addFunction",
@@ -37,7 +37,7 @@
         "selectedIconPath": "images/star.png"
       },
       {
-        "pagePath": "pages/Login/Login",
+        "pagePath": "pages/login/login",
         "text": "登录",
         "iconPath": "images/login.png",
         "selectedIconPath": "images/login.png"
