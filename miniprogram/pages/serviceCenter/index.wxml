@@ -3,6 +3,6 @@
     <navigator url="../borrowClassroom/borrowClassroom" hover-class="navigator-hover">
         <button type="default">教室借用</button>
       </navigator>
-      <navigator url="../progressCheck/progressCheck" redirect hover-class="other-navigator-hover">
+      <navigator url="../progressCheck/progressCheck" hover-class="other-navigator-hover">
         <button type="default">借用进度查询</button>
       </navigator>

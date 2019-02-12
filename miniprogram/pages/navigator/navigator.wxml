@@ -1,0 +1,12 @@
+<view class="container">
+  <view class="weui-grids">
+    <view class="weui-grid" wx:for="{{enter}}" wx:key="name">
+      <navigator url="../{{item.name}}/{{item.name}}">
+        <view class="weui-grid__icon">
+          <image src="../{{item.name}}/{{item.name}}.png" mode="scaleToFill" />
+        </view>
+        <text class="weui-grid__label">{{item.name_zh}}</text>
+      </navigator>
+    </view>
+  </view>
+</view>

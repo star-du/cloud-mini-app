@@ -44,6 +44,13 @@ Page({
           icon: 'success',
           duration: 2000
         })
+
+        wx.navigateTo({ //登录后跳转到办事大厅
+          url: '../navigator/navigator',
+          success: function(res) {},
+          fail: function(res) {},
+          complete: function(res) {},
+        })
       },
       fail: err => {
         console.error('[云函数] [login] 调用失败', err)
