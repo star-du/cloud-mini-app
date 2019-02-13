@@ -20,10 +20,7 @@ Page({
   onLoad: function (options) {
     //openid的getter
     function getOpenid(){
-      let app = getApp();
-      let openid = app.globalData.openid
-
-      return openid;
+      return getApp().loginState.openid;
     }
 
     const PAGE = this; // 使得get回调函数可以访问this.setData

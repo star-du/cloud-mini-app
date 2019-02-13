@@ -1,35 +1,29 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/admin/index",
+    "pages/serviceHall/serviceHall",
     "pages/borrowClassroom/borrowClassroom",
     "pages/listApproval/listApproval",
     "pages/listApproval/viewApproval",
     "pages/noticeBoard/index",
     "pages/progressCheck/progressCheck",
-    "pages/serviceCenter/index",
-    "pages/userConsole/userConsole",
-    "pages/login/login",
-    "pages/storageConsole/storageConsole",
-    "pages/databaseGuide/databaseGuide",
+    "pages/index/index",
     "pages/addFunction/addFunction",
-    "pages/deployFunctions/deployFunctions",
-    "pages/chooseLib/chooseLib",
+    "pages/databaseGuide/databaseGuide",
+    "pages/storageConsole/storageConsole",
     "pages/test/test",
-    "pages/serviceHall/serviceHall"
+    "pages/userConsole/userConsole"
   ],
   "window": {
-    "backgroundColor": "#F6F6F6",
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "场地借用系统",
-    "navigationBarTextStyle": "black"
+    "backgroundColor": "#f6f6f6",
+    "navigationBarBackgroundColor": "#f6f6f6",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "场地借用系统"
   },
   "tabBar": {
-    "color": "#7A7E83",
-    "selectedColor": "#3cc51f",
-    "borderStyle": "black",
     "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "color": "#7a7e83",
+    "selectedColor": "#3cc51f",
     "list": [
       {
         "pagePath": "pages/serviceHall/serviceHall",

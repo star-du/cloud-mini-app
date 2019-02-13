@@ -1,6 +1,6 @@
 # About The project 
 ## Aim
-本项目是为了完善**HUST**社联小程序的功能而发起的
+本项目是为了完善 **HUST** 社联小程序的功能而发起的
 ## 场地借用系统
 ### 需求
 **主要功能**
@@ -19,8 +19,8 @@ _Extra_
 
 ### Docs
 
-- [后台管理 开发文档](./miniprogram/docs/management.md)
-- [数据库字段](./miniprogram/docs/database.md)
+- [后台管理 开发文档](./docs/management.md)
+- [数据库字段](./docs/database.md)
 
 ## 参考文档
 

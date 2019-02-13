@@ -2,7 +2,7 @@
 <view class="page">
   <view class="userinfo">
     <block wx:if="{{isLogin}}">
-      <button class="userinfo-avatar" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" style="background-image: url({{avatarUrl}})"></button>
+      <button class="userinfo-avatar" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="background-image: url({{avatarUrl}})"></button>
       <view class="userinfo-nickname">{{isAdmin ? name : nickName}}</view>
     </block>
     <view wx:else>
