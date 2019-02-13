@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/admin/index",
+    "pages/admin/admin",
     "pages/borrowClassroom/borrowClassroom",
     "pages/listApproval/listApproval",
     "pages/listApproval/viewApproval",
@@ -9,13 +9,14 @@
     "pages/progressCheck/progressCheck",
     "pages/serviceCenter/index",
     "pages/userConsole/userConsole",
-    "pages/login/login",
+    "pages/login/Login",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
     "pages/addFunction/addFunction",
     "pages/deployFunctions/deployFunctions",
     "pages/chooseLib/chooseLib",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/navigator/navigator"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -31,13 +32,7 @@
     "backgroundColor": "#ffffff",
     "list": [
       {
-        "pagePath": "pages/serviceCenter/index",
-        "text": "办事大厅",
-        "iconPath": "images/star.png",
-        "selectedIconPath": "images/star.png"
-      },
-      {
-        "pagePath": "pages/login/login",
+        "pagePath": "pages/login/Login",
         "text": "登录",
         "iconPath": "images/login.png",
         "selectedIconPath": "images/login.png"
@@ -49,7 +44,7 @@
         "selectedIconPath": "images/notification.png"
       },
       {
-        "pagePath": "pages/admin/index",
+        "pagePath": "pages/admin/admin",
         "text": "后台管理",
         "iconPath": "images/key.png",
         "selectedIconPath": "images/key.png"
