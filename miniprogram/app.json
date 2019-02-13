@@ -15,7 +15,8 @@
     "pages/addFunction/addFunction",
     "pages/deployFunctions/deployFunctions",
     "pages/chooseLib/chooseLib",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/serviceHall/serviceHall"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -31,28 +32,16 @@
     "backgroundColor": "#ffffff",
     "list": [
       {
-        "pagePath": "pages/serviceCenter/index",
+        "pagePath": "pages/serviceHall/serviceHall",
         "text": "办事大厅",
         "iconPath": "images/star.png",
         "selectedIconPath": "images/star.png"
-      },
-      {
-        "pagePath": "pages/login/login",
-        "text": "登录",
-        "iconPath": "images/login.png",
-        "selectedIconPath": "images/login.png"
       },
       {
         "pagePath": "pages/noticeBoard/index",
         "text": "公告版",
         "iconPath": "images/notification.png",
         "selectedIconPath": "images/notification.png"
-      },
-      {
-        "pagePath": "pages/admin/index",
-        "text": "后台管理",
-        "iconPath": "images/key.png",
-        "selectedIconPath": "images/key.png"
       },
       {
         "pagePath": "pages/index/index",
