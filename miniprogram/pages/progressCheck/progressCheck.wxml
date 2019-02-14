@@ -28,7 +28,7 @@
           </view>
           <view class="weui-form-preview__item">
             <view class="weui-form-preview__label">申请人 / 联系方式</view>
-            <view class="weui-form-preview__value">{{it.event.name}} / {{it.event.tel}}</view>
+            <view class="weui-form-preview__value">{{it.event.responser}} / {{it.event.tel}}</view>
           </view>
           <view class="weui-form-preview__item">
             <view class="weui-form-preview__label">审批状态</view>
@@ -48,7 +48,7 @@
             <view class="weui-form-preview__value">{{it.check.comment}}</view>
           </view>
         <view class="weui-form-preview__ft">
-          <navigator url="" bindtap='cancel' class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">撤回申请</navigator>
+          <navigator url="../printForm/printForm" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">打印表单</navigator>
         </view>
       </view>
       <!-- end wx:for -->

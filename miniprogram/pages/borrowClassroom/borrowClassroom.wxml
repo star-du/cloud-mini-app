@@ -23,7 +23,7 @@
           <view class="weui-label">当前选择</view>
         </view>
         <view class="weui-cell__bd">
-          <picker mode="date" value="{{date}}" start="2019-01-01" end="2999-01-01" bindchange="bindDateChange">
+          <picker mode="date" value="{{date}}" start="2019-01-01" end="2999-01-01" bindchange="bindDateChange" name='eventDate'>
             <view class="weui-input">{{date}}</view>
           </picker>
         </view>
@@ -40,7 +40,7 @@
             <view class="weui-label">当前选择</view>
           </view>
           <view class="weui-cell_bd">
-            <picker mode="time" value="{{time1}}" start="07:00" end="22:00" bindchange="bindTimeChange1">
+            <picker mode="time" value="{{time1}}" start="07:00" end="22:00" bindchange="bindTimeChange1" name='eventTime1'>
               <view class="weui-input">{{time1}}</view>
             </picker>
           </view>
@@ -53,7 +53,7 @@
             <view class="weui-label">当前选择</view>
           </view>
           <view class="weui-cell__bd">
-            <picker mode="time" value="{{time2}}" start="07:01" end="22:00" bindchange="bindTimeChange2">
+            <picker mode="time" value="{{time2}}" start="07:01" end="22:00" bindchange="bindTimeChange2" name='eventTime2'>
               <view class="weui-input">{{time2}}</view>
             </picker>
           </view>
@@ -67,7 +67,7 @@
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__bd">
-            <picker mode="selector" bindchange="bindNumberChange" value="{{index}}" range="{{array}}">
+            <picker mode="selector" bindchange="bindNumberChange" value="{{index}}" range="{{array}}" name='classroomNumber'>
               <view class="weui-select">{{array[index]}}</view>
             </picker>
           </view>

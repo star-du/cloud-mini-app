@@ -15,7 +15,8 @@
     "pages/addFunction/addFunction",
     "pages/deployFunctions/deployFunctions",
     "pages/chooseLib/chooseLib",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/printForm/printForm"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
