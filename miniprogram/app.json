@@ -17,7 +17,8 @@
     "pages/chooseLib/chooseLib",
     "pages/test/test",
     "pages/printForm/printForm",
-    "pages/navigator/navigator"
+    "pages/navigator/navigator",
+    "pages/theForm/theForm"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
