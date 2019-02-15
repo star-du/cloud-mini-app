@@ -9,14 +9,14 @@
     "pages/progressCheck/progressCheck",
     "pages/serviceCenter/index",
     "pages/userConsole/userConsole",
-    "pages/login/Login",
+    "pages/Login/Login",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
     "pages/addFunction/addFunction",
     "pages/deployFunctions/deployFunctions",
     "pages/chooseLib/chooseLib",
     "pages/test/test",
-    "pages/printForm/printForm"
+    "pages/printForm/printForm",
     "pages/navigator/navigator"
   ],
   "window": {
@@ -33,7 +33,7 @@
     "backgroundColor": "#ffffff",
     "list": [
       {
-        "pagePath": "pages/login/Login",
+        "pagePath": "pages/Login/Login",
         "text": "登录",
         "iconPath": "images/login.png",
         "selectedIconPath": "images/login.png"
@@ -43,12 +43,6 @@
         "text": "公告版",
         "iconPath": "images/notification.png",
         "selectedIconPath": "images/notification.png"
-      },
-      {
-        "pagePath": "pages/admin/admin",
-        "text": "后台管理",
-        "iconPath": "images/key.png",
-        "selectedIconPath": "images/key.png"
       },
       {
         "pagePath": "pages/index/index",
