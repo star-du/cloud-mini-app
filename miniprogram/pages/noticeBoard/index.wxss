@@ -210,6 +210,7 @@ margin-top:10rpx;
   justify-content: center;
   height: auto;
   align-items: center;
+  word-break: break-all;
 }
 .td {
     width:4rem;
