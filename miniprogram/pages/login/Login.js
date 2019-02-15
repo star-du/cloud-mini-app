@@ -1,5 +1,9 @@
 // miniprogram/pages/login/login.js
 const app = getApp();
+wx.cloud.init();
+
+const db = wx.cloud.database();
+
 Page({
 
   /**
@@ -23,6 +27,13 @@ Page({
       })
     }
 
+    function getOpenid() {
+      let app = getApp();
+      let openid = app.globalData.openid
+
+      return openid;
+    }
+
     if (app.globalData.hasLogin === false) {
       wx.login({
         success: _getUserInfo
@@ -44,6 +55,28 @@ Page({
           icon: 'success',
           duration: 2000
         })
+
+        // 鉴定是否是管理员
+        db.collection('adminInfo').where({
+          openid: getOpenid()
+        }).get({
+          success(e) {
+            console.log(e, e.data);
+            app.globalData.isAdmin=1;
+            console.log(app.globalData.isAdmin)
+          },
+          fail: console.error
+        });
+
+        setTimeout(function(){//定时器，别去，原因看navigator.js的注释
+          wx.navigateTo({ //登录后跳转到办事大厅
+          url: '../navigator/navigator',
+          success: function (res) { },
+          fail: function (res) { },
+          complete: function (res) { },
+        })}
+        ,2000)
+        
       },
       fail: err => {
         console.error('[云函数] [login] 调用失败', err)
