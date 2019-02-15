@@ -65,13 +65,15 @@ Page({
             //console.log(e.data.length);
             if (e.data.length != 0){
             app.globalData.isAdmin=1;
-            console.log('admin ',e.data[0].name,' 登录');
+            app.globalData.adminName=e.data[0].name;
+            console.log('admin ',app.globalData.adminName,' 登录');
           }
           },
           fail: console.error
         });
 
         setTimeout(function(){//定时器，别去，原因看navigator.js的注释
+          //console.log(app.globalData.adminName);
           wx.navigateTo({ //登录后跳转到办事大厅
           url: '../navigator/navigator',
           success: function (res) { },

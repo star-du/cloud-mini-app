@@ -25,6 +25,7 @@ Page({
   onLoad: function (options) {//如果是管理员，则渲染审批界面**存在bug，用户点击过快时，尚未同步数据库而已开始鉴权，导致管理员用户仍无法渲染出审批**
     
     const isAdmin = app.globalData.isAdmin;
+    console.log(app.globalData.adminName);
     let enter = this.data.enter;
     enter.push({
       name: 'admin',

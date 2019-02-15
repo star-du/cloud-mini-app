@@ -31,6 +31,8 @@ Page({
       });
       return;
     }
+    console.log('adminName:',app.globalData.adminName);
+    console.log(app.globalData.isAdmin);
     // 获取用户信息
     wx.getSetting({
       success: res => {

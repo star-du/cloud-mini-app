@@ -1,4 +1,5 @@
 /**index.wxss**/
+@import "../../assets/weui.wxss";
 
 page {
   background: #f6f6f6;
@@ -137,7 +138,7 @@ page {
 
 .rule {
   line-height: 200%;
-  margin-top: 230rpx;
+  margin-top: 30rpx;
   padding: 10rpx;
   width: 100%;
   background: #fff;
