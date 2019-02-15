@@ -13,7 +13,8 @@ App({
 
     this.globalData = {
       openid : 0,
-      isAdmin : 0
+      isAdmin : 0,
+      formFormid : 0
     }
   }
 })

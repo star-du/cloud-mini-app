@@ -1,54 +1,16 @@
+<!--pages/printForm/printForm.wxml-->
 <view class='container'>
-  <view class="weui-form-preview" wx:for="{{progressList}}" wx:for-index="i" wx:for-item="it" wx:key="id">
-    <view class="weui-form-preview__bd">
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">协会名称</view>
-            <view class="weui-form-preview__value">{{it.event.association}}</view>
-          </view>
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">活动名称</view>
-            <view class="weui-form-preview__value">{{it.event.name}}</view>
-          </view>
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">参与人数</view>
-            <view class="weui-form-preview__value">{{it.event.attendNumber}}</view>
-          </view>
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">活动日期</view>
-            <view class="weui-form-preview__value">{{it.eventDate}}</view>
-          </view>
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">活动时间</view>
-            <view class="weui-form-preview__value">{{it.eventTime1}}至{{it.eventTime2}}</view>
-          </view>
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">借用教室编号</view>
-            <view class="weui-form-preview__value">{{it.classroomNumber}}</view>
-          </view>
-         <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">活动内容</view>
-            <view class="weui-form-preview__value">{{it.event.content}}</view>
-          </view>
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">活动负责人</view>
-            <view class="weui-form-preview__value">{{it.event.responser}}</view>
-          </view>
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">负责人电话</view>
-            <view class="weui-form-preview__value">{{it.event.tel}}</view>
-          </view>
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">审批人</view>
-            <view class="weui-form-preview__value">{{it.check.approver}}</view>
-          </view>
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">社联意见</view>
-            <view class="weui-form-preview__value">{{it.check.comment}}</view>
-          </view>
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">编号</view>
-            <view class="weui-form-preview__value">{{it.formid}}</view>
-          </view>
-    </view>
-  </view>
+  <view class="page-section">
+    <form bindsubmit='submit'>
+      <view class="weui-cells__title">请输入表单编号</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <input name='input' class="weui-input" auto-focus placeholder="如201900001"/>
+        </view>
+        <button form-type='submit' type='primary'>
+          提交
+        </button>
+      </view>
+    </form>
+  </view>  
 </view>

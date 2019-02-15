@@ -1,39 +1,23 @@
 wx.cloud.init();
-const db = wx.cloud.database();
-const forms = db.collection('forms');
+const db=wx.cloud.database();
+const forms=db.collection('forms');
+const APP=getApp();
 
 Page({
   data:{
     progressList: []
   },
-  
-  onLoad: function (options) {
-    //openid的getter
-    function getOpenid() {
-      let app = getApp();
-      let openid = app.globalData.openid
 
-      return openid;
+  submit: function (e) {
+    const PAGE=this;
+    const Userinput=e.detail.value["input"]
+    console.log("用户输入了"+Userinput)
+    APP.globalData={
+      formFormid:Userinput
     }
-
-    const PAGE = this; // 使得get回调函数可以访问this.setData
-    // 获取db数据
-    console.log(getOpenid());
-    db.collection('forms').where({
-      _openid: getOpenid()
-    }).get({
-      success(e) {
-        console.log(e, e.data);
-        PAGE.setData({
-          progressList: e.data || []
-        });
-        console.log(PAGE.data);
-      },
-      fail: console.error
-    });
+    console.log(APP.globalData['formFormid'])
+    wx.navigateTo({
+      url: '../theForm/theForm',
+    })
   }
-
-
-
-
 })
