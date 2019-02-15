@@ -2,53 +2,59 @@
 <view class="page">
   <view class="page__hd">
     <view class="page__title">审批状态</view>
-    <view class="page__desc">表单预览</view>
+    <view class="page__desc">查看</view>
   </view>
   <view class="page__bd">
     <block wx:if="{{progressList.length}}">
       <view class="weui-form-preview" wx:for="{{progressList}}" wx:for-index="i" wx:for-item="it" wx:key="id">
         <view class="weui-form-preview__hd">
           <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">借用场地 时间</view>
-            <text class="weui-form-preview__value_in-hd" decode="true" selectable="true">{{it.classroom}}&emsp;{{it.eventDate}}</text>
+            <view class="weui-form-preview__label">借用场地</view>
+            <text class="weui-form-preview__value_in-hd" decode="true" selectable="true">{{it.classroomNumber}}</text>
           </view>
         </view>
         <view class="weui-form-preview__bd">
           <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">编号</view>
+            <view class="weui-form-preview__value">{{it.formid}}</view>
+          </view>
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">时间</view>
+            <view class="weui-form-preview__value">{{it.eventDate}}</view>
+          </view>
+          <view class="weui-form-preview__item">
             <view class="weui-form-preview__label">申请组织</view>
-            <view class="weui-form-preview__value">{{it.associationName}}</view>
+            <view class="weui-form-preview__value">{{it.event.association}}</view>
           </view>
           <view class="weui-form-preview__item">
             <view class="weui-form-preview__label">申请人 / 联系方式</view>
-            <view class="weui-form-preview__value">{{it.eventResponser}} / {{it.tel}}</view>
+            <view class="weui-form-preview__value">{{it.event.responser}} / {{it.event.tel}}</view>
           </view>
           <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">是否通过</view>
-            <view class="weui-form-preview__value">{{it.done ? "通过" : "未通过"}}</view>
+            <view class="weui-form-preview__label">审批状态</view>
+            <view class="weui-form-preview__value">
+            {{it.exam==0 ? '未审核' : ''}}
+            {{it.exam==1 ? '审核撤回' : ''}}
+            {{it.exam==2 ? '未通过' : ''}}
+            {{it.exam==3 ? '通过' : ''}}
+            </view>
           </view>
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">理由</view>
-            <view class="weui-form-preview__value">{{}}</view>
+          <view class="weui-form-preview__item" wx-if="{{it.check}}">
+            <view class="weui-form-preview__label">审批人</view>
+            <view class="weui-form-preview__value">{{it.check.approver}}</view>
           </view>
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label"></view>
-            <view class="weui-form-preview__value">{{it.done ? "通过" : "未通过"}}</view>
+          <view class="weui-form-preview__item" wx-if="{{it.check}}">
+            <view class="weui-form-preview__label">审批意见</view>
+            <view class="weui-form-preview__value">{{it.check.comment}}</view>
           </view>
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label"></view>
-            <view class="weui-form-preview__value">{{it.done ? "通过" : "未通过"}}</view>
-          </view>
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label"></view>
-            <view class="weui-form-preview__value">{{it.done ? "通过" : "未通过"}}</view>
-          </view>
-        </view>
         <view class="weui-form-preview__ft">
-          <navigator url="viewApproval?id={{it._id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">详细信息</navigator>
+          <navigator url="../printForm/printForm" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">打印表单</navigator>
         </view>
       </view>
       <!-- end wx:for -->
+    </view>
     </block>
+    
     <block wx:else></block>
   </view>
 </view>

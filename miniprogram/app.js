@@ -12,7 +12,8 @@ App({
     }
 
     this.globalData = {
-      openid : 0
+      openid : 0,
+      isAdmin : 0
     }
   }
 })

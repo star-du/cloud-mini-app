@@ -1,21 +1,23 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/admin/index",
+    "pages/admin/admin",
+    "pages/borrowClassroom/borrowClassroom",
+    "pages/listApproval/listApproval",
+    "pages/listApproval/viewApproval",
     "pages/noticeBoard/index",
+    "pages/progressCheck/progressCheck",
     "pages/serviceCenter/index",
     "pages/userConsole/userConsole",
-    "pages/borrowClassroom/borrowClassroom",
-    "pages/progressCheck/progressCheck",
+    "pages/Login/Login",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
     "pages/addFunction/addFunction",
     "pages/deployFunctions/deployFunctions",
     "pages/chooseLib/chooseLib",
     "pages/test/test",
-    "pages/listApproval/listApproval",
-    "pages/listApproval/viewApproval",
-    "pages/Login/Login"
+    "pages/printForm/printForm",
+    "pages/navigator/navigator"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -33,26 +35,14 @@
       {
         "pagePath": "pages/Login/Login",
         "text": "登录",
-        "iconPath": "images/star.png",
-        "selectedIconPath": "images/star.png"
-      },
-      {
-        "pagePath": "pages/serviceCenter/index",
-        "text": "办事大厅",
-        "iconPath": "images/star.png",
-        "selectedIconPath": "images/star.png"
+        "iconPath": "images/login.png",
+        "selectedIconPath": "images/login.png"
       },
       {
         "pagePath": "pages/noticeBoard/index",
         "text": "公告版",
         "iconPath": "images/notification.png",
         "selectedIconPath": "images/notification.png"
-      },
-      {
-        "pagePath": "pages/admin/index",
-        "text": "后台管理",
-        "iconPath": "images/key.png",
-        "selectedIconPath": "images/key.png"
       },
       {
         "pagePath": "pages/index/index",

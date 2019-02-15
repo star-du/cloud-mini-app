@@ -2,6 +2,7 @@
 const db = wx.cloud.database();
 const forms = db.collection('forms');
 
+
 var rule = '\n1、请至少提前两天将申请表及策划电子版，以“协会名称＋［36号楼教室借用］＋日期”的方式命名发送至秘书部公邮mishu@hustau.com审批通过的社团（审批结果将以短信形式通知），使用教室的当天须将申请表打印成纸质版（双面打印）交至36号楼1楼社联值班室，并在教室借用表上进行借用登记;\n2、建议申请前先查询教室是否空闲，查询方式：见华中大会长群;\n3、房间钥匙均插在门上，教室使用结束后请将钥匙插回原位;\n4、普通教室须有活动负责人陪同使用并保证器材设备完好;\n5、活动结束后请将教室清理干净并将桌椅归位，谢谢配合.\n6、若活动结束后未按要求做好清洁或是造成物资缺失及损坏，将予以警告，出现两次（含）以上情况一个月内不得借用36号楼教室。且损坏或丢失物资必须照价赔偿。'
 const app = getApp()
 Page({
@@ -44,6 +45,7 @@ Page({
     })
   },
 
+
   onLoad: function() {
     this.setData({
       listData: [
@@ -64,6 +66,7 @@ Page({
         }
       },
     })
+
     if (!wx.cloud) {
       wx.redirectTo({
         url: '../chooseLib/chooseLib',
@@ -90,7 +93,7 @@ Page({
     })
   },
 
-  onGetUserInfo: function(e) {
+  onGetUserInfo: function (e) {
     if (!this.logged && e.detail.userInfo) {
       this.setData({
         logged: true,
@@ -106,12 +109,12 @@ Page({
       })
     } else {
       this.setData({
-        showIndex: 0  
+        showIndex: 0
       })
     }
   },
 
-  onGetOpenid: function() {
+  onGetOpenid: function () {
     // 调用云函数
     wx.cloud.callFunction({
       name: 'login',
@@ -146,7 +149,7 @@ Page({
         })
 
         const filePath = res.tempFilePaths[0]
-        
+
         // 上传图片
         const cloudPath = 'my-image' + filePath.match(/\.[^.]+?$/)[0]
         wx.cloud.uploadFile({
@@ -158,7 +161,7 @@ Page({
             app.globalData.fileID = res.fileID
             app.globalData.cloudPath = cloudPath
             app.globalData.imagePath = filePath
-            
+
             wx.navigateTo({
               url: '../storageConsole/storageConsole'
             })

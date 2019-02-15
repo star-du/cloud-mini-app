@@ -2,7 +2,7 @@
 <view class="page">
   <view class="page__hd">
     <view class="page__title">查看审批</view>
-    <view class="page__desc">编号： {{appr._id}}</view>
+    <view class="page__desc">编号： {{appr.formid}}</view>
   </view>
   <view class="page__bd">
     <view class="weui-cells__title">借用信息</view>
@@ -13,7 +13,7 @@
       </view>
       <view class="weui-cell">
         <view class="weui-cell__bd">借用时间</view>
-        <text class="weui-cell__ft" decode="true" selectable="true">{{appr.eventDate}}&emsp;{{appr.eventTime1}} - {{appr.eventTime2}}</text>
+        <text class="weui-cell__ft">{{appr.eventDate}} {{appr.eventTime1}}-{{appr.eventTime2}}</text>
       </view>
     </view>
 
@@ -24,14 +24,21 @@
           <image src="{{icon}}" style="margin-right: 3px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">社团/学生组织</view>
-        <view class="weui-cell__ft">{{appr.associationName}}</view>
+        <view class="weui-cell__ft">{{appr.event.association}}</view>
       </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
           <image src="{{icon}}" style="margin-right: 3px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
-        <view class="weui-cell__bd">负责人 / 联系方式</view>
-        <view class="weui-cell__ft">{{appr.eventResponser}} / {{appr.tel}}</view>
+        <text class="weui-cell__bd">申请人</text>
+        <view class="weui-cell__ft">{{appr.event.responser}}</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 3px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <text class="weui-cell__bd">联系方式</text>
+        <view class="weui-cell__ft">{{appr.event.tel}}</view>
       </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
@@ -43,38 +50,48 @@
     </view>
 
     <view class="weui-cells__title">审批情况</view>
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell">
-        <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 3px;vertical-align: middle;width:20px; height: 20px;"></image>
+    <!-- form begin -->
+    <form bindsubmit='submit'>
+      <view class="weui-cells weui-cells_after-title">
+        <view wx:if="{{appr.exam}}" class="weui-cell">
+          <view class="weui-cell__bd">审批状态</view>
+          <view class="weui-cell__ft">{{examState[appr.exam]}}</view>
         </view>
-        <view class="weui-cell__bd">审批状态</view>
-        <view class="weui-cell__ft">{{appr.done ? "已通过":"未审批"}}</view>
-      </view>
-      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        <!-- 审批人 begin -->
+        <view wx:if="{{appr.exam > 1}}" class="weui-cell">
+          <view class="weui-cell__bd">审批人</view>
+          <view class="weui-cell__ft">{{appr.check.approver}}</view>
         </view>
-        <view class="weui-cell__bd">审批意见</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-      </navigator>
-      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        <view wx:else class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">审批人</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name="approver" placeholder="审批人姓名" value="{{appr.check.approver}}" />
+          </view>
         </view>
-        <view class="weui-cell__bd">审批人</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-      </navigator>
-    </view>
-    <!-- buttons begin -->
-    <button wx:if="{{appr.done}}" class="weui-btn" type="warn">( 撤销 )</button>
-    <view wx:else class="weui-flex" style="margin-top: 28rpx">
-      <view class="weui-flex__item">
-        <button class="weui-btn" type="primary">同意</button>
+        <!-- 审批人 end -->
+        <view class="weui-cell">
+          <view class="weui-cell__bd">审批意见</view>
+        </view>
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <textarea class="weui-textarea" name="comment" placeholder="请输入文本" maxlength="{{maxCommentLength}}" bindinput="userInput" disabled="{{appr.exam>1?true:false}}" value="{{appr.check.comment}}" />
+            <view wx:if="{{appr.exam <= 1}}" class="weui-textarea-counter">{{commentLength}}/{{maxCommentLength}}</view>
+          </view>
+        </view>
       </view>
-      <view class="weui-flex__item">
-        <button class="weui-btn" type="default">拒绝</button>
+      <!-- buttons begin -->
+      <button wx:if="{{appr.exam > 1}}" class="weui-btn" type="warn" form-type="submit" data-flag="1">撤回</button>
+      <view wx:else class="weui-flex" style="margin-top: 28rpx">
+        <view class="weui-flex__item">
+          <button class="weui-btn" type="primary" form-type="submit" data-flag="3">同意</button>
+        </view>
+        <view class="weui-flex__item">
+          <button class="weui-btn" type="warn" form-type="submit" data-flag="2">拒绝</button>
+        </view>
       </view>
-    </view>
+    </form>
+    <!-- form end -->
   </view>
 </view>
