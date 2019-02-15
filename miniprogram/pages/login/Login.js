@@ -62,8 +62,11 @@ Page({
         }).get({
           success(e) {
             console.log(e, e.data);
+            //console.log(e.data.length);
+            if (e.data.length != 0){
             app.globalData.isAdmin=1;
-            console.log(app.globalData.isAdmin)
+            console.log('admin ',e.data[0].name,' 登录');
+          }
           },
           fail: console.error
         });

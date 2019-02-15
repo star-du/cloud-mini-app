@@ -77,7 +77,7 @@ Page({
               console.log("Successfully add to db!")
               wx.showModal({
                 title: '提交成功',
-                content: '请耐心等待审核结果',
+                content: '请将策划案发送至公邮mishu@hustau.com，并耐心等待审核结果',
               })
             }
           });

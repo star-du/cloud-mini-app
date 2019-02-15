@@ -1,7 +1,9 @@
 {
   "pages": [
-    "pages/index/index",
+    "pages/Login/Login",
+    "pages/navigator/navigator",
     "pages/admin/admin",
+    "pages/index/index",
     "pages/borrowClassroom/borrowClassroom",
     "pages/listApproval/listApproval",
     "pages/listApproval/viewApproval",
@@ -9,7 +11,6 @@
     "pages/progressCheck/progressCheck",
     "pages/serviceCenter/index",
     "pages/userConsole/userConsole",
-    "pages/Login/Login",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
     "pages/addFunction/addFunction",
@@ -17,7 +18,6 @@
     "pages/chooseLib/chooseLib",
     "pages/test/test",
     "pages/printForm/printForm",
-    "pages/navigator/navigator",
     "pages/theForm/theForm"
   ],
   "window": {
@@ -44,12 +44,6 @@
         "text": "公告版",
         "iconPath": "images/notification.png",
         "selectedIconPath": "images/notification.png"
-      },
-      {
-        "pagePath": "pages/index/index",
-        "text": "quickstart",
-        "iconPath": "images/icon_component.png",
-        "selectedIconPath": "images/icon_component_HL.png"
       }
     ]
   }

@@ -3,9 +3,7 @@
   <!-- 用户 openid -->
   <view class="userinfo">
     <button class="userinfo-avatar" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" style="background-image: url({{avatarUrl}})"></button>
-    <view>
-      <button class="userinfo-nickname" bindtap="onGetOpenid">点击获取 openid</button>
-    </view>
+    你好，管理员！
   </view>
   <!-- 用户 openid end -->
   <view class="weui-cells__title">教室借用审批状态</view>

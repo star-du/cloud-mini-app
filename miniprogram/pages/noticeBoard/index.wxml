@@ -2,12 +2,12 @@
 <view class="container">
 
   <!-- 用户 openid -->
-  <view class="userinfo">
+  <!-- <view class="userinfo">
     <button open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar" style="background-image: url({{avatarUrl}})"></button>
     <view>
       <button class="userinfo-nickname" bindtap="onGetOpenid">点击获取 openid</button>
     </view>
-  </view>
+  </view> -->
   <!-- 公告 -->
 
   <view class="rule">
@@ -18,7 +18,15 @@
     <view wx:if="{{showIndex == 1}}">
       <text class="rule-text">{{text}}</text>
     </view>
-
+  </view>	
+  
+  <!-- 具体日期选择 -->	
+  <view class="section">	
+    <view class="section__title">请选择查询日期:</view>	
+    <picker mode="date" value="{{date}}" start="2019-01-01" end="2020-01-01" bindchange="bindDateChange">	
+      <view class="picker">	
+        当前选择: {{date}}	
+      </view>
   </picker>
 </view>
 
@@ -34,17 +42,17 @@
   <block wx:for="{{listData}}" wx:key="{{code}}">
     <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
       <view class="td">{{item.code}}</view>
-      <view class="td">{{item.morning}}</view>
-      <view class="td">{{item.noon}}</view>
-      <view class="td">{{item.afternoon}}</view>
-      <view class="td">{{item.evening}}</view>
+      <view class="td">{{item.time}}</view>
+      <view class="td">{{item.association}}</view>
+      <view class="td">{{item.responser}}</view>
+      <view class="td">{{item.tel}}</view>
     </view>
     <view class="tr" wx:else>
      <view class="td">{{item.code}}</view>
-      <view class="td">{{item.morning}}</view>
-      <view class="td">{{item.noon}}</view>
-      <view class="td">{{item.afternoon}}</view>
-      <view class="td">{{item.evening}}</view>
+      <view class="td">{{item.time}}</view>
+      <view class="td">{{item.association}}</view>
+      <view class="td">{{item.responser}}</view>
+      <view class="td">{{item.tel}}</view>
     </view>
   </block>
 </view>
