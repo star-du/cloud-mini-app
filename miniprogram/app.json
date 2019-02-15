@@ -16,6 +16,7 @@
     "pages/deployFunctions/deployFunctions",
     "pages/chooseLib/chooseLib",
     "pages/test/test",
+    "pages/printForm/printForm"
     "pages/navigator/navigator"
   ],
   "window": {
