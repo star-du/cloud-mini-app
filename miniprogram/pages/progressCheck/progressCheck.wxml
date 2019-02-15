@@ -47,6 +47,10 @@
             <view class="weui-form-preview__label">审批意见</view>
             <view class="weui-form-preview__value">{{it.check.comment}}</view>
           </view>
+
+          <view class='weui-form-preview__ft'>
+            <navigator url='../theForm/theForm?formid={{it.formid}}' class='weui-form-preview__btn weui-form-preview__btn_primary' hover-class='weui-form-preview__btn_active' extra-data=''>打印表单</navigator>
+          </view>
         
       </view>
       <!-- end wx:for -->

@@ -7,23 +7,17 @@ Page({
   },
 
   onLoad : function (options) {
-    function getFormid () {
-      let app = getApp();
-      let Formid = app.globalData.formFormid
-      return Formid
-    }
-    console.log('theForm界面得到的globalData.formFormid是'+getFormid())
-    const PAGE = this;
+    const PAGE =  this;
+    console.log("options:"+options.formid);
     db.collection('forms').where({
-      formid : Number(getFormid())
+      formid : Number(options.formid)
     }).get({
       success (e) {
         PAGE.setData({
-          progressList : e.data 
-        });
-        console.log(PAGE.data);
+          progressList: e.data || []
+        })
       },
       fail: console.error
-    })
+    });
   }
 })

@@ -15,10 +15,6 @@ Page({
       {
         name:'progressCheck',
         name_zh: '进度查询'
-      },
-      {
-        name: 'printForm',
-        name_zh: '打印表格'
       }
     ]
   },
