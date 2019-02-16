@@ -137,7 +137,7 @@ page {
 
 .rule {
   line-height: 200%;
-  margin-top: 40rpx;
+  margin-top: 230rpx;
   padding: 10rpx;
   width: 100%;
   background: #fff;
@@ -236,7 +236,17 @@ margin-top:10rpx;
 font-size: 80%;
 position:relative;
 right: 200rpx;
+padding:100rpx 0rpx 10rpx 0rpx;
 
 }
+.section__title{
+font-size: 1.5em;
+font-weight:700;
+}
+.picker{
+font-size: 1.1em;
+font-weight:700;
+}  
+
 
 
