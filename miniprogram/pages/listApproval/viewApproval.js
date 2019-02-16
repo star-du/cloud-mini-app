@@ -18,6 +18,7 @@ function fetchDB(PAGE) {
       if (x.check && x.check.comment) {
         PAGE.setData({ commentLength: x.check.comment.length });
       }
+      PAGE.setData({ "appr.check.approver": getApp().loginState.name });
     }
     else {
       console.error("Cannot get data");

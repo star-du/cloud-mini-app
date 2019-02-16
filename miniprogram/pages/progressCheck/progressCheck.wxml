@@ -1,4 +1,4 @@
-<!--miniprogram/pages/listApproval/listApproval.wxml-->
+<!--miniprogram/pages/progressCheck/progressCheck.wxml-->
 <view class="page">
   <view class="page__hd">
     <view class="page__title">审批状态</view>
@@ -28,15 +28,12 @@
           </view>
           <view class="weui-form-preview__item">
             <view class="weui-form-preview__label">申请人 / 联系方式</view>
-            <view class="weui-form-preview__value">{{it.event.name}} / {{it.event.tel}}</view>
+            <view class="weui-form-preview__value">{{it.event.responser}} / {{it.event.tel}}</view>
           </view>
           <view class="weui-form-preview__item">
             <view class="weui-form-preview__label">审批状态</view>
             <view class="weui-form-preview__value">
-            {{it.exam==0 ? '未审核' : ''}}
-            {{it.exam==1 ? '审核撤回' : ''}}
-            {{it.exam==2 ? '未通过' : ''}}
-            {{it.exam==3 ? '通过' : ''}}
+              {{it.exam==0 ? '未审核' : ''}} {{it.exam==1 ? '审核撤回' : ''}} {{it.exam==2 ? '未通过' : ''}} {{it.exam==3 ? '通过' : ''}}
             </view>
           </view>
           <view class="weui-form-preview__item" wx-if="{{it.check}}">
@@ -47,14 +44,18 @@
             <view class="weui-form-preview__label">审批意见</view>
             <view class="weui-form-preview__value">{{it.check.comment}}</view>
           </view>
-        <view class="weui-form-preview__ft">
-          <navigator url="" bindtap='cancel' class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">撤回申请</navigator>
+
+          <view class='weui-form-preview__ft'>
+            <navigator url='../theForm/theForm?formid={{it.formid}}' class='weui-form-preview__btn weui-form-preview__btn_primary' hover-class='weui-form-preview__btn_active' extra-data=''>打印表单</navigator>
+          </view>
+
         </view>
+        <!-- end wx:for -->
       </view>
-      <!-- end wx:for -->
-    </view>
     </block>
-    
-    <block wx:else></block>
+    <!-- end wx:if -->
+    <block wx:else>
+      <view>暂无申请</view>
+    </block>
   </view>
 </view>

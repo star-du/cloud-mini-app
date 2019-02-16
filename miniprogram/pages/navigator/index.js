@@ -20,7 +20,7 @@ Page({
       text: "已通过"
     }]
   },
-  onLoad: function () {
+  onLoad: function() {
     this.checkLogin();
     // 获取用户信息
     this.getUserInfo();
@@ -30,11 +30,13 @@ Page({
     }
   },
   /** 下拉动作刷新 */
-  onPullDownRefresh: function () {
-    this.updateNumber().then(() => { wx.stopPullDownRefresh(); });
+  onPullDownRefresh: function() {
+    this.updateNumber().then(() => {
+      wx.stopPullDownRefresh();
+    });
   },
   /** 点击登录按钮 */
-  userLogin: function () {
+  userLogin: function() {
     if (app.loginState.isLogin === false) {
       wx.login({
         success: this.getUserInfo
@@ -43,7 +45,7 @@ Page({
     }
   },
   /** 检查是否有授权并获取 userInfo */
-  getUserInfo: function () {
+  getUserInfo: function() {
     const that = this;
     wx.getSetting({
       success(res) {
@@ -54,15 +56,14 @@ Page({
               that.setData(r.userInfo);
             }
           })
-        }
-        else {
+        } else {
           console.log("No auth to scope.userInfo");
         }
       }
     });
   },
   /** 链接至教室申请/进度查询 */
-  navToBorrow: function (e) {
+  navToBorrow: function(e) {
     // console.log(e);
     const data = e.currentTarget.dataset;
     if (this.data.isLogin) {
@@ -77,7 +78,7 @@ Page({
     }
   },
   /** 链接至 listApproval */
-  navToApproval: function (e) {
+  navToApproval: function(e) {
     // console.log(e);
     const data = e.currentTarget.dataset;
     if (this.data.exam[data.flag].num) {
@@ -88,7 +89,7 @@ Page({
     }
   },
   /** 更新符合条件的审批的数量 */
-  updateNumber: function () {
+  updateNumber: function() {
     function updateSingle(flag, page) {
       return db.collection('forms').where({
         exam: flag
@@ -105,7 +106,7 @@ Page({
     return Promise.all(arr);
   },
   /** 检查用户登录状态 */
-  checkLogin: function () {
+  checkLogin: function() {
     const that = this;
     wx.checkSession({
       success: (res) => {
@@ -122,18 +123,23 @@ Page({
     });
   },
   /** 更新全局变量 app.loginState */
-  updateUserInfo: function (obj) {
-    app.loginState = obj;
-    this.setData(obj);
+  updateUserInfo: function(obj) {
+    const that = this;
+    return Promise.resolve().then(function() {
+      app.loginState = obj;
+      that.setData(obj);
+      return that;
+    });
   },
-  isUserAdmin: function () {
+  /** 检查用户是否是管理员 */
+  isUserAdmin: function() {
     if (app.loginState && typeof app.loginState === "object")
       return app.loginState.isLogin && app.loginState.isAdmin;
     else
       return false;
   },
   /** 调用云函数登录并修改页面状态 */
-  callCloudLogin: function (isShowToast) {
+  callCloudLogin: function(isShowToast) {
     const that = this;
     wx.cloud.callFunction({
       name: "login",
@@ -147,20 +153,22 @@ Page({
         });
       let R = res.result;
       R.isLogin = true;
-      that.updateUserInfo(R);
-      that.getUserInfo();
-      // 如果是管理员,获取各状态的数量
-      if (that.isUserAdmin()) {
-        that.updateNumber();
-      }
+      that.updateUserInfo(R).then(() => {
+        that.getUserInfo();
+        // 如果是管理员,获取各状态的数量
+        if (that.isUserAdmin()) {
+          that.updateNumber();
+        }
+      });
     }).catch((err) => {
       console.error("[login] call failed", err);
-      if (isShowToast)
+      if (isShowToast) {
         wx.showToast({
           title: "登录失败",
           icon: 'none',
           duration: 2000
         });
+      }
       that.updateUserInfo({
         isLogin: false
       });

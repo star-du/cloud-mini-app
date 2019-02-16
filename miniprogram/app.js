@@ -9,5 +9,6 @@ App({
         env: 'cloud-miniapp-96177b'
       });
     }
+    this.globalForm = {};
   }
 })

@@ -1,17 +1,12 @@
 {
   "pages": [
-    "pages/serviceHall/serviceHall",
+    "pages/navigator/index",
     "pages/borrowClassroom/borrowClassroom",
     "pages/listApproval/listApproval",
     "pages/listApproval/viewApproval",
     "pages/noticeBoard/index",
     "pages/progressCheck/progressCheck",
-    "pages/index/index",
-    "pages/addFunction/addFunction",
-    "pages/databaseGuide/databaseGuide",
-    "pages/storageConsole/storageConsole",
-    "pages/test/test",
-    "pages/userConsole/userConsole"
+    "pages/theForm/theForm"
   ],
   "window": {
     "backgroundColor": "#f6f6f6",
@@ -26,7 +21,7 @@
     "selectedColor": "#3cc51f",
     "list": [
       {
-        "pagePath": "pages/serviceHall/serviceHall",
+        "pagePath": "pages/navigator/index",
         "text": "办事大厅",
         "iconPath": "images/star.png",
         "selectedIconPath": "images/star.png"
@@ -36,12 +31,6 @@
         "text": "公告版",
         "iconPath": "images/notification.png",
         "selectedIconPath": "images/notification.png"
-      },
-      {
-        "pagePath": "pages/index/index",
-        "text": "quickstart",
-        "iconPath": "images/icon_component.png",
-        "selectedIconPath": "images/icon_component_HL.png"
       }
     ]
   }

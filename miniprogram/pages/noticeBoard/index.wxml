@@ -1,15 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-
-  <!-- 用户 openid -->
-  <view class="userinfo">
-    <button open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar" style="background-image: url({{avatarUrl}})"></button>
-    <view>
-      <button class="userinfo-nickname" bindtap="onGetOpenid">点击获取 openid</button>
-    </view>
-  </view>
   <!-- 公告 -->
-
   <view class="rule">
     <view class='title' data-index='1' catchtap='panel'>
       <view class='rule1'>注意事项及后续流程</view>
@@ -19,6 +10,7 @@
       <text class="rule-text">{{text}}</text>
     </view>
   </view>
+
   <!-- 具体日期选择 -->
   <view class="section">
     <view class="section__title">请选择查询日期:</view>
@@ -30,29 +22,29 @@
   </view>
 
   <!-- 表格样式 -->
-  <view class="table">
+  <scroll-view class="table" scroll-x>
     <view class="tr bg-w">
       <view class="th">房间号</view>
-      <view class="th">早上</view>
-      <view class="th">中午</view>
-      <view class="th">下午</view>
-      <view class="th">晚上</view>
+      <view class="th">时间</view>
+      <view class="th">协会名称</view>
+      <view class="th">负责人</view>
+      <view class="th">联系方式</view>
     </view>
     <block wx:for="{{listData}}" wx:key="{{code}}">
       <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
         <view class="td">{{item.code}}</view>
-        <view class="td">{{item.morning}}</view>
-        <view class="td">{{item.noon}}</view>
-        <view class="td">{{item.afternoon}}</view>
-        <view class="td">{{item.evening}}</view>
+        <view class="td">{{item.time}}</view>
+        <view class="td">{{item.association}}</view>
+        <view class="td">{{item.responser}}</view>
+        <view class="td">{{item.tel}}</view>
       </view>
       <view class="tr" wx:else>
         <view class="td">{{item.code}}</view>
-        <view class="td">{{item.morning}}</view>
-        <view class="td">{{item.noon}}</view>
-        <view class="td">{{item.afternoon}}</view>
-        <view class="td">{{item.evening}}</view>
+        <view class="td">{{item.time}}</view>
+        <view class="td">{{item.association}}</view>
+        <view class="td">{{item.responser}}</view>
+        <view class="td">{{item.tel}}</view>
       </view>
     </block>
-  </view>
+  </scroll-view>
 </view>
