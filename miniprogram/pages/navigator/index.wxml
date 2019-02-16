@@ -1,28 +1,23 @@
-<!--miniprogram/pages/serviceHall/serviceHall.wxml-->
+<!--miniprogram/pages/navigator/index.wxml-->
 <view class="page">
-  <view class="userinfo">
-    <block wx:if="{{isLogin}}">
+  <view class="page__bd">
+    <view class="userinfo" wx:if="{{isLogin}}">
       <button class="userinfo-avatar" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="background-image: url({{avatarUrl}})"></button>
       <view class="userinfo-nickname">{{isAdmin ? name : nickName}}</view>
-    </block>
-    <view wx:else>
-      <button class="userinfo-nickname" bindtap="userLogin" open-type="getUserInfo" style="color: #007aff">点击登录</button>
     </view>
-  </view>
-  <view class="page__bd">
+    <view wx:else style="padding:5px;">
+      <button class="weui-btn" bindtap="userLogin" open-type="getUserInfo" type="primary">点击登录</button>
+    </view>
     <view class="weui-panel weui-panel_access">
-      <view class="weui-panel__hd">场地借用</view>
       <view class="weui-panel__bd">
-        <view class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="../borrowClassroom/borrowClassroom">
-          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-            <view class="weui-media-box__title">借用教室申请</view>
-            <view class="weui-media-box__desc">... ...</view>
+        <view class="weui-flex">
+          <view class="weui-flex__item" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="../borrowClassroom/borrowClassroom">
+            <image class="flex-icon" src="../../assets/borrowClassroom.png" mode="aspectFit"></image>
+            <view>教室借用</view>
           </view>
-        </view>
-        <view class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="../progressCheck/progressCheck">
-          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-            <view class="weui-media-box__title">借用进度查询</view>
-            <view class="weui-media-box__desc">... ...</view>
+          <view class="weui-flex__item" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="../progressCheck/progressCheck">
+            <image class="flex-icon" src="../../assets/progressCheck.png" mode="aspectFit"></image>
+            <view>进度查询</view>
           </view>
         </view>
       </view>

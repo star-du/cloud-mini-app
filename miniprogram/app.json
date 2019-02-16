@@ -23,14 +23,14 @@
       {
         "pagePath": "pages/navigator/index",
         "text": "办事大厅",
-        "iconPath": "images/star.png",
-        "selectedIconPath": "images/star.png"
+        "iconPath": "assets/hall.png",
+        "selectedIconPath": "assets/hall-HL.png"
       },
       {
         "pagePath": "pages/noticeBoard/index",
         "text": "公告版",
-        "iconPath": "images/notification.png",
-        "selectedIconPath": "images/notification.png"
+        "iconPath": "assets/notification.png",
+        "selectedIconPath": "assets/notification-HL.png"
       }
     ]
   }

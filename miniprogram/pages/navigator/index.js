@@ -1,4 +1,4 @@
-// miniprogram/pages/serviceHall/serviceHall.js
+// miniprogram/pages/navigator/index.js
 wx.cloud.init();
 const db = wx.cloud.database();
 const app = getApp();
@@ -31,9 +31,12 @@ Page({
   },
   /** 下拉动作刷新 */
   onPullDownRefresh: function() {
-    this.updateNumber().then(() => {
-      wx.stopPullDownRefresh();
-    });
+    return Promise.all([this.checkLogin(), this.getUserInfo()])
+      .then(() => {
+        this.updateNumber()
+      }).then(() => {
+        wx.stopPullDownRefresh();
+      });
   },
   /** 点击登录按钮 */
   userLogin: function() {
@@ -53,9 +56,10 @@ Page({
           // 已授权,可以直接调用 getUserInfo
           wx.getUserInfo({
             success(r) {
+              console.log("Fetch userInfo");
               that.setData(r.userInfo);
             }
-          })
+          });
         } else {
           console.log("No auth to scope.userInfo");
         }

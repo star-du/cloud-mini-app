@@ -1,12 +1,12 @@
-/* miniprogram/pages/serviceHall/serviceHall.wxss */
+/* miniprogram/pages/navigator/index.wxss */
 @import "../../assets/weui.wxss";
 
 page {
-  background: #f6f6f6;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  background: #f6f6f6;
   box-sizing: border-box;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .userinfo {
@@ -51,20 +51,19 @@ page {
   padding-bottom: 40px;
 }
 
-.page__ft {
-  padding-bottom: 10px;
+.weui-flex__item {
+  box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  border-radius: 24px;
+  flex-direction: column;
+  height: 90px;
+  margin: 25rpx;
+  min-height: 75px;
+  padding: 4px;
   text-align: center;
 }
 
-.page__title {
-  text-align: left;
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.page__desc {
-  margin-top: 5px;
-  color: #888;
-  text-align: left;
-  font-size: 14px;
+.flex-icon {
+  height: 48px;
+  width: 48px;
 }

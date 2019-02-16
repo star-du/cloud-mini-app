@@ -2,6 +2,8 @@
 
 ---
 
+## forms
+
  Field Name     | Type   | Description
 ---------------:| ------ | ------------------------
 _openid         | String | 微信公开id, 用于区别用户
@@ -46,4 +48,4 @@ exam | Description
 3    | 审核, 通过
 
 
-
+## adminInfo

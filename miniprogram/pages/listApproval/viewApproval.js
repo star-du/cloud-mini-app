@@ -1,7 +1,6 @@
 // miniprogram/pages/listApproval/viewApproval.js
 wx.cloud.init();
 const db = wx.cloud.database();
-const base64 = require("images/base64");
 
 function toDate(d) {
   return d instanceof Date ? d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() : "";
@@ -28,7 +27,6 @@ function fetchDB(PAGE) {
 
 Page({
   data: {
-    icon: base64.icon20,
     examState: ["未审批", "撤回", "未通过", "通过"],
     commentLength: 0,
     maxCommentLength: 100
@@ -36,7 +34,7 @@ Page({
   onLoad: function (options) {
     // get url_get info
     console.log(options);
-    if (!options.id || !(/[0-9A-Za-z]{16}/.test(options.id))) {
+    if (!options.id || !(/[0-9A-Za-z_-]{16}/.test(options.id))) {
       wx.showToast({
         title: "无效访问",
         icon: "none",
