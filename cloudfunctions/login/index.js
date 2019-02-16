@@ -9,8 +9,7 @@ exports.main = (event, context) => {
   console.log(event, context);
   // 获取 WX Context (微信调用上下文)，包括 OPENID、APPID、及 UNIONID（需满足 UNIONID 获取条件）
   const wxContext = cloud.getWXContext();
-  const db = cloud.database();
-  return db.collection("adminInfo").where({
+  return cloud.database().collection("adminInfo").where({
     openid: wxContext.OPENID
   }).get().then(r => {
     console.log(r);
@@ -26,8 +25,13 @@ exports.main = (event, context) => {
       return {
         openid: wxContext.OPENID,
         unionid: wxContext.UNIONID,
-        isAdmin: false,
+        isAdmin: false
       };
+    }
+  }).catch(err => {
+    return {
+      err: true,
+      errMsg: err
     }
   });
 }
