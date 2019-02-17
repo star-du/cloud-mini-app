@@ -1,49 +1,36 @@
 {
   "pages": [
-    "pages/Login/Login",
-    "pages/navigator/navigator",
-    "pages/admin/admin",
-    "pages/index/index",
+    "pages/navigator/index",
     "pages/borrowClassroom/borrowClassroom",
     "pages/listApproval/listApproval",
     "pages/listApproval/viewApproval",
     "pages/noticeBoard/index",
     "pages/progressCheck/progressCheck",
-    "pages/serviceCenter/index",
-    "pages/userConsole/userConsole",
-    "pages/storageConsole/storageConsole",
-    "pages/databaseGuide/databaseGuide",
-    "pages/addFunction/addFunction",
-    "pages/deployFunctions/deployFunctions",
-    "pages/chooseLib/chooseLib",
-    "pages/test/test",
-    "pages/printForm/printForm",
     "pages/theForm/theForm"
   ],
   "window": {
-    "backgroundColor": "#F6F6F6",
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "场地借用系统",
-    "navigationBarTextStyle": "black"
+    "backgroundColor": "#f6f6f6",
+    "navigationBarBackgroundColor": "#f6f6f6",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "场地借用系统"
   },
   "tabBar": {
-    "color": "#7A7E83",
-    "selectedColor": "#3cc51f",
-    "borderStyle": "black",
     "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "color": "#7a7e83",
+    "selectedColor": "#3cc51f",
     "list": [
       {
-        "pagePath": "pages/Login/Login",
-        "text": "登录",
-        "iconPath": "images/login.png",
-        "selectedIconPath": "images/login.png"
+        "pagePath": "pages/navigator/index",
+        "text": "办事大厅",
+        "iconPath": "assets/hall.png",
+        "selectedIconPath": "assets/hall-HL.png"
       },
       {
         "pagePath": "pages/noticeBoard/index",
         "text": "公告版",
-        "iconPath": "images/notification.png",
-        "selectedIconPath": "images/notification.png"
+        "iconPath": "assets/notification.png",
+        "selectedIconPath": "assets/notification-HL.png"
       }
     ]
   }

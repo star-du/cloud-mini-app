@@ -8,7 +8,7 @@
     <view class="weui-cells__title">借用信息</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
-        <view class="weui-cell__bd">教室编号</view>
+        <view class="weui-cell__bd">教室</view>
         <view class="weui-cell__ft">{{appr.classroomNumber}}</view>
       </view>
       <view class="weui-cell">
@@ -21,28 +21,28 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 3px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../assets/tags.png"></image>
         </view>
         <view class="weui-cell__bd">社团/学生组织</view>
         <view class="weui-cell__ft">{{appr.event.association}}</view>
       </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 3px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../assets/user.png"></image>
         </view>
         <text class="weui-cell__bd">申请人</text>
         <view class="weui-cell__ft">{{appr.event.responser}}</view>
       </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 3px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../assets/tel.png"></image>
         </view>
         <text class="weui-cell__bd">联系方式</text>
         <view class="weui-cell__ft">{{appr.event.tel}}</view>
       </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 3px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../assets/clock.png"></image>
         </view>
         <view class="weui-cell__bd">申请时间</view>
         <view class="weui-cell__ft">{{appr.submitDate}}</view>
