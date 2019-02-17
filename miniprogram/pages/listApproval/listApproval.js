@@ -5,7 +5,7 @@ const db = wx.cloud.database();
 
 function toDate(d) {
   d = new Date(d);
-  return d.getFullYear().toString().substr(2) + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+  return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 }
 
 Page({

@@ -1,4 +1,4 @@
-/* miniprogram/pages/listApproval/listApproval.wxss */
+/* miniprogram/pages/progressCheck/progressCheck.wxss */
 @import "../../assets/weui.wxss";
 
 page {

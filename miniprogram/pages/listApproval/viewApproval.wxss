@@ -41,3 +41,10 @@ page {
 .weui-textarea {
   height: 4em;
 }
+
+.weui-cell__hd image {
+  margin: 0px 4px;
+  vertical-align: middle;
+  width: 18px;
+  height: 18px;
+}
