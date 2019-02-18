@@ -1,24 +1,22 @@
 <!--index.wxml-->
 <view class="container">
-  <!-- 公告 -->
-  <view class="rule">
-    <view class='title' data-index='1' catchtap='panel'>
-      <view class='rule1' wx:if="{{showIndex == 0}}">注意事项及后续流程 ↓</view>
-      <view class='rule1' wx:if="{{showIndex == 1}}">注意事项及后续流程 ↑</view>
-      <!-- <view class=" {{showIndex == 1 ? 'title_3' : 'title_2' }} "></view> -->
+<!-- 具体日期选择 -->
+ <view class="section">
+   <view class="section__title">请选择查询日期:</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">当前选择</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker mode="date" value="{{date}}" start="2019-01-01" end="2999-01-01" bindchange="bindDateChange" name='eventDate'>
+            <view class="weui-input">{{date}}</view>
+          </picker>
+        </view>
+      </view>
     </view>
-     <view  wx:if="{{showIndex == 1}}"><text class="rule-text">{{text}}</text></view>
   </view>
 
-  <!-- 具体日期选择 -->
-  <view class="section">
-    <view class="section__title">请选择查询日期:</view>
-    <picker mode="date" value="{{date}}" start="2019-01-01" end="2020-01-01" bindchange="bindDateChange">
-      <view class="picker">
-        当前选择: {{date}}
-      </view>
-    </picker>
-  </view>
 
   <!-- 表格样式 -->
   <scroll-view class="table" scroll-x>
@@ -46,4 +44,14 @@
       </view>
     </block>
   </scroll-view>
+   <!-- 公告 -->
+   <view class="rule">
+    <view class='title' data-index='1' catchtap='panel'>
+      <view class='rule1' wx:if="{{showIndex == 0}}">↓ 注意事项及后续流程 ↓</view>
+      <view class='rule1' wx:if="{{showIndex == 1}}">↑ 注意事项及后续流程 ↑</view>
+      <!-- <view class=" {{showIndex == 1 ? 'title_3' : 'title_2' }} "></view> -->
+    </view>
+     <view  wx:if="{{showIndex == 1}}"><text class="rule-text">{{text}}</text></view>
+  </view>
+
 </view>

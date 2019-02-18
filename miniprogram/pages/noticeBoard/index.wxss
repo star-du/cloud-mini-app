@@ -188,16 +188,15 @@ page {
 .section {
   font-size: 80%;
   position: relative;
-  right: 200rpx;
+  left: 0rpx;
+  
 }
 .section__title{
-font-size: 1.5em;
-font-weight:700;
+  font-size: 1.5em;
+  font-weight:700;
+  margin-left: 40rpx;
+
 }
-.picker{
-font-size: 1.1em;
-font-weight:700;
-}  
 
 
 
