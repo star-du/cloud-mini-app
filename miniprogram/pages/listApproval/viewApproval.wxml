@@ -19,30 +19,18 @@
 
     <view class="weui-cells__title">活动信息</view>
     <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell">
-        <view class="weui-cell__hd">
-          <image src="../../assets/tags.png"></image>
+      <block wx:for="{{eventInfo}}" wx:for-index="i" wx:for-item="it" wx:key="name">
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            <image src="{{'../../assets/' + it.badge}}" mode="aspectFit"></image>
+          </view>
+          <view class="weui-cell__bd" style="min-width: 72px;">{{it.name}}</view>
+          <text class="weui-cell__ft">{{appr.event[it.value]}}</text>
         </view>
-        <view class="weui-cell__bd">社团/学生组织</view>
-        <view class="weui-cell__ft">{{appr.event.association}}</view>
-      </view>
+      </block>
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="../../assets/user.png"></image>
-        </view>
-        <text class="weui-cell__bd">申请人</text>
-        <view class="weui-cell__ft">{{appr.event.responser}}</view>
-      </view>
-      <view class="weui-cell">
-        <view class="weui-cell__hd">
-          <image src="../../assets/tel.png"></image>
-        </view>
-        <text class="weui-cell__bd">联系方式</text>
-        <view class="weui-cell__ft">{{appr.event.tel}}</view>
-      </view>
-      <view class="weui-cell">
-        <view class="weui-cell__hd">
-          <image src="../../assets/clock.png"></image>
+          <image src="../../assets/time.png" mode="aspectFit"></image>
         </view>
         <view class="weui-cell__bd">申请时间</view>
         <view class="weui-cell__ft">{{appr.submitDate}}</view>

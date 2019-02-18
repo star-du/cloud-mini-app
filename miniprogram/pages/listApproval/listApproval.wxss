@@ -47,7 +47,7 @@ page {
 }
 
 .weui-form-preview__ft{
-  line-height: 40px;
+  line-height: 42px;
   letter-spacing: 4px;
   border-bottom: 1px #f8f8f8 solid;
 }

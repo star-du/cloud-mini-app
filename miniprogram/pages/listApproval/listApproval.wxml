@@ -2,7 +2,7 @@
 <view class="page">
   <view class="page__hd">
     <view class="page__title">审批状态</view>
-    <view class="page__desc">一个月内的审批</view>
+    <view class="page__desc">{{expire}}内的审批</view>
   </view>
   <view class="page__bd">
     <block wx:if="{{progressList.length}}">
@@ -37,6 +37,8 @@
       </view>
       <!-- end wx:for -->
     </block>
-    <block wx:else></block>
+    <block wx:else>
+      <text>暂无</text>
+    </block>
   </view>
 </view>

@@ -8,18 +8,23 @@ function toDate(d) {
 
 function fetchDB(PAGE) {
   return db.collection('forms').doc(PAGE.data.id).get().then(res => {
-    console.log(res.data);
+    console.log("get database", res.data);
     if (res.data) {
       let x = res.data;
       x.submitDate = toDate(x.submitDate);
       x.eventDate = toDate(new Date(x.eventDate));
-      PAGE.setData({ appr: x || {} });
+      PAGE.setData({
+        appr: x || {}
+      });
       if (x.check && x.check.comment) {
-        PAGE.setData({ commentLength: x.check.comment.length });
+        PAGE.setData({
+          commentLength: x.check.comment.length
+        });
       }
-      PAGE.setData({ "appr.check.approver": getApp().loginState.name });
-    }
-    else {
+      PAGE.setData({
+        "appr.check.approver": getApp().loginState.name
+      });
+    } else {
       console.error("Cannot get data");
     }
   });
@@ -29,9 +34,30 @@ Page({
   data: {
     examState: ["未审批", "撤回", "未通过", "通过"],
     commentLength: 0,
-    maxCommentLength: 100
+    maxCommentLength: 100,
+    eventInfo: [{
+      badge: "group.png",
+      name: "社团/学生组织",
+      value: "association"
+    }, {
+      badge: "user.png",
+      name: "申请人",
+      value: "responser"
+    }, {
+      badge: "phone.png",
+      name: "联系方式",
+      value: "name"
+    }, {
+      badge: "bookmark.png",
+      name: "活动名称",
+      value: "name"
+    }, {
+      badge: "flag.png",
+      name: "活动内容",
+      value: "content"
+    }]
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
     // get url_get info
     console.log(options);
     if (!options.id || !(/[0-9A-Za-z_-]{16}/.test(options.id))) {
@@ -40,7 +66,13 @@ Page({
         icon: "none",
         mask: true,
         duration: 3000,
-        complete() { setTimeout(() => { wx.navigateBack({ delta: 1 }); }, 3200); }
+        complete() {
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: 1
+            });
+          }, 3200);
+        }
       });
       return;
     }
@@ -49,15 +81,20 @@ Page({
     fetchDB(this);
   },
   /* 用户下拉动作刷新 */
-  onPullDownRefresh: function () {
-    fetchDB(this).then(() => { wx.stopPullDownRefresh(); });
+  onPullDownRefresh: function() {
+    fetchDB(this).then(() => {
+      wx.stopPullDownRefresh();
+    });
   },
-  submit: function (e) {
+  submit: function(e) {
     const flag = Number(e.detail.target.dataset.flag);
     const value = e.detail.value;
     console.log(flag, value, this.data.id);
     const PAGE = this;
-    wx.showLoading({ title: "提交中", mask: true });
+    wx.showLoading({
+      title: "提交中",
+      mask: true
+    });
     // call cloud function
     wx.cloud.callFunction({
       name: 'updateApproval',
@@ -77,8 +114,7 @@ Page({
           duration: 2000,
           mask: true
         });
-      }
-      else {
+      } else {
         wx.showToast({
           title: "提交成功",
           icon: "success",
@@ -90,7 +126,7 @@ Page({
     });
   },
   //统计输入长度
-  userInput: function (e) {
+  userInput: function(e) {
     console.log(e.detail.value.length);
     this.setData({
       commentLength: e.detail.value.length

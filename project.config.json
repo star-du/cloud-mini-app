@@ -6,7 +6,9 @@
     "es6": true,
     "postcss": true,
     "minified": true,
-    "newFeature": true
+    "newFeature": true,
+    "autoAudits": false,
+    "uglifyFileName": true
   },
   "appid": "wx659e3245769d466c",
   "projectname": "cloud_miniapp",

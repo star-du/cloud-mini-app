@@ -1,13 +1,11 @@
 # 数据库规范
 
----
-
 ## forms
 
  Field Name     | Type   | Description
 ---------------:| ------ | ------------------------
 _openid         | String | 微信公开id, 用于区别用户
-formid          | Number | 表单编号
+formid          | Number | 表单编号 `yyyy\d{5}`
 check           | Object | 审核的详细信息, 详见下
 classroomNumber | String | 教室编号
 event           | Object | 活动的详细内容, 详见下
