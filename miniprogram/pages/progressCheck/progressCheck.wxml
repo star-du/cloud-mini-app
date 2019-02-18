@@ -2,7 +2,6 @@
 <view class="page">
   <view class="page__hd">
     <view class="page__title">审批状态</view>
-    <view class="page__desc">查看</view>
   </view>
   <view class="page__bd">
     <block wx:if="{{progressList.length}}">
