@@ -56,12 +56,12 @@ Page({
           // 已授权,可以直接调用 getUserInfo
           wx.getUserInfo({
             success(r) {
-              console.log("Fetch userInfo");
+              console.log("[getUserInfo] seccess.");
               that.setData(r.userInfo);
             }
           });
         } else {
-          console.log("No auth to scope.userInfo");
+          console.log("No auth to 'scope.userInfo'.");
         }
       }
     });
@@ -85,10 +85,10 @@ Page({
   navToApproval: function(e) {
     // console.log(e);
     const data = e.currentTarget.dataset;
-    if (this.data.exam[data.flag].num) {
+    if (this.data.exam[data.idx].num && data.urlget.length > 0) {
       console.log("navigateTo", data);
       wx.navigateTo({
-        url: '../listApproval/listApproval?flag=' + data.flag
+        url: '../listApproval/listApproval?' + data.urlget
       });
     }
   },
