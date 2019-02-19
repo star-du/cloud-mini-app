@@ -6,7 +6,8 @@
     "pages/listApproval/viewApproval",
     "pages/noticeBoard/index",
     "pages/progressCheck/progressCheck",
-    "pages/theForm/theForm"
+    "pages/theForm/theForm",
+    "pages/common/foot"
   ],
   "window": {
     "backgroundColor": "#f6f6f6",

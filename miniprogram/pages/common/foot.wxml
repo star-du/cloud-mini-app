@@ -1,0 +1,5 @@
+<template name="foot">
+  <navigator class="weui-footer" openType="" url="" hover-class="none">
+    <image src="../../assets/footer.png" style="width: 220px; height: 35px" class="icon-foot"></image>
+  </navigator>
+</template>
