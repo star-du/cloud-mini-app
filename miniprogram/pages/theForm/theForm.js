@@ -3,6 +3,7 @@ const db=wx.cloud.database();
 
 Page({
   data:{
+    examState: ["未审批", "撤回", "未通过", "通过"],
     progressList:[]
   },
 

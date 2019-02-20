@@ -2,8 +2,10 @@
 const db = wx.cloud.database();
 const forms = db.collection('forms');
 
+function toDate(d) {
+  return d instanceof Date ? d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() : "";
+}
 
-var rule = '\n1、请至少提前两天准备好活动策划。在Hust社联场地借用小程序上申请借用教室，并将策划电子版以“36号楼教室借用＋协会名称＋日期”的方式命名发送至秘书部公邮mishu@hustau.com。审批情况可在小程序上查询，通过者可将确认单打印；\n2、使用教室的当天须将教室借用确认单打印成纸质版（双面打印）交至36号楼1楼社联值班室，并在教室借用表上进行借用登记；\n3、建议申请前先查询教室是否空闲，查询方式：Hust社联场地借用小程序-公告版； \n4、房间钥匙放置于36号楼1楼社联值班室内，教室使用结束后请将门锁好并把钥匙放回原位；\n5、普通教室须有活动负责人陪同使用并保证器材设备完好，活动结束后请将教室清理干净、桌椅归位，如发现教室卫生及器材损坏问题将影响未来二次借用，谢谢配合；\n6、如有任何疑问，请联系36号楼教室借用负责人 白依萱：13621381497。'
 const app = getApp()
 Page({
   data: {
@@ -12,7 +14,7 @@ Page({
     logged: false,
     takeSession: false,
     requestResult: '',
-    text: rule,
+    text: app.globalData.rule,
     showIndex: 0,
     listData: [
       { "code": "", "time": "", "association": "", "responser": "", "tel": "" }],
@@ -47,10 +49,13 @@ Page({
 
 
   onLoad: function () {
+    //console.log(toDate(new Date()));
     this.setData({
       listData: [
-        { "code": "", "time": "", "association": "", "responser": "", "tel": "" }]
+        { "code": "", "time": "", "association": "", "responser": "", "tel": "" }],
+        date: toDate(new Date())
     })
+
     db.collection('forms').where({
       exam: db.command.eq(3),
       eventDate: this.data.date
