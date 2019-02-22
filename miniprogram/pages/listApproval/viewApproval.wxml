@@ -39,7 +39,7 @@
 
     <view class="weui-cells__title">审批情况</view>
     <!-- form begin -->
-    <form bindsubmit='submit'>
+    <form bindsubmit="submit">
       <view class="weui-cells weui-cells_after-title">
         <view wx:if="{{appr.exam}}" class="weui-cell">
           <view class="weui-cell__bd">审批状态</view>

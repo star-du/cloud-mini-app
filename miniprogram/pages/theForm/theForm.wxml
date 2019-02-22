@@ -3,14 +3,14 @@
     <view class="page__title">借用确认单</view>
   </view>
   <view class="page__bd">
-  <view class="weui-form-preview" wx:for="{{progressList}}" wx:for-index="i" wx:for-item="it" wx:key="id">
+    <view class="weui-form-preview" wx:for="{{progressList}}" wx:for-index="i" wx:for-item="it" wx:key="id">
       <view class="weui-form-preview__bd">
 
         <view class="weui-form-preview__item">
           <view class="weui-form-preview__label">协会名称</view>
           <view class="weui-form-preview__value">{{it.event.association}}</view>
         </view>
-        
+
         <view class="weui-form-preview__item">
           <view class="weui-form-preview__label">活动名称</view>
           <view class="weui-form-preview__value">{{it.event.name}}</view>
@@ -62,6 +62,6 @@
         </view>
 
       </view>
-  </view>
+    </view>
   </view>
 </view>

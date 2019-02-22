@@ -47,7 +47,7 @@ Page({
 
     //TODO:仿照hustauEntrance:join-us中对不同错误给出不同提示
 
-    if (PAGE.data.index === 0 || !judge.test(formsData["responserPhone"])) {
+    if (PAGE.data.index === 0 || !judge.test(formsData["phone"])) {
       wx.showModal({
         title: "提交失败",
         content: "请检查表单填写是否正确",
@@ -75,7 +75,7 @@ Page({
                 content: formsData["eventContent"],
                 name: formsData["eventName"],
                 responser: formsData["eventResponser"],
-                tel: formsData["responserPhone"]
+                tel: formsData["phone"]
               },
               submitDate: new Date(),
               exam: 0
