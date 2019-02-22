@@ -16,6 +16,13 @@ Page({
   },
 
   onLoad() {
+    wx.showModal({
+      title: '注意事项',
+      content: app.globalData.rule,
+      showCancel: false,
+      confirmText: '好',
+    })
+    
     const PAGE = this; // 使得get回调函数可以访问this.setData
     // 获取db数据
     /*
@@ -77,7 +84,14 @@ Page({
               console.log("Successfully add to db!")
               wx.showModal({
                 title: '提交成功',
-                content: '请耐心等待审核结果',
+                content: '请将策划案发送至公邮mishu@hustau.com，并耐心等待审核结果',
+                success: function (res){
+                  if(res.confirm){
+                    wx.navigateBack({
+                      delta:1
+                    })
+                  }
+                }
               })
             }
           });

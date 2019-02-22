@@ -1,97 +1,143 @@
-<view class="container">
-  <form bindsubmit='submit'>
+<view class='page'>
+  <view class='page__hd'>
+    <view class="page__title">借用填表</view>
+    <view class='page__desc'></view>
+  </view>
 
-    <view id="form_associationName">
-      <text>协会名称:</text>
-      <input name="associationName" class="form_input" placeholder='' />
-    </view>
-
-    <view id="form_eventName">
-      <text>活动名称:</text>
-      <input name="eventName" class="form_input" placeholder='' />
-    </view>
-
-    <view id="form_attendNumber">
-      <text>参加人数:</text>
-      <input name="attendNumber" class="form_input" type="number" placeholder="" />
-    </view>
-
-    <view class="picker——title">活动日期:</view>
+<view class='pege__bd'>
+    <form bindsubmit='submit'>
     <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">协会名称</view>
+      </view>
+      
+      <view class="weui-cell__bd">
+        <input class="weui-input" name="associationName" placeholder="" />
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">活动名称</view>
+      </view>
+      
+      <view class="weui-cell__bd">
+        <input class="weui-input" name="eventName" placeholder="" />
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">参加人数</view>
+      </view>
+      
+      <view class="weui-cell__bd">
+        <input class="weui-input" name="attendNumber" type="number" placeholder="" />
+      </view>
+    </view>
+
+    </view>
+  
+
+    <view class="weui-cells__title">活动日期</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_select">
         <view class="weui-cell__hd">
-          <view class="weui-label">当前选择</view>
+        <view class="weui-label"> 当前选择</view>
         </view>
-        <view class="weui-cell__bd">
-          <picker mode="date" value="{{date}}" start="2019-01-01" end="2999-01-01" bindchange="bindDateChange">
-            <view class="weui-input">{{date}}</view>
+        <view class="weui-cell__bd">     
+          <picker mode="date" value="{{date}}" start="2019-01-01" end="2999-01-01" bindchange="bindDateChange" name='eventDate'>
+            <view class="weui-select">{{date}}</view>
           </picker>
         </view>
       </view>
     </view>
+  
 
 
 
-    <view id="form_eventTime">
-      <view class='picker_title'>活动时间:</view>
+      <view class='weui-cells__title'>活动时间</view>
       <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell_hd">
-            <view class="weui-label">当前选择</view>
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd">
+            <view class="weui-label"> 当前选择</view>
           </view>
-          <view class="weui-cell_bd">
-            <picker mode="time" value="{{time1}}" start="07:00" end="22:00" bindchange="bindTimeChange1">
+          <view class="weui-cell__bd">
+            <picker mode="time" value="{{time1}}" start="07:00" end="22:00" bindchange="bindTimeChange1" name='eventTime1'>
               <view class="weui-input">{{time1}}</view>
             </picker>
           </view>
         </view>
       </view>
+
       <view class="weui-cells__title">至</view>
       <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell_hd">
-            <view class="weui-label">当前选择</view>
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd">
+            <view class="weui-label"> 当前选择</view>
           </view>
           <view class="weui-cell__bd">
-            <picker mode="time" value="{{time2}}" start="07:01" end="22:00" bindchange="bindTimeChange2">
+            <picker mode="time" value="{{time2}}" start="07:01" end="22:00" bindchange="bindTimeChange2" name='eventTime2'>
               <view class="weui-input">{{time2}}</view>
             </picker>
           </view>
         </view>
       </view>
 
-    </view>
 
-    <view id="form_classroomNumber">
-      <view class='picker_title'>借用教室编号:</view>
+      <view class='weui-cells__title'>借用教室编号</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__bd">
-            <picker mode="selector" bindchange="bindNumberChange" value="{{index}}" range="{{array}}">
+            <picker mode="selector" bindchange="bindNumberChange" value="{{index}}" range="{{array}}" name='classroomNumber'>
               <view class="weui-select">{{array[index]}}</view>
             </picker>
           </view>
         </view>
       </view>
+
+
+
+    <view class="weui-cells__title">活动内容</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_form">
+        
+          <view class="weui-cell__bd">
+            <!-- <input class="weui-input" name="eventContent" placeholder="" /> -->
+            <textarea class="weui-textarea"  name="eventContent" placeholder="" rows="3"></textarea>
+            <!-- <div class="weui-textarea-counter"><span>0</span>/200</div> -->
+          </view>
+        </view>
     </view>
 
-    <view id="form_eventContent">
-      <text>活动内容:</text>
-      <input name="eventContent" class="form_input2" placeholder='' />
+    <view class='weui-cells__title'>活动详情</view>
+    <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">活动负责人</view>
+      </view>
+      
+      <view class="weui-cell__bd">
+        <input class="weui-input" name="eventResponser" placeholder="" />
+      </view>
     </view>
 
-    <view id="form_eventResponser">
-      <text>活动负责人:</text>
-      <input name="eventResponser" class="form_input" placeholder='' />
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">联系方式</view>
+      </view>
+      
+      <view class="weui-cell__bd">
+        <input class="weui-input" name="responserPhone" placeholder="" />
+      </view>
+    </view>
     </view>
 
-    <view id="form_responserPhone">
-      <text>活动负责人的联系方式:</text>
-      <input name="responserPhone" class="form_input" placeholder='' />
-    </view>
-
-
+    <view class="weui-btn-area">
     <button type="primary" form-type='submit'>提交</button>
-
+    </view>
   </form>
+
+</view>
 </view>

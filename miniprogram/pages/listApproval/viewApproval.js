@@ -46,7 +46,7 @@ Page({
     }, {
       badge: "phone.png",
       name: "联系方式",
-      value: "name"
+      value: "tel"
     }, {
       badge: "bookmark.png",
       name: "活动名称",

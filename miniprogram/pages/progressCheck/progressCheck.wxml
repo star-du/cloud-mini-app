@@ -2,9 +2,17 @@
 <view class="page">
   <view class="page__hd">
     <view class="page__title">审批状态</view>
-    <view class="page__desc">查看</view>
   </view>
   <view class="page__bd">
+       <!-- 公告 -->
+   <view class="rule weui-cells" style="padding-bottom:5px;">
+    <view class='title' data-index='1' catchtap='panel'>
+      <view class='rule1' wx:if="{{showIndex == 0}}">↓ 注意事项及后续流程 ↓</view>
+      <view class='rule1' wx:if="{{showIndex == 1}}">↑ 注意事项及后续流程 ↑</view>
+    </view>
+     <view  wx:if="{{showIndex == 1}}"><text class="rule-text">{{rule}}</text></view>
+  </view>
+
     <block wx:if="{{progressList.length}}">
       <view class="weui-form-preview" wx:for="{{progressList}}" wx:for-index="i" wx:for-item="it" wx:key="id">
         <view class="weui-form-preview__hd">

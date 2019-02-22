@@ -1,4 +1,5 @@
 /**index.wxss**/
+@import "../../assets/weui.wxss";
 
 page {
   background: #f6f6f6;
@@ -100,16 +101,16 @@ page {
 
 .rule {
   line-height: 200%;
-  margin-top: 40rpx;
-  padding: 10rpx;
+  margin-top: 30rpx;
+  /* padding: 10rpx; */
+  /* padding: 0 40rpx 250rpx 0rpx; */
+  font-size: 32rpx;
   width: 100%;
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-left: none;
-  border-right: none;
   display: flex;
   flex-direction: column;
-  border-radius: 32rpx;
+  /* border-radius: 32rpx; */
 }
 
 .rule1 {
@@ -119,8 +120,8 @@ page {
 }
 
 .rule-text {
-  margin: 0 40rpx;
-  font-size: 35rpx;
+  margin: 0;
+  font-size: 32rpx;
 }
 
 .title_2 {
@@ -160,10 +161,11 @@ page {
   word-break: break-all;
 }
 
-.td {
-  width: 4rem;
+.td,.th {
+  width: 5rem;
   justify-content: center;
   text-align: center;
+  padding: 0px;
 }
 
 .bg-w {
@@ -175,17 +177,27 @@ page {
 }
 
 .th {
-  width: 40%;
-  justify-content: center;
   background: #36f;
   color: #fff;
   display: flex;
-  height: 3rem;
+  height: 2rem;
+  height: auto;
   align-items: center;
 }
 
 .section {
   font-size: 80%;
   position: relative;
-  right: 200rpx;
+  left: 0rpx;
+  
 }
+.section__title{
+  font-size: 1.5em;
+  font-weight:700;
+  margin-left: 40rpx;
+
+}
+
+
+
+
