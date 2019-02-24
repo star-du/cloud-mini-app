@@ -4,14 +4,16 @@
     <view class="page__title">审批状态</view>
   </view>
   <view class="page__bd">
-       <!-- 公告 -->
-   <view class="rule weui-cells" style="padding-bottom:5px;">
-    <view class='title' data-index='1' catchtap='panel'>
-      <view class='rule1' wx:if="{{showIndex == 0}}">↓ 注意事项及后续流程 ↓</view>
-      <view class='rule1' wx:if="{{showIndex == 1}}">↑ 注意事项及后续流程 ↑</view>
+    <!-- 公告 -->
+    <view class="rule weui-cells" style="padding-bottom:5px;">
+      <view class='title' data-index='1' catchtap='panel'>
+        <view class='rule1' wx:if="{{showIndex == 0}}">↓ 注意事项及后续流程 ↓</view>
+        <view class='rule1' wx:if="{{showIndex == 1}}">↑ 注意事项及后续流程 ↑</view>
+      </view>
+      <view wx:if="{{showIndex == 1}}">
+        <text class="rule-text">{{rule}}</text>
+      </view>
     </view>
-     <view  wx:if="{{showIndex == 1}}"><text class="rule-text">{{rule}}</text></view>
-  </view>
 
     <block wx:if="{{progressList.length}}">
       <view class="weui-form-preview" wx:for="{{progressList}}" wx:for-index="i" wx:for-item="it" wx:key="id">
@@ -52,18 +54,14 @@
             <view class="weui-form-preview__label">审批意见</view>
             <view class="weui-form-preview__value">{{it.check.comment}}</view>
           </view>
-
-          <view class='weui-form-preview__ft'>
-            <navigator url='../theForm/theForm?formid={{it.formid}}' class='weui-form-preview__btn weui-form-preview__btn_primary' hover-class='weui-form-preview__btn_active' extra-data=''>打印表单</navigator>
-          </view>
-
+        </view>
+        <view class="weui-form-preview__ft" wx-if="{{it.exam === 3}}">
+          <navigator url='../theForm/theForm?formid={{it.formid}}' class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">打印表单</navigator>
         </view>
         <!-- end wx:for -->
       </view>
     </block>
     <!-- end wx:if -->
-    <block wx:else>
-      <view>暂无申请</view>
-    </block>
+    <text wx:else>暂无申请</text>
   </view>
 </view>

@@ -44,6 +44,6 @@
   </view>
 </view>
 
-<view >
-<template is="foot" />
+<view>
+  <template is="foot" />
 </view>

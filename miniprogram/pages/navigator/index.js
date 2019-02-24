@@ -33,8 +33,6 @@ Page({
   onPullDownRefresh: function() {
     return Promise.all([this.checkLogin(), this.getUserInfo()])
       .then(() => {
-        this.updateNumber()
-      }).then(() => {
         wx.stopPullDownRefresh();
       });
   },

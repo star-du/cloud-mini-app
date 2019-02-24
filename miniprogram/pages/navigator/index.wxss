@@ -1,12 +1,8 @@
 /* miniprogram/pages/navigator/index.wxss */
 @import "../../assets/weui.wxss";
 
-page {
-  align-items: center;
-  background: #f6f6f6;
-  box-sizing: border-box;
-  flex-direction: column;
-  justify-content: flex-start;
+.page__bd {
+  margin-top: 10px;
 }
 
 .userinfo {
@@ -44,11 +40,6 @@ page {
 
 .userinfo-nickname::after {
   border: none;
-}
-
-.page__bd {
-  margin-top: 10px;
-  padding-bottom: 40px;
 }
 
 .weui-flex__item {
