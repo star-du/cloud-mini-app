@@ -1,34 +1,18 @@
+/* miniprogram/pages/borrowClassroom/borrowClassroom.wxss */
 @import "../../assets/weui.wxss";
-page{
-    background-color: #F8F8F8;
-    font-size: 16px;
-    font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+
+.page {
+  padding-bottom: 20px;
 }
+
 .page__hd {
-    padding: 40px;
-}
-.page__bd {
-    padding-bottom: 40px;
-}
-.page__bd_spacing {
-    padding-left: 15px;
-    padding-right: 15px;
+  padding: 15px 22px 10px;
 }
 
-.page__ft{
-    padding-bottom: 10px;
-    text-align: center;
+.weui-cell__ft {
+  color: #000;
 }
 
-.page__title {
-    text-align: left;
-    font-size: 20px;
-    font-weight: 400;
-}
-
-.page__desc {
-    margin-top: 5px;
-    color: #888888;
-    text-align: left;
-    font-size: 14px;
+.weui-textarea {
+  height: 5.5em;
 }
