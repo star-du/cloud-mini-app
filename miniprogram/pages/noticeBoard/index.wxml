@@ -1,16 +1,14 @@
-<!--index.wxml-->
-<import src="../common/foot.wxml" />
 <view class="page">
   <view class="page__bd">
     <!-- 日期选择 -->
-    <view class="weui-cells__title">请选择查询日期:</view>
+    <view class="weui-cells__title">教室借用情况查询</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_select">
-        <view class="weui-cell__hd">
-          <view class="weui-label" style="margin-left:15rpx;">当前选择</view>
+        <view class="weui-cell__hd" style="margin: 6rpx 48rpx;">
+          <text class="weui-label">请选择日期</text>
         </view>
         <view class="weui-cell__bd">
-          <picker mode="date" value="{{date}}" start="2019-01-01" end="2999-01-01" bindchange="bindDateChange" name='eventDate'>
+          <picker mode="date" name="eventDate" value="{{date}}" start="2019-01-01" end="2999-12-31" bindchange="bindDateChange">
             <view class="weui-input">{{date}}</view>
           </picker>
         </view>
@@ -27,9 +25,9 @@
             <view class="th">负责人</view>
             <view class="th">联系方式</view>
           </view>
-          <block wx:for="{{listData}}" wx:for-item="item" wx:key="{{code}}">
-            <view class="tr{{index % 2 == 0?' bg-g':''}}">
-              <view class="td">{{item.code}}</view>
+          <block wx:for="{{listData}}" wx:for-item="item" wx:key="room">
+            <view class="tr{{index % 2 ?' bg-g':''}}">
+              <view class="td">{{item.room}}</view>
               <view class="td">{{item.time}}</view>
               <view class="td">{{item.association}}</view>
               <view class="td">{{item.responser}}</view>
@@ -42,10 +40,10 @@
     <!-- 公告 -->
     <view class="rule weui-cells">
       <view class="title" data-index="1" catchtap="panel">
-        <view class='rule1' wx:if="{{showIndex == 0}}">↓ 注意事项及后续流程 ↓</view>
-        <view class='rule1' wx:if="{{showIndex == 1}}">↑ 注意事项及后续流程 ↑</view>
+        <view class="rule-head" wx:if="{{showIndex}}">↑ 注意事项及后续流程 ↑</view>
+        <view class="rule-head" wx:else>↓ 注意事项及后续流程 ↓</view>
       </view>
-      <text wx:if="{{showIndex == 1}}" class="rule-text">{{text}}</text>
+      <text wx:if="{{showIndex}}" class="rule-text">{{text}}</text>
     </view>
   </view>
 </view>

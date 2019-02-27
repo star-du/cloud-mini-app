@@ -8,9 +8,8 @@ Page({
   data: {
     progressList: [],
     examState: ["未审批", "撤回", "未通过", "通过"],
-    status: '',
     showIndex: 0,
-    rule:getApp().globalData.rule
+    rule: getApp().globalData.rule
   },
   onLoad: function(options) {
     //openid的getter
@@ -36,15 +35,15 @@ Page({
       fail: console.error
     });
   },
-  panel: function (e) {
+  panel: function(e) {
     if (e.currentTarget.dataset.index != this.data.showIndex) {
       this.setData({
-        showIndex: e.currentTarget.dataset.index
-      })
+        showIndex: Number(e.currentTarget.dataset.index)
+      });
     } else {
       this.setData({
-        showIndex: 0  
-      })
+        showIndex: 0
+      });
     }
   }
 })

@@ -5,16 +5,14 @@
   </view>
   <view class="page__bd">
     <!-- 公告 -->
-    <view class="rule weui-cells" style="padding-bottom:5px;">
-      <view class='title' data-index='1' catchtap='panel'>
-        <view class='rule1' wx:if="{{showIndex == 0}}">↓ 注意事项及后续流程 ↓</view>
-        <view class='rule1' wx:if="{{showIndex == 1}}">↑ 注意事项及后续流程 ↑</view>
+    <view class="rule weui-cells">
+      <view class="title" data-index="1" catchtap="panel">
+        <view class="rule-head" wx:if="{{showIndex}}">↑ 注意事项及后续流程 ↑</view>
+        <view class="rule-head" wx:else>↓ 注意事项及后续流程 ↓</view>
       </view>
-      <view wx:if="{{showIndex == 1}}">
-        <text class="rule-text">{{rule}}</text>
-      </view>
+      <text wx:if="{{showIndex}}" class="rule-text">{{rule}}</text>
     </view>
-
+<!-- 公告 end -->
     <block wx:if="{{progressList.length}}">
       <view class="weui-form-preview" wx:for="{{progressList}}" wx:for-index="i" wx:for-item="it" wx:key="id">
         <view class="weui-form-preview__hd">
