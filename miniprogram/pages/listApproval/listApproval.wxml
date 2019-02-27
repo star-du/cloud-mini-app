@@ -1,4 +1,4 @@
-<!--miniprogram/pages/listApproval/listApproval.wxml-->
+<!--pages/listApproval/listApproval.wxml-->
 <view class="page">
   <view class="page__hd">
     <view class="page__title">审批状态</view>

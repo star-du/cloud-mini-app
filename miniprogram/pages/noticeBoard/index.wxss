@@ -1,12 +1,5 @@
-/**index.wxss**/
+/** pages/noticeBoard/index.wxss **/
 @import "../../assets/weui.wxss";
-
-.request-text {
-  padding: 20rpx 0;
-  font-size: 24rpx;
-  line-height: 36rpx;
-  word-break: break-all;
-}
 
 .rule {
   margin-top: 30rpx;
@@ -17,10 +10,10 @@
   flex-direction: column;
 }
 
-.rule1 {
-  text-align: center;
-  font-weight: bold;
+.rule-head {
   font-size: 22px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .rule-text {
@@ -28,15 +21,15 @@
 }
 
 .table {
-  border: 0px solid darkgray;
+  background-color: #fff;
 }
 
 .tr {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  height: auto;
   align-items: center;
+  display: flex;
+  height: auto;
+  justify-content: center;
+  width: 100%;
   word-break: break-all;
 }
 
@@ -44,15 +37,7 @@
   width: 5rem;
   justify-content: center;
   text-align: center;
-  padding: 0px;
-}
-
-.bg-w {
-  background: snow;
-}
-
-.bg-g {
-  background: #e6f3f9;
+  padding: 0;
 }
 
 .th {
@@ -61,4 +46,15 @@
   display: flex;
   height: 2rem;
   align-items: center;
+}
+
+.bg-g {
+  background: #e6f3f9;
+}
+
+picker .weui-input {
+  font-size: 24px;
+  height: 48px;
+  min-height: 24px;
+  line-height: 48px;
 }
