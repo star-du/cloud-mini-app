@@ -28,7 +28,7 @@
 
         <view class="weui-form-preview__item">
           <view class="weui-form-preview__label">活动时间</view>
-          <view class="weui-form-preview__value">{{it.eventTime1}}至{{it.eventTime2}}</view>
+          <view class="weui-form-preview__value">{{it.eventTime1}} 至 {{it.eventTime2}}</view>
         </view>
 
         <view class="weui-form-preview__item">
