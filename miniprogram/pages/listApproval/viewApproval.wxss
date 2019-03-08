@@ -1,4 +1,4 @@
-/* miniprogram/pages/listApproval/viewApproval.wxss */
+/* pages/listApproval/viewApproval.wxss */
 @import "../../assets/weui.wxss";
 
 .page {
@@ -6,7 +6,8 @@
 }
 
 .weui-textarea {
-  height: 4em;
+  height: 5.2em;
+  min-height: 4em;
 }
 
 .weui-cell__hd image {

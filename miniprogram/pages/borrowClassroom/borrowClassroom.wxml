@@ -7,19 +7,25 @@
     <view class="weui-cells__title">基本信息</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__bd">协会名称</view>
+        <view class="weui-cell__bd">
+          <view class="weui-label">协会名称</view>
+        </view>
         <view class="weui-cell__ft">
           <input class="weui-input" name="associationName" placeholder="社团/部门名称" />
         </view>
       </view>
       <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__bd">活动名称</view>
+        <view class="weui-cell__bd">
+          <view class="weui-label">活动名称</view>
+        </view>
         <view class="weui-cell__ft">
           <input class="weui-input" name="eventName" placeholder="请输入活动名称" />
         </view>
       </view>
       <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__bd">参加人数</view>
+        <view class="weui-cell__bd">
+          <view class="weui-label">参加人数</view>
+        </view>
         <view class="weui-cell__ft">
           <input class="weui-input" name="attendNumber" type="number" placeholder="请输入人数" />
         </view>
@@ -41,7 +47,7 @@
         </view>
         <text class="weui-cell__bd">至</text>
         <view class="weui-cell__ft">
-          <picker mode="time" value="{{time2}}" start="07:01" end="22:00" bindchange="bindTimeChange2" name='eventTime2'>
+          <picker mode="time" value="{{time2}}" start="07:00" end="22:00" bindchange="bindTimeChange2" name='eventTime2'>
             <view class="weui-input">{{time2}}</view>
           </picker>
         </view>
@@ -63,7 +69,7 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_form">
         <view class="weui-cell__bd">
-          <textarea class="weui-textarea" name="eventContent" placeholder="" rows="3"></textarea>
+          <textarea class="weui-textarea" name="eventContent" placeholder="请输入活动内容" rows="3"></textarea>
           <!-- <div class="weui-textarea-counter"><span>0</span>/200</div> -->
         </view>
       </view>
@@ -72,15 +78,19 @@
     <view class='weui-cells__title'>活动详情</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__bd">活动负责人</view>
+        <view class="weui-cell__bd">
+          <view class="weui-label">活动负责人</view>
+        </view>
         <view class="weui-cell__ft">
           <input class="weui-input" name="eventResponser" placeholder="负责人姓名" />
         </view>
       </view>
       <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__bd">联系方式</view>
+        <view class="weui-cell__bd">
+          <view class="weui-label">联系方式</view>
+        </view>
         <view class="weui-cell__ft">
-          <input class="weui-input" name="phone" placeholder="电话" />
+          <input class="weui-input" name="phone" placeholder="请输入11位手机号" />
         </view>
       </view>
     </view>
