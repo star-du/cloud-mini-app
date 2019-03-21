@@ -1,5 +1,3 @@
-//初始化数据库
-wx.cloud.init();
 const app = getApp();
 const db = wx.cloud.database();
 const forms = db.collection('forms');
@@ -18,11 +16,11 @@ Page({
   onLoad() {
     wx.showModal({
       title: '注意事项',
-      content: '\n1、请至少提前两天将申请表及策划电子版，以“协会名称＋［36号楼教室借用］＋日期”的方式命名发送至秘书部公邮mishu@hustau.com审批通过的社团（审批结果将以短信形式通知），使用教室的当天须将申请表打印成纸质版（双面打印）交至36号楼1楼社联值班室，并在教室借用表上进行借用登记; \n2、建议申请前先查询教室是否空闲，查询方式：见华中大会长群; \n3、房间钥匙均插在门上，教室使用结束后请将钥匙插回原位; \n4、普通教室须有活动负责人陪同使用并保证器材设备完好; \n5、活动结束后请将教室清理干净并将桌椅归位，谢谢配合.\n6、若活动结束后未按要求做好清洁或是造成物资缺失及损坏，将予以警告，出现两次（含）以上情况一个月内不得借用36号楼教室。且损坏或丢失物资必须照价赔偿。',
+      content: app.globalData.rule,
       showCancel: false,
       confirmText: '好',
     })
-    
+
     const PAGE = this; // 使得get回调函数可以访问this.setData
     // 获取db数据
     /*
@@ -41,13 +39,13 @@ Page({
   },
 
   /*在线填表页面点击报名的函数*/
-  submit: function (e) {
+  submit: function(e) {
     const formsData = e.detail.value;
     const PAGE = this;
 
     //TODO:仿照hustauEntrance:join-us中对不同错误给出不同提示
 
-    if (PAGE.data.index === 0 || !judge.test(formsData["responserPhone"])) {
+    if (PAGE.data.index === 0 || !judge.test(formsData["phone"])) {
       wx.showModal({
         title: "提交失败",
         content: "请检查表单填写是否正确",
@@ -58,70 +56,76 @@ Page({
     }
 
     db.collection('forms').orderBy('formid', 'desc').limit(3)
-      .get({
-        success(res) {
-          const maxFormid = res.data[0].formid || new Date().getFullYear() * 100000;
-          console.log("The existing maximum formid is: ", maxFormid);
-          forms.add({
-            data: {
-              formid: maxFormid + 1,
-              classroomNumber: PAGE.data.array[PAGE.data.index],
-              eventDate: PAGE.data.date,
-              eventTime1: PAGE.data.time1,
-              eventTime2: PAGE.data.time2,
-              event: {
-                association: formsData["associationName"],
-                attendNumber: Number(formsData["attendNumber"]),
-                content: formsData["eventContent"],
-                name: formsData["eventName"],
-                responser: formsData["eventResponser"],
-                tel: formsData["responserPhone"]
-              },
-              submitDate: new Date(),
-              exam: 0
+      .get().then(res => {
+        const maxFormid = res.data[0].formid || new Date().getFullYear() * 100000;
+        console.log("The existing max formid is: ", maxFormid);
+        forms.add({
+          data: {
+            formid: maxFormid + 1,
+            classroomNumber: PAGE.data.array[PAGE.data.index],
+            eventDate: PAGE.data.date,
+            eventTime1: PAGE.data.time1,
+            eventTime2: PAGE.data.time2,
+            event: {
+              association: formsData["associationName"],
+              attendNumber: Number(formsData["attendNumber"]),
+              content: formsData["eventContent"],
+              name: formsData["eventName"],
+              responser: formsData["eventResponser"],
+              tel: formsData["phone"]
             },
-            success(res) {
-              console.log("Successfully add to db!")
-              wx.showModal({
-                title: '提交成功',
-                content: '请将策划案发送至公邮mishu@hustau.com，并耐心等待审核结果',
-                success: function (res){
-                  if(res.confirm){
-                    wx.navigateBack({
-                      delta:1
-                    })
-                  }
+            submitDate: new Date(),
+            exam: 0
+          },
+          success(res) {
+            console.log("Successfully add to db!");
+            wx.showModal({
+              title: '提交成功',
+              content: '请将策划案发送至公邮 mishu@hustau.com，并耐心等待审核结果',
+              success: function(res) {
+                if (res.confirm) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
                 }
-              })
-            }
-          });
-        }
+              }
+            })
+          }
+        });
       });
   },
 
   /*活动日期picker改变的函数*/
-  bindDateChange: function (e) {
-    console.log("eventDate发送选择改变，携带值为", e.detail.value)
+  bindDateChange: function(e) {
+    console.log("eventDate发送选择改变，携带值为", e.detail.value);
     this.setData({
       date: e.detail.value
-    })
+    });
   },
-  /*活动时间picker改变的函数1*/
-  bindTimeChange1: function (e) {
-    console.log("eventTime1发送选择改变，携带值为", e.detail.value)
-    this.setData({
-      time1: e.detail.value
-    })
+  /*活动时间1picker改变的函数*/
+  bindTimeChange1: function(e) {
+    console.log("[eventTime1] changes", e.detail.value);
+    // 检查time2是否大于time1, 若小于则令time2等于time1
+    if (this.data.time2 < e.detail.value) {
+      this.setData({
+        time1: e.detail.value,
+        time2: e.detail.value
+      });
+    } else {
+      this.setData({
+        time1: e.detail.value
+      });
+    }
   },
-  /*活动时间picker改变的函数2*/
-  bindTimeChange2: function (e) {
-    console.log("eventTime2发送选择改变，携带值为", e.detail.value)
+  /*活动时间2picker改变的函数*/
+  bindTimeChange2: function(e) {
+    console.log("eventTime2发送选择改变，携带值为", e.detail.value);
     this.setData({
       time2: e.detail.value
     })
   },
   /*借用教室picker改变的函数*/
-  bindNumberChange: function (e) {
+  bindNumberChange: function(e) {
     console.log("classroomNumber发生选择改变，携带值为", e.detail.value)
     this.setData({
       index: e.detail.value

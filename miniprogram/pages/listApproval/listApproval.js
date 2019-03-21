@@ -1,12 +1,5 @@
-// miniprogram/pages/listApproval.js
-//初始化数据库
-wx.cloud.init();
+// pages/listApproval/listApproval.js
 const db = wx.cloud.database();
-
-function toDate(d) {
-  d = new Date(d);
-  return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-}
 
 Page({
   data: {
@@ -43,9 +36,11 @@ Page({
     let obj = {};
     let x = Number(options.flag);
     if (!isNaN(x) && x >= 0) obj.exam = x;
+
     // eventDate : yyyy-MM-dd
     // x = Number(options.expireEvent);
     // if (!isNaN(x)) obj.eventDate = db.command.gte(last(x));
+    
     x = Number(options.expireSubmit);
     if (!isNaN(x)) {
       obj.submitDate = db.command.gte(last(x));
@@ -73,7 +68,7 @@ Page({
         console.log(e);
         let x = e.data || [];
         for (let i = 0; i < x.length; i++)
-          x[i].eventDate = toDate(x[i].eventDate);
+          x[i].eventDate = getApp()._toDateStr(new Date(x[i].eventDate));
         PAGE.setData({
           progressList: x
         });

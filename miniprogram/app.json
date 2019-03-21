@@ -22,15 +22,15 @@
     "list": [
       {
         "pagePath": "pages/navigator/index",
-        "text": "办事大厅",
         "iconPath": "assets/hall.png",
-        "selectedIconPath": "assets/hall-HL.png"
+        "selectedIconPath": "assets/hall-HL.png",
+        "text": "办事大厅"
       },
       {
         "pagePath": "pages/noticeBoard/index",
-        "text": "公告版",
         "iconPath": "assets/notification.png",
-        "selectedIconPath": "assets/notification-HL.png"
+        "selectedIconPath": "assets/notification-HL.png",
+        "text": "公告版"
       }
     ]
   }

@@ -1,18 +1,14 @@
-// miniprogram/pages/listApproval/viewApproval.js
-wx.cloud.init();
+// pages/listApproval/viewApproval.js
+const app = getApp();
 const db = wx.cloud.database();
-
-function toDate(d) {
-  return d instanceof Date ? d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() : "";
-}
 
 function fetchDB(PAGE) {
   return db.collection('forms').doc(PAGE.data.id).get().then(res => {
-    console.log("get database", res.data);
+    console.log("[fetch DB]Get database", res.data);
     if (res.data) {
       let x = res.data;
-      x.submitDate = toDate(x.submitDate);
-      x.eventDate = toDate(new Date(x.eventDate));
+      x.submitDate = app._toDateStr(x.submitDate);
+      x.eventDate = app._toDateStr(new Date(x.eventDate));
       PAGE.setData({
         appr: x || {}
       });
@@ -21,9 +17,12 @@ function fetchDB(PAGE) {
           commentLength: x.check.comment.length
         });
       }
-      PAGE.setData({
-        "appr.check.approver": getApp().loginState.name
-      });
+      if(!x.check || !x.check.approver)
+      {
+        PAGE.setData({
+          "appr.check.approver": app.loginState.name
+        });
+      }
     } else {
       console.error("Cannot get data");
     }
@@ -34,7 +33,7 @@ Page({
   data: {
     examState: ["未审批", "撤回", "未通过", "通过"],
     commentLength: 0,
-    maxCommentLength: 100,
+    maxCommentLength: 140,
     eventInfo: [{
       badge: "group.png",
       name: "社团/学生组织",
@@ -46,7 +45,7 @@ Page({
     }, {
       badge: "phone.png",
       name: "联系方式",
-      value: "name"
+      value: "tel"
     }, {
       badge: "bookmark.png",
       name: "活动名称",
@@ -125,9 +124,9 @@ Page({
       fetchDB(PAGE);
     });
   },
-  //统计输入长度
+  /*统计输入长度*/
   userInput: function(e) {
-    console.log(e.detail.value.length);
+    // console.log(e.detail.value.length);
     this.setData({
       commentLength: e.detail.value.length
     })
