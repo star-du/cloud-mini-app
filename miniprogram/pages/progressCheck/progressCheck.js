@@ -2,7 +2,9 @@
 
 //初始化数据库
 wx.cloud.init();
-const db = wx.cloud.database();
+const db = wx.cloud.database({
+  env:'shade'
+});
 
 Page({
   data: {
@@ -21,9 +23,7 @@ Page({
     const PAGE = this; // 使得get回调函数可以访问this.setData
     // 获取db数据
     console.log(getOpenid());
-    db.collection('forms').where({
-      _openid: getOpenid()
-    }).get({
+    db.collection('forms').get({
       success(e) {
         console.log(e, e.data);
         PAGE.setData({
