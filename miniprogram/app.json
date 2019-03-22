@@ -2,14 +2,16 @@
   "pages": [
     "pages/navigator/index",
     "pages/borrowClassroom/borrowClassroom",
-    "pages/listApproval/listApproval",
-    "pages/listApproval/viewApproval",
+    "pages/approval/exportApproval",
+    "pages/approval/listApproval",
+    "pages/approval/viewApproval",
     "pages/noticeBoard/index",
     "pages/progressCheck/progressCheck",
     "pages/theForm/theForm"
   ],
   "window": {
     "backgroundColor": "#f6f6f6",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#f6f6f6",
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "场地借用系统"

@@ -14,6 +14,12 @@ App({
       });
     }
   },
+  /**
+   * 将Date对象转为"Y-m-d"字符串.
+   * @param {Date}    date 需要转换的日期对象
+   * @param {Boolean} leadingZeros=false 是否有前导0
+   * @return {String} "Y-m-d"格式字符串
+   */
   _toDateStr: function(date, leadingZeros = false) {
     const z = function(n, l) {
       n = n.toString();

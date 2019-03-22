@@ -1,4 +1,4 @@
-/* miniprogram/pages/navigator/index.wxss */
+/* pages/navigator/index.wxss */
 @import "../../assets/weui.wxss";
 
 .page__bd {
@@ -57,4 +57,9 @@
 .flex-icon {
   height: 48px;
   width: 48px;
+}
+
+.weui-cell__bd .cell-text{
+    display: inline-block; 
+    vertical-align: middle;
 }

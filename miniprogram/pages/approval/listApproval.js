@@ -63,7 +63,7 @@ Page({
     const PAGE = this; // 使得get回调函数可以访问this.setData
     console.log("database filter", this.data.filter);
     // 获取db数据
-    db.collection('forms').where(this.data.filter).get()
+    db.collection("forms").where(this.data.filter).get()
       .then(e => {
         console.log(e);
         let x = e.data || [];

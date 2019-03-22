@@ -1,7 +1,8 @@
 // 云函数入口文件
-const cloud = require('wx-server-sdk');
+const cloud = require("wx-server-sdk");
 cloud.init({
-  env: "release-824dd3"
+  env: "release-824dd3",
+  traceUser: true
 });
 
 function regObj(check, examFlag) {
