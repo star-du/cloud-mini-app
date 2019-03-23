@@ -6,7 +6,15 @@
     "pages/listApproval/viewApproval",
     "pages/noticeBoard/index",
     "pages/progressCheck/progressCheck",
-    "pages/theForm/theForm"
+    "pages/theForm/theForm",
+    "pages/thingsList/thingsList",
+    "pages/removeThings/removeThings",
+    "pages/returnThings/returnThings",
+    "pages/borrowThings/borrowThings",
+    "pages/addThings/addThings",
+    "pages/adminPage/adminPage",
+    "pages/progressList/progressList",
+    "pages/thingsIndex/thingsIndex"
   ],
   "window": {
     "backgroundColor": "#f6f6f6",
@@ -31,6 +39,12 @@
         "iconPath": "assets/notification.png",
         "selectedIconPath": "assets/notification-HL.png",
         "text": "公告版"
+      },
+      {
+        "pagePath": "pages/thingsIndex/thingsIndex",
+        "iconPath": "assets/notification.png",
+        "selectedIconPath": "assets/notification-HL.png",
+        "text": "物资借用"
       }
     ]
   }
