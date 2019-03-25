@@ -20,7 +20,6 @@ Page({
       let openid = app.loginState.openid
       return openid;
     }
-
     const PAGE = this; // 使得get回调函数可以访问this.setData
     // 获取db数据
     console.log(getOpenid());
@@ -35,6 +34,8 @@ Page({
       fail: console.error
     });
   },
+
+
   panel: function(e) {
     if (e.currentTarget.dataset.index != this.data.showIndex) {
       this.setData({

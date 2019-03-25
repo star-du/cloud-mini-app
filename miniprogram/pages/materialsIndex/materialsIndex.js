@@ -1,4 +1,4 @@
-// miniprogram/pages/thingsIndex/thingsIndex.js
+// miniprogram/pages/materialsIndex/materialsIndex.js
 Page({
 
   /**
@@ -9,25 +9,25 @@ Page({
   },
 
   // 用于验证是否能跳转的一系列条件语句
-  navBorrow : function (e) {
+  navToBorrow : function (e) {
     const data = e.currentTarget.dataset;
     if (1){
-      console.log("navTO",data.url)
+      console.log("navTo",data.url)
       wx.navigateTo(data);
     } else {
 
     }
   },
 
-  navReturn : function (e) {
-    const data = e.currentTarget.dataset;
-    if (1){
-      console.log("navTO",data.url)
-      wx.navigateTo(data);
-    } else {
+  // navReturn : function (e) {
+  //   const data = e.currentTarget.dataset;
+  //   if (1){
+  //     console.log("navTo",data.url)
+  //     wx.navigateTo(data);
+  //   } else {
       
-    }
-  },
+  //   }
+  // },
 
   navAdd : function (e) {
     const data = e.currentTarget.dataset;
