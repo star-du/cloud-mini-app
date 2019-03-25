@@ -2,9 +2,11 @@
 
 //初始化数据库
 wx.cloud.init();
-const db = wx.cloud.database({
-  env:'shade'
-});
+const db = wx.cloud.database(
+//   {
+//   env:'cloud-miniapp-96177b'
+// }
+);
 
 Page({
   data: {

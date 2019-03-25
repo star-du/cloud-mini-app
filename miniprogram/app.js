@@ -10,7 +10,7 @@ App({
     } else {
       wx.cloud.init({
         traceUser: true,
-        env: "release-824dd3"
+        env: "cloud-miniapp-96177b"
       });
     }
   },
