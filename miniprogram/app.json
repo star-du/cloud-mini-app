@@ -6,7 +6,14 @@
     "pages/listApproval/viewApproval",
     "pages/noticeBoard/index",
     "pages/progressCheck/progressCheck",
-    "pages/theForm/theForm"
+    "pages/theForm/theForm",
+    "pages/thingsList/thingsList",
+    "pages/removeThings/removeThings",
+    "pages/borrowThings/borrowThings",
+    "pages/addThings/addThings",
+    "pages/adminPage/adminPage",
+    "pages/progressList/progressList",
+    "pages/materialsIndex/materialsIndex"
   ],
   "window": {
     "backgroundColor": "#f6f6f6",
@@ -24,13 +31,19 @@
         "pagePath": "pages/navigator/index",
         "iconPath": "assets/hall.png",
         "selectedIconPath": "assets/hall-HL.png",
-        "text": "办事大厅"
+        "text": "教室借用"
       },
       {
         "pagePath": "pages/noticeBoard/index",
         "iconPath": "assets/notification.png",
         "selectedIconPath": "assets/notification-HL.png",
         "text": "公告版"
+      },
+      {
+        "pagePath": "pages/materialsIndex/materialsIndex",
+        "iconPath": "assets/notification.png",
+        "selectedIconPath": "assets/notification-HL.png",
+        "text": "物资借用"
       }
     ]
   }

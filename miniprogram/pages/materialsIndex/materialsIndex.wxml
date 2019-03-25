@@ -1,0 +1,42 @@
+<!--物资借用的主导航，如果是管理员则渲染管理员界面入口-->
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-panel weui-panel_access">
+            <view class="weui-panel_bd">
+            <!-- 暂时写得导航界面，随便用一哈 -->
+                <view class="weui-cells">
+                    <!-- <view class="weui-cell">
+                        <button class="btn" type="primary" bindtap="navBorrow" data-url="../borrowThings/borrowThings">物资查询及借用</button>
+                    </view>
+
+                    <view class="weui-cell">
+                        <button class="btn" type="primary" bindtap="navReturn" data-url="../returnThings/returnThings">表单状态</button>
+                    </view> -->
+                        <view class="weui-panel weui-panel_access">
+                    <view class="weui-panel__bd">
+                        <view class="weui-flex">
+                        <view class="weui-flex__item" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="../borrowThings/borrowThings">
+                            <image class="flex-icon" src="../../assets/borrowClassroom.png" mode="aspectFit"></image>
+                            <view>物资查询及借用</view>
+                        </view>
+                        <view class="weui-flex__item" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="../progressCheck/progressCheck">
+                        <!-- TODO:可以与借用教室跳转至同一页 但应传入参数以区分 -->
+                            <image class="flex-icon" src="../../assets/progressCheck.png" mode="aspectFit"></image>
+                            <view>表单状态</view>
+                        </view>
+                        </view>
+                    </view>
+            </view>
+
+                    <view class="weui-cell">
+                        <button class="btn" type="primary" bindtap="navAdd" data-url="../addThings/addThings">新增仓库物资</button>
+                    </view>
+
+                    <view class="weui-cell">
+                        <button class="btn" type="primary" bindtap="navAdmin" data-url="../adminPage/adminPage">管理员界面</button>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
