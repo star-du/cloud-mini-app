@@ -19,7 +19,7 @@
             <view class="weui-form-preview__value">{{it.eventTime1}} - {{it.eventTime2}}</view>
           </view>
           <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">申请组织</view>
+            <view class="weui-form-preview__label">申请单位</view>
             <view class="weui-form-preview__value">{{it.event.association}}</view>
           </view>
           <view class="weui-form-preview__item">

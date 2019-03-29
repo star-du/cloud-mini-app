@@ -21,7 +21,7 @@
           <view class="tr bg-w">
             <view class="th">房间</view>
             <view class="th">时间</view>
-            <view class="th">单位名称</view>
+            <view class="th">借用单位</view>
             <view class="th">负责人</view>
             <view class="th">联系方式</view>
           </view>

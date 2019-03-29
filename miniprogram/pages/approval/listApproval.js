@@ -58,13 +58,18 @@ Page({
     });
     return Object.keys(obj).length > 0 ? obj : false;
   },
+  /**
+   * fetchDatabase
+   * 获取数据库数据
+   * @warning limit最大值为20
+   */
   fetchDatabase: function() {
     if (!this.data.filter) return;
     const PAGE = this; // 使得get回调函数可以访问this.setData
     console.log("database filter", this.data.filter);
     // 获取db数据
-    db.collection("forms").where(this.data.filter).get()
-      .then(e => {
+    db.collection("forms").where(this.data.filter).limit(20)
+    .get().then(e => {
         console.log(e);
         let x = e.data || [];
         for (let i = 0; i < x.length; i++)

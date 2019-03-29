@@ -37,6 +37,12 @@
               <view class="weui-cell__ft weui-cell__ft_in-access"></view>
             </view>
             <!-- end for -->
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="navToApproval" data-idx="{{3}}" data-urlget="expireSubmit=366">
+              <view class="weui-cell__bd">
+                <text class="cell-text">所有审批</text>
+              </view>
+              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </view>
             <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active" url="../approval/exportApproval">
               <view class="weui-cell__bd">
                 <text class="cell-text">审批导出</text>
