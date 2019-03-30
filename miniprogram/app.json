@@ -1,39 +1,40 @@
 {
-    "pages": [
-        "pages/facilities/index",
-        "pages/approval/exportApproval",
-        "pages/approval/listApproval",
-        "pages/approval/viewApproval",
-        "pages/facilities/borrowClassroom",
-        "pages/facilities/listBorrow",
-        "pages/progressCheck/progressCheck",
-        "pages/progressCheck/printForm",
-        "pages/material/material"
-    ],
-    "window": {
-        "backgroundColor": "#f6f6f6",
-        "backgroundTextStyle": "dark",
-        "navigationBarBackgroundColor": "#f6f6f6",
-        "navigationBarTextStyle": "black",
-        "navigationBarTitleText": "场地借用系统"
-    },
-    "tabBar": {
-        "backgroundColor": "#ffffff",
-        "borderStyle": "black",
-        "color": "#7a7e83",
-        "selectedColor": "#3cc51f",
-        "list": [{
-                "pagePath": "pages/facilities/index",
-                "iconPath": "assets/hall.png",
-                "selectedIconPath": "assets/hall-HL.png",
-                "text": "场地借用"
-            },
-            {
-                "pagePath": "pages/material/material",
-                "iconPath": "assets/notification.png",
-                "selectedIconPath": "assets/notification-HL.png",
-                "text": "物资借用"
-            }
-        ]
-    }
+  "pages": [
+    "pages/facilities/index",
+    "pages/approval/exportApproval",
+    "pages/approval/listApproval",
+    "pages/approval/viewApproval",
+    "pages/facilities/borrowClassroom",
+    "pages/facilities/listBorrow",
+    "pages/progressCheck/progressCheck",
+    "pages/progressCheck/printForm",
+    "pages/material/material"
+  ],
+  "window": {
+    "backgroundColor": "#f6f6f6",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#f6f6f6",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "场地借用系统"
+  },
+  "tabBar": {
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "color": "#7a7e83",
+    "selectedColor": "#3cc51f",
+    "list": [
+      {
+        "pagePath": "pages/facilities/index",
+        "iconPath": "assets/hall.png",
+        "selectedIconPath": "assets/hall-HL.png",
+        "text": "场地借用"
+      },
+      {
+        "pagePath": "pages/material/material",
+        "iconPath": "assets/notification.png",
+        "selectedIconPath": "assets/notification-HL.png",
+        "text": "物资借用"
+      }
+    ]
+  }
 }

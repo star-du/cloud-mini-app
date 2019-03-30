@@ -1,14 +1,8 @@
-
-
-
-
-
-
 /* miniprogram/pages/borrowClassroom/borrowClassroom.wxss */
 @import "../../assets/weui.wxss";
 
 .page {
-  padding-bottom: 20px;
+  padding-bottom: 500rpx;
 }
 
 .page__hd {
