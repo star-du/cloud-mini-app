@@ -6,20 +6,19 @@ const judge = /\d{11}/;
 Page({
   data: {
     index: 0,
-    date: "2019-01-01",
+    date: app._toDateStr(new Date(), true),
     time1: "07:00",
-    time2: "07:00", //Todo: time2 有效范围从time1 - 24.00
-    index: 0,
+    time2: "07:00",
     array: ["请选择", "201", "202", "203", "204", "205", "206", "207", "208"]
   },
 
   onLoad() {
     wx.showModal({
-      title: '注意事项',
+      title: "注意事项",
       content: app.globalData.rule,
       showCancel: false,
-      confirmText: '好',
-    })
+      confirmText: "好"
+    });
 
     const PAGE = this; // 使得get回调函数可以访问this.setData
     // 获取db数据
@@ -55,7 +54,7 @@ Page({
       return;
     }
 
-    db.collection('forms').orderBy('formid', 'desc').limit(3)
+    db.collection("forms").orderBy("formid", "desc").limit(2)
       .get().then(res => {
         const maxFormid = res.data[0].formid || new Date().getFullYear() * 100000;
         console.log("The existing max formid is: ", maxFormid);

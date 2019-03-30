@@ -36,7 +36,7 @@ Page({
     maxCommentLength: 140,
     eventInfo: [{
       badge: "group.png",
-      name: "社团/学生组织",
+      name: "申请单位",
       value: "association"
     }, {
       badge: "user.png",

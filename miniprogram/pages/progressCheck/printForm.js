@@ -1,4 +1,3 @@
-wx.cloud.init();
 const db = wx.cloud.database();
 
 Page({
@@ -10,7 +9,7 @@ Page({
   onLoad: function(options) {
     const PAGE = this;
     console.log("options:" + options.formid);
-    db.collection('forms').where({
+    db.collection("forms").where({
       formid: Number(options.formid)
     }).get({
       success(e) {

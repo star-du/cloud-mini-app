@@ -1,50 +1,39 @@
 {
-  "pages": [
-    "pages/navigator/index",
-    "pages/borrowClassroom/borrowClassroom",
-    "pages/listApproval/listApproval",
-    "pages/listApproval/viewApproval",
-    "pages/noticeBoard/index",
-    "pages/progressCheck/progressCheck",
-    "pages/theForm/theForm",
-    "pages/thingsList/thingsList",
-    "pages/removeThings/removeThings",
-    "pages/borrowThings/borrowThings",
-    "pages/addThings/addThings",
-    "pages/adminPage/adminPage",
-    "pages/progressList/progressList",
-    "pages/materialsIndex/materialsIndex"
-  ],
-  "window": {
-    "backgroundColor": "#f6f6f6",
-    "navigationBarBackgroundColor": "#f6f6f6",
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "场地借用系统"
-  },
-  "tabBar": {
-    "backgroundColor": "#ffffff",
-    "borderStyle": "black",
-    "color": "#7a7e83",
-    "selectedColor": "#3cc51f",
-    "list": [
-      {
-        "pagePath": "pages/navigator/index",
-        "iconPath": "assets/hall.png",
-        "selectedIconPath": "assets/hall-HL.png",
-        "text": "教室借用"
-      },
-      {
-        "pagePath": "pages/noticeBoard/index",
-        "iconPath": "assets/notification.png",
-        "selectedIconPath": "assets/notification-HL.png",
-        "text": "公告版"
-      },
-      {
-        "pagePath": "pages/materialsIndex/materialsIndex",
-        "iconPath": "assets/notification.png",
-        "selectedIconPath": "assets/notification-HL.png",
-        "text": "物资借用"
-      }
-    ]
-  }
+    "pages": [
+        "pages/facilities/index",
+        "pages/approval/exportApproval",
+        "pages/approval/listApproval",
+        "pages/approval/viewApproval",
+        "pages/facilities/borrowClassroom",
+        "pages/facilities/listBorrow",
+        "pages/progressCheck/progressCheck",
+        "pages/progressCheck/printForm",
+        "pages/material/material"
+    ],
+    "window": {
+        "backgroundColor": "#f6f6f6",
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#f6f6f6",
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "场地借用系统"
+    },
+    "tabBar": {
+        "backgroundColor": "#ffffff",
+        "borderStyle": "black",
+        "color": "#7a7e83",
+        "selectedColor": "#3cc51f",
+        "list": [{
+                "pagePath": "pages/facilities/index",
+                "iconPath": "assets/hall.png",
+                "selectedIconPath": "assets/hall-HL.png",
+                "text": "场地借用"
+            },
+            {
+                "pagePath": "pages/material/material",
+                "iconPath": "assets/notification.png",
+                "selectedIconPath": "assets/notification-HL.png",
+                "text": "物资借用"
+            }
+        ]
+    }
 }

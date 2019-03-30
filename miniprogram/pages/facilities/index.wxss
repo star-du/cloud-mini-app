@@ -1,4 +1,4 @@
-/* miniprogram/pages/navigator/index.wxss */
+/* pages/navigator/index.wxss */
 @import "../../assets/weui.wxss";
 
 .page__bd {
@@ -42,19 +42,29 @@
   border: none;
 }
 
+.weui-panel__bd {
+  padding: 3px 0;
+}
+
 .weui-flex__item {
-  box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   border-radius: 24px;
   flex-direction: column;
   height: 90px;
-  margin: 25rpx;
-  min-height: 75px;
-  padding: 4px;
+  margin: 24rpx;
+  min-height: 86px;
+  max-width: 328rpx;
+  padding: 5px;
   text-align: center;
 }
 
 .flex-icon {
   height: 48px;
   width: 48px;
+}
+
+.weui-cell__bd .cell-text {
+  display: inline-block;
+  vertical-align: middle;
 }

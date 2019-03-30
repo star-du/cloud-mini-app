@@ -1,4 +1,4 @@
-# 数据库规范
+# 场地借用数据库规范
 
 ## forms
 
@@ -17,7 +17,7 @@ submitDate      | Date   | 提交日期
  
 ### 字段内容
 
-- [Object] check
+- [Object] **check**
 
 check    |  Type  | Description
 --------:| ------ | --------------
@@ -25,18 +25,18 @@ approver | String | 审批人
 comment  | String | 审批意见
 openid   | String | 审批人的openid
 
-- [Object] event
+- [Object] **event**
 
 event        |  Type  | Description
-------------:| ------ | --------------
-association  | String | 协会名称
-attendNumber | Number | 活动人数
-content      | String | 活动内容
+------------:| ------ | ------------------------
+association  | String | 单位(组织/社团)名称
+attendNumber | Number | 活动人数(>=1)
+content      | String | 活动内容, 活动的详细描述
 name         | String | 活动名称
-responser    | String | 活动负责人
+responser    | String | 活动负责人姓名
 tel          | String | 联系电话
 
-- [Number] exam
+- [Number] **exam**
 
 exam | Description
 ---- | -------------
@@ -47,3 +47,9 @@ exam | Description
 
 
 ## adminInfo
+
+ Field | Type   | Description
+------:| ------ | -----------------------------------
+openid | String | 微信公开id, 用于区别用户
+name   | String | 管理员名称, 开发者必须加后缀 `[Dev]`
+tel    | String | 管理员电话, 备用

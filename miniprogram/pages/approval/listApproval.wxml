@@ -19,7 +19,7 @@
             <view class="weui-form-preview__value">{{it.eventTime1}} - {{it.eventTime2}}</view>
           </view>
           <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">申请组织</view>
+            <view class="weui-form-preview__label">申请单位</view>
             <view class="weui-form-preview__value">{{it.event.association}}</view>
           </view>
           <view class="weui-form-preview__item">
@@ -37,8 +37,11 @@
       </view>
       <!-- end wx:for -->
     </block>
-    <block wx:else>
-      <text>暂无</text>
-    </block>
+    <view wx:else class="weui-flex">
+      <view class="weui-flex__item" style="text-align:center;">
+        <text wx:if="{{total < 0}}">加载中</text>
+        <text wx:else>无数据</text>
+      </view>
+    </view>
   </view>
 </view>
