@@ -565,7 +565,7 @@ function wb_has_macro(wb/*:workbook*/)/*:boolean*/ {
 
 0. **common/rulePanel**
 
-  带过渡的 注意事项及后续流程 折叠面板。
+  带过渡的 注意事项及申请流程 折叠面板。
 
 
 ### Cloud Functions

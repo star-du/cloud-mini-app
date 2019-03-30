@@ -37,8 +37,11 @@
       </view>
       <!-- end wx:for -->
     </block>
-    <block wx:else>
-      <text>暂无</text>
-    </block>
+    <view wx:else class="weui-flex">
+      <view class="weui-flex__item" style="text-align:center;">
+        <text wx:if="{{total < 0}}">加载中</text>
+        <text wx:else>无数据</text>
+      </view>
+    </view>
   </view>
 </view>

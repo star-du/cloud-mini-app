@@ -1,8 +1,10 @@
 // pages/listApproval/listApproval.js
+const app = getApp();
 const db = wx.cloud.database();
 
 Page({
   data: {
+    total: -1,
     progressList: [],
     examState: ["未审批", "撤回", "未通过", "通过"],
     flag: null
@@ -25,12 +27,18 @@ Page({
         }
       });
     } else {
-      this.fetchDatabase();
+      this.getTotal().then(() => {
+        this.fetchDatabase(0);
+      });
     }
   },
+  /**
+   * getUrl()
+   * @param {Object} options 传入的get对象(options)
+   */
   getUrl: function(options) {
-    const last = function(day) {
-      let d = new Date();
+    const last = (day) => {
+      const d = new Date();
       return new Date(d.getFullYear(), d.getMonth(), d.getDate() - day);
     };
     let obj = {};
@@ -40,7 +48,7 @@ Page({
     // eventDate : yyyy-MM-dd
     // x = Number(options.expireEvent);
     // if (!isNaN(x)) obj.eventDate = db.command.gte(last(x));
-    
+
     x = Number(options.expireSubmit);
     if (!isNaN(x)) {
       obj.submitDate = db.command.gte(last(x));
@@ -59,43 +67,92 @@ Page({
     return Object.keys(obj).length > 0 ? obj : false;
   },
   /**
+   * getTotal
+   * 获取所有 filter 数据的个数
+   */
+  getTotal: function() {
+    if (!this.data.filter) return this;
+    const that = this;
+    return db.collection("forms").where(this.data.filter).count()
+      .then(res => {
+        console.log("[getTotal]", res);
+        that.setData({
+          total: res.total
+        });
+        if (!res.total) {
+          wx.showToast({
+            title: "无数据",
+            icon: "none",
+            mask: true,
+            duration: 1200
+          });
+        }
+        return res.total;
+      });
+  },
+  /**
    * fetchDatabase
    * 获取数据库数据
    * @warning limit最大值为20
    */
-  fetchDatabase: function() {
-    if (!this.data.filter) return;
-    const PAGE = this; // 使得get回调函数可以访问this.setData
-    console.log("database filter", this.data.filter);
+  fetchDatabase: function(skipNum = 0) {
+    if (!this.data.filter || this.data.total <= this.data.progressList.length) return;
+    const that = this; // 使得get回调函数可以访问this.setData
+    console.log("[fetchDatabase]filter", this.data.filter);
     // 获取db数据
-    db.collection("forms").where(this.data.filter).limit(20)
-    .get().then(e => {
-        console.log(e);
-        let x = e.data || [];
+    let u = db.collection("forms").where(this.data.filter);
+    if (skipNum) u = u.skip(skipNum);
+    return u.get().then(e => {
+      console.log(e);
+      let x = e.data;
+      if (x.length) {
         for (let i = 0; i < x.length; i++)
-          x[i].eventDate = getApp()._toDateStr(new Date(x[i].eventDate));
-        PAGE.setData({
-          progressList: x
+          x[i].eventDate = app._toDateStr(new Date(x[i].eventDate));
+        that.setData({
+          progressList: that.data.progressList.concat(x)
         });
-      }).catch(err => {
-        console.error(err);
+      } else {
         wx.showToast({
-          title: "刷新失败",
+          title: "加载已完成",
           icon: "none",
-          mask: true
+          mask: true,
+          duration: 1500
         });
+      }
+    }).catch(err => {
+      console.error(err);
+      wx.showToast({
+        title: "刷新失败",
+        icon: "none",
+        mask: true
       });
+    });
   },
-  /* 用户下拉动作刷新 */
+  /**
+   * 用户下拉动作刷新
+   */
   onPullDownRefresh: function() {
-    const PAGE = this;
+    const that = this;
     Promise.resolve()
-      .then(() => {
-        PAGE.fetchDatabase();
-      })
-      .then(() => {
-        console.log("DONE");
-        wx.stopPullDownRefresh();
-      });
+      .then(that.fetchDatabase)
+      .then(wx.stopPullDownRefresh);
+  },
+  /**
+   * 触底加载更多
+   */
+  onReachBottom: function() {
+    const len = this.data.progressList.length
+    if (this.data.total > 0 && this.data.total >= len) {
+      if (this.data.total === len) {
+        wx.showToast({
+          title: "加载已完成",
+          icon: "none",
+          mask: true,
+          duration: 1500
+        });
+        return this;
+      }
+      else return this.fetchDatabase(len);
+    }
   }
 })

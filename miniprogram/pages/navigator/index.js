@@ -57,7 +57,9 @@ Page({
       this.callCloudLogin(true);
     }
   },
-  /** 检查是否有授权并获取 userInfo */
+  /** 
+   * 检查是否有授权并获取 userInfo 
+   */
   getUserInfo: function() {
     const that = this;
     wx.getSetting({
@@ -102,7 +104,9 @@ Page({
       });
     }
   },
-  /** 更新符合条件的审批的数量 */
+  /** 
+   * 更新符合条件的审批的数量
+   */
   updateNumber: function() {
     function updateSingle(flag, page) {
       return db.collection("forms").where({
@@ -148,7 +152,9 @@ Page({
       }
     });
   },
-  /** 更新全局变量 app.loginState */
+  /** 
+   * 更新全局变量 app.loginState
+   */
   updateUserInfo: function(obj) {
     const that = this;
     return Promise.resolve().then(() => {
