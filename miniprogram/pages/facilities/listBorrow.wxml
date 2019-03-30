@@ -25,8 +25,8 @@
             <view class="th">负责人</view>
             <view class="th">联系方式</view>
           </view>
-          <block wx:for="{{listData}}" wx:for-item="item" wx:key="room">
-            <view class="tr{{index % 2 ?' bg-g':''}}">
+          <block wx:for="{{listData}}" wx:for-item="item" wx:for-index="i" wx:key="_id">
+            <view class="tr{{i % 2 ?' bg-g':''}}">
               <view class="td">{{item.room}}</view>
               <view class="td">{{item.time}}</view>
               <view class="td">{{item.association}}</view>

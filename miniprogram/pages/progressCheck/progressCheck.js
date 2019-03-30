@@ -5,7 +5,7 @@ const db = wx.cloud.database();
 Page({
   data: {
     progressList: [],
-    examState: ["未审批", "撤回", "未通过", "通过"],
+    examState: ["审批中", "审批中", "未通过", "通过"],
   },
   onLoad: function(options) {
     const PAGE = this; // 使得get回调函数可以访问this.setData

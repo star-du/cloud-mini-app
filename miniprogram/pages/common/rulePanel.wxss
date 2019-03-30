@@ -37,10 +37,11 @@
 }
 
 .kind-list__item {
-  margin: 20px 0;
+  margin: 18px 0;
   background-color: #fff;
-  border-radius: 2px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  padding: 3px 0;
 }
 
 .kind-list__item-hd {

@@ -31,15 +31,19 @@ Page({
     }).get().then(res => {
       let arr = [];
       for (let i = 0; i < res.data.length; ++i) {
-        console.log("活动" + (i + 1) + ":", res.data[i]);
+        console.log("活动", i, ":", res.data[i]);
         arr.push({
           association: res.data[i].event.association,
           room: res.data[i].classroomNumber,
-          time: res.data[i].eventTime1 + '\t' + "~" + res.data[i].eventTime2,
+          time: res.data[i].eventTime1 + "\t~ " + res.data[i].eventTime2,
           responser: res.data[i].event.responser,
           tel: res.data[i].event.tel
         });
       }
+      arr.sort((x, y) => {
+        if (x.room === y.room) return x.time > y.time;
+        else return x.room > y.room;
+      })
       that.setData({
         listData: arr
       });

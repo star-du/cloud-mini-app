@@ -1,4 +1,2 @@
 /* pages/progressCheck/progressCheck.wxss */
-@import "../../assets/weui.wxss";
-@import "../noticeBoard/index.wxss";
 @import "../approval/listApproval.wxss";

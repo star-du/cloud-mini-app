@@ -1,13 +1,14 @@
 {
   "pages": [
-    "pages/navigator/index",
+    "pages/facilities/index",
     "pages/approval/exportApproval",
     "pages/approval/listApproval",
     "pages/approval/viewApproval",
-    "pages/borrowClassroom/borrowClassroom",
-    "pages/noticeBoard/index",
+    "pages/facilities/borrowClassroom",
+    "pages/facilities/listBorrow",
     "pages/progressCheck/progressCheck",
-    "pages/progressCheck/printForm"
+    "pages/progressCheck/printForm",
+    "pages/material/material"
   ],
   "window": {
     "backgroundColor": "#f6f6f6",
@@ -23,16 +24,16 @@
     "selectedColor": "#3cc51f",
     "list": [
       {
-        "pagePath": "pages/navigator/index",
+        "pagePath": "pages/facilities/index",
         "iconPath": "assets/hall.png",
         "selectedIconPath": "assets/hall-HL.png",
-        "text": "办事大厅"
+        "text": "场地借用"
       },
       {
-        "pagePath": "pages/noticeBoard/index",
+        "pagePath": "pages/material/material",
         "iconPath": "assets/notification.png",
         "selectedIconPath": "assets/notification-HL.png",
-        "text": "公告版"
+        "text": "物资借用"
       }
     ]
   }

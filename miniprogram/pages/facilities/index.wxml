@@ -12,10 +12,16 @@
     <view class="weui-panel weui-panel_access">
       <view class="weui-panel__bd">
         <view class="weui-flex">
-          <view class="weui-flex__item" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="../borrowClassroom/borrowClassroom">
+          <view class="weui-flex__item" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="listBorrow">
+            <image class="flex-icon" src="../../assets/availableClassroom.png" mode="aspectFit"></image>
+            <view>教室借用查询</view>
+          </view>
+          <view class="weui-flex__item" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="borrowClassroom">
             <image class="flex-icon" src="../../assets/borrowClassroom.png" mode="aspectFit"></image>
             <view>教室借用</view>
           </view>
+        </view>
+        <view class="weui-flex">
           <view class="weui-flex__item" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="../progressCheck/progressCheck">
             <image class="flex-icon" src="../../assets/progressCheck.png" mode="aspectFit"></image>
             <view>进度查询</view>
@@ -23,6 +29,9 @@
         </view>
       </view>
     </view>
+    <!-- 公告 -->
+    <rulePanel/>
+    <!-- admin -->
     <view wx:if="{{isLogin && isAdmin}}" class="weui-panel">
       <view class="weui-panel__hd">借用审批</view>
       <view class="weui-panel__bd">

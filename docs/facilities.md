@@ -591,8 +591,8 @@ function wb_has_macro(wb/*:workbook*/)/*:boolean*/ {
 
 0. 用户借用界面**急需**添加教室借用冲突检查，避免提交已提交或者他人以借用房间。
 0. `submitDate` 可以使用 [`db.serverDate`](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/reference-client-api/database/db.serverDate.html) API，因为客户端时间和格式可能与服务端有差距，而且该API提供了额外字段，参见 [数据类型文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/database/data-type.html)。
-0. 精简场地借用页面，预留物资借用页面。
-0. 所有人注意阅读 `prd` , 落实一期内容完成情况, 设计二期内容。
+0. 整合场地借用内容，预留物资借用页面。
+0. 所有人注意阅读 `prd` , **落实一期内容**完成情况, 设计二期内容。
 
 ## 6 License
 
