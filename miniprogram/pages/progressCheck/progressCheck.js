@@ -1,29 +1,37 @@
-// miniprogram/pages/listApproval.js
-
-//初始化数据库
-wx.cloud.init();
+// pages/progressCheck/progressCheck/.js
+const app = getApp();
 const db = wx.cloud.database();
 
 Page({
   data: {
     progressList: [],
     examState: ["未审批", "撤回", "未通过", "通过"],
-    showIndex: 0,
-    rule: getApp().globalData.rule
   },
   onLoad: function(options) {
-    //openid的getter
-    function getOpenid() {
-      let app = getApp();
-      let openid = app.loginState.openid
-      return openid;
-    }
-
     const PAGE = this; // 使得get回调函数可以访问this.setData
+    // get openid
+    let openid = app.loginState.openid;
+    console.log(openid);
+    if (!(/[0-9A-Za-z_-]{28}/.test(openid))){
+      // invalid openid
+      wx.showToast({
+        title: "无效访问",
+        icon: "none",
+        mask: true,
+        duration: 3000,
+        complete() {
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: 1
+            });
+          }, 3100);
+        }
+      });
+      return;
+    }
     // 获取db数据
-    console.log(getOpenid());
-    db.collection('forms').where({
-      _openid: getOpenid()
+    db.collection("forms").where({
+      _openid: openid
     }).get({
       success(e) {
         console.log(e, e.data);
@@ -34,16 +42,5 @@ Page({
       },
       fail: console.error
     });
-  },
-  panel: function(e) {
-    if (e.currentTarget.dataset.index != this.data.showIndex) {
-      this.setData({
-        showIndex: Number(e.currentTarget.dataset.index)
-      });
-    } else {
-      this.setData({
-        showIndex: 0
-      });
-    }
   }
 })

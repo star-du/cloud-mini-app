@@ -1,13 +1,13 @@
 {
   "name": "exportXlsx",
   "version": "1.0.0",
-  "description": "",
+  "description": "export database to excel worksheet",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "dorence",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "wx-server-sdk": "latest",
     "xlsx":">=0.13.0"

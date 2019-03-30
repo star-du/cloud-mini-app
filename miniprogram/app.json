@@ -1,13 +1,13 @@
 {
   "pages": [
     "pages/navigator/index",
-    "pages/borrowClassroom/borrowClassroom",
     "pages/approval/exportApproval",
     "pages/approval/listApproval",
     "pages/approval/viewApproval",
+    "pages/borrowClassroom/borrowClassroom",
     "pages/noticeBoard/index",
     "pages/progressCheck/progressCheck",
-    "pages/theForm/theForm"
+    "pages/progressCheck/printForm"
   ],
   "window": {
     "backgroundColor": "#f6f6f6",

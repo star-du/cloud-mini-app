@@ -1,5 +1,5 @@
 # HUSTAU 场地/物资借用系统
-## 场地借用后台管理 开发文档
+## 场地借用管理 开发文档
 
 ## 1 WeUI
 
@@ -11,8 +11,8 @@
 引入 `WeUI` 只需在 `wxss` 中添加 :
 
 ```wxss
-    @import "PATH/assets/weui.wxss";
-    /* PATH => the path of miniprogram */
+@import "PATH/assets/weui.wxss";
+/* PATH => the path of miniprogram */
 ```
 
 貌似升级到微信7.0+版本之后，某些手机的flex渲染有所变化，所以一定要注意`WeUI`在各型号各系统中的表现！[千万不要装**微信内测版**!!!]
@@ -24,10 +24,31 @@
 + [IcoMoon App `icomoon.io`](https://icomoon.io/app)
 + [Icons - Material Design `material.io/tools/icons`](https://material.io/tools/icons/?style=baseline)
 
+
 ## 3 js-xlsx
 
 + [SheetJS js-xlsx](https://github.com/SheetJS/js-xlsx)
 + [xlsx - docs](https://docs.sheetjs.com/)
+
+**引入** (使用`node_modules`)
+
+0. 在 `package.json` 中添加依赖:
+
+ ```json
+ {
+      "dependencies": {
+          "xlsx":">=0.13.0"
+      }
+ }
+ ```
+
+1. 在 `js` 中链接库:
+
+ ```js
+    const XLSX = require("xlsx");
+ ```
+
+### 简明文档介绍
 
 Parser and writer for various spreadsheet formats. **Pure-JS** cleanroom implementation from official specifications, related documents, and test files. This is the **community** version. We also offer a pro version with performance enhancements, additional features like styling, and dedicated support.
 
@@ -163,21 +184,13 @@ ws["!margins"] = {left:0.25, right:0.25, top:0.75, bottom:0.75, header:0.3, foot
 
 In addition to the base sheet keys, worksheets also add:
 
-+ `ws['!cols']`: array of column properties objects.  Column widths are actually
-  stored in files in a normalized manner, measured in terms of the "Maximum
-  Digit Width" (the largest width of the rendered digits 0-9, in pixels).  When
-  parsed, the column objects store the pixel width in the `wpx` field, character
-  width in the `wch` field, and the maximum digit width in the `MDW` field.
++ `ws['!cols']`: array of column properties objects.  Column widths are actually stored in files in a normalized manner, measured in terms of the "Maximum Digit Width" (the largest width of the rendered digits 0-9, in pixels).  When parsed, the column objects store the pixel width in the `wpx` field, character width in the `wch` field, and the maximum digit width in the `MDW` field.
 
-+ `ws['!rows']`: array of row properties objects as explained later in the docs.
-  Each row object encodes properties including row height and visibility.
++ `ws['!rows']`: array of row properties objects as explained later in the docs. Each row object encodes properties including row height and visibility.
 
-+ `ws['!merges']`: array of range objects corresponding to the merged cells in
-  the worksheet.  Plain text formats do not support merge cells.  CSV export
-  will write all cells in the merge range if they exist, so be sure that only
-  the first cell (upper-left) in the range is set.
++ `ws['!merges']`: array of range objects corresponding to the merged cells in the worksheet.  Plain text formats do not support merge cells. CSV export will write all cells in the merge range if they exist, so be sure that only the first cell (upper-left) in the range is set.
 
-+ `ws['!protect']`: object of write sheet protection properties. The `password`  key specifies the password for formats that support password-protected sheet (XLS*). The writer uses the XOR obfuscation method. The following keys control the sheet protection -- set to `false` to enable a feature when sheet is locked or set to `true` to **disable** a feature:
++ `ws['!protect']`: object of write sheet protection properties. The `password` key specifies the password for formats that support password-protected sheet (`XLS*`). The writer uses the XOR obfuscation method. The following keys control the sheet protection -- set to `false` to enable a feature when sheet is locked or set to `true` to **disable** a feature:
 
 **Worksheet Protection Details**
 
@@ -286,19 +299,17 @@ Key       | Description
 `Ref`     | A1-style Reference (`"Sheet1!$A$1:$D$20"`)
 `Comment` | Comment(only applicable for XLS*)
 
-Excel allows two sheet-scoped defined names to share the same name. However, a
-sheet-scoped name cannot collide with a workbook-scope name. Workbook writers
-may not enforce this constraint.
+Excel allows two sheet-scoped defined names to share the same name. However, a sheet-scoped name cannot collide with a workbook-scope name. Workbook writers may not enforce this constraint.
 
 + Workbook Views
 
-`wb.Workbook.Views` is an array of workbook view objects; key `RTL` : if true, display right-to-left.
+`wb.Workbook.Views` is an array of workbook view objects; key `RTL`: if true, display right-to-left.
 
-+ **Miscellaneous Workbook Properties**
++ Miscellaneous Workbook Properties
 
 `wb.Workbook.WBProps` holds other workbook properties:
 
-Key             | Description
+ Key            | Description
 ---------------:| --------------------------------------------------
 `CodeName`      | VBA Project Workbook Code Name
 `date1904`      | epoch: 0/false for 1900 system, 1/true for 1904
@@ -313,7 +324,7 @@ Even for basic features like date storage, the official Excel formats store the 
 
 **The A1-style formula** string is stored in the `f` field. Even though different file formats store the formulae in different ways, the formats are translated. CSF formulae do **not** start with `=`.
 
-**Representation of A1=1, A2=2, A3=A1+A2**
++ **Representation of A1=1, A2=2, A3=A1+A2**
 
 ```js
 {
@@ -324,9 +335,9 @@ Even for basic features like date storage, the official Excel formats store the 
 }
 ```
 
-Shared formulae are decompressed and each cell has the formula corresponding to its cell. Writers generally do not attempt to generate shared formulae. Cells with formula entries but no value will be serialized in a way that Excel and other spreadsheet tools will recognize. This library will not automatically compute formula results! For example, to compute `BESSELJ` in a worksheet:
++ Formula without known value
 
-**Formula without known value**
+Shared formulae are decompressed and each cell has the formula corresponding to its cell. Writers generally do not attempt to generate shared formulae. Cells with formula entries but no value will be serialized in a way that Excel and other spreadsheet tools will recognize. This library will not automatically compute formula results! For example, to compute `BESSELJ` in a worksheet:
 
 ```js
 {
@@ -337,7 +348,7 @@ Shared formulae are decompressed and each cell has the formula corresponding to 
 }
 ```
 
-**Array Formulae**
++ **Array Formulae**
 
 Array formulae are stored in the top-left cell of the array block. All cells of an array formula have a `F` field corresponding to the range. A single-cell formula can be distinguished from a plain formula by the presence of `F` field.
 
@@ -356,11 +367,11 @@ worksheet['D2'] = worksheet['D3'] = { t:'n', F:"D1:D3" };
 
 Utilities and writers are expected to check for the presence of a `F` field and ignore any possible formula element `f` in cells other than the starting cell. They are not expected to perform validation of the formulae!
 
-**Formula Output Utility Function**
++ Formula Output Utility Function
 
 The `sheet_to_formulae` method generates one line per formula or array formula. Array formulae are rendered in the form `range=formula` while plain cells are rendered in the form `cell=formula or value`. Note that string literals are prefixed with an apostrophe `'`, consistent with Excel's formula bar display.
-**
-Formulae File Format Details**
+
++ **Formulae File Format Details**
 
 Storage Representation | Formats             | Read | Write
 ----------------------:| ------------------- |:----:|:-----:
@@ -373,8 +384,7 @@ Since Excel prohibits named cells from colliding with names of `A1` or `RC` styl
 
 #### Column Properties
 
-The `!cols` array in each worksheet, if present, is a collection of `ColInfo`
-objects which have the following properties:
+The `!cols` array in each worksheet, if present, is a collection of `ColInfo` objects which have the following properties:
 
 ```typescript
 type ColInfo = {
@@ -393,7 +403,7 @@ type ColInfo = {
 
 **Implementation details**
 
-Given the constraints, it is possible to determine the MDW without actually inspecting the font!  The parsers guess the pixel width by converting from  idth to pixels and back, repeating for all possible MDW and selecting the MDW that minimizes the error.  XLML actually stores the pixel width, so the guess works in the opposite direction. Even though all of the information is made available, writers are expected to follow the priority order:
+Given the constraints, it is possible to determine the MDW without actually inspecting the font!  The parsers guess the pixel width by converting from  idth to pixels and back, repeating for all possible MDW and selecting the MDW that minimizes the error. XLML actually stores the pixel width, so the guess works in the opposite direction. Even though all of the information is made available, writers are expected to follow the priority order:
 
 1) use `width` field if available
 2) use `wpx` pixel width if available
@@ -416,32 +426,20 @@ type RowInfo = {
 };
 ```
 
-Note: Excel UI displays the base outline level as `1` and the max level as `8`.
-The `level` field stores the base outline as `0` and the max level as `7`.
+Note: Excel UI displays the base outline level as `1` and the max level as `8`. The `level` field stores the base outline as `0` and the max level as `7`.
 
 **Implementation details**
 
-Excel internally stores row heights in points. The default resolution is 72 DPI or 96 PPI, so the pixel and point size should agree. For different   resolutions they may not agree, so the library separates the concepts.
-
-Even though all of the information is made available, writers are expected to
-follow the priority order:
-
-1) use `hpx` pixel height if available
-2) use `hpt` point height if available
+Excel internally stores row heights in points. The default resolution is 72 DPI or 96 PPI, so the pixel and point size should agree. For different resolutions they may not agree, so the library separates the concepts. Even though all of the information is made available, writers are expected to follow the priority order: 1) `hpx` pixel height if available, 2) `hpt` point height if available
 
 
 #### Number Formats
 
-The `cell.w` formatted text for each cell is produced from `cell.v` and `cell.z`
-format.  If the format is not specified, the Excel `General` format is used.
-The format can either be specified as a string or as an index into the format
-table.  Parsers are expected to populate `workbook.SSF` with the number format
-table.  Writers are expected to serialize the table.
+The `cell.w` formatted text for each cell is produced from `cell.v` and `cell.z` format.  If the format is not specified, the Excel `General` format is used. The format can either be specified as a string or as an index into the format table. Parsers are expected to populate `workbook.SSF` with the number format table. Writers are expected to serialize the table.
 
-Custom tools should ensure that the local table has each used format string
-somewhere in the table.  Excel convention mandates that the custom formats start at index 164.  The following example creates a custom format from scratch:
+Custom tools should ensure that the local table has each used format string somewhere in the table.  Excel convention mandates that the custom formats start at index 164. The following example creates a custom format from scratch:
 
-**New worksheet with custom format**
++ **New worksheet with custom format**
 
 ```js
 var wb = {
@@ -449,27 +447,26 @@ var wb = {
   Sheets: {
     Sheet1: {
       "!ref":"A1:C1",
-      A1: { t:"n", v:10000 },                    // <-- General format
-      B1: { t:"n", v:10000, z: "0%" },           // <-- Builtin format
-      C1: { t:"n", v:10000, z: "\"T\"\ #0.00" }  // <-- Custom format
+      A1: { t:"n", v:10000 },                    // <- General format
+      B1: { t:"n", v:10000, z: "0%" },           // <- Builtin format
+      C1: { t:"n", v:10000, z: "\"T\"\ #0.00" }  // <- Custom  format
     }
   }
 }
 ```
 
-The rules are slightly different from how Excel displays custom number formats.
-In particular, literal characters must be wrapped in double quotes or preceded by a backslash. For more info, see the Excel documentation article `Create or delete a custom number format` or ECMA-376 18.8.31 (Number Formats)
+The rules are slightly different from how Excel displays custom number formats. In particular, literal characters must be wrapped in double quotes or preceded by a backslash. For more info, see the Excel documentation article `Create or delete a custom number format` or ECMA-376 18.8.31 (Number Formats)
 
-**Default Number Formats**
++ **Default Number Formats**
 
 The default formats are listed in `ECMA-376` 18.8.30:
 
  ID | Format                | ID | Format                     | ID | Format
----:| --------------------- | --:| -------------------------- | --:| ----------------------
+---:| --------------------- | --:| -------------------------- | --:| ---------------------
  0  | `General`             | 1  | `0`                        | 2  | `0.00`
  3  | `#,##0`               | 4  | `#,##0.00`                 | 9  | `0%`
  10 | `0.00%`               | 11 | `0.00E+00`                 | 12 | `# ?/?`
- 13 | `# ??/??`             | 14 | `m/d/yy`[see below]        | 15 | `d-mmm-yy`
+ 13 | `# ??/??`             | 14 | `m/d/yy` [see below]       | 15 | `d-mmm-yy`
  16 | `d-mmm`               | 17 | `mmm-yy`                   | 18 | `h:mm AM/PM`
  19 | `h:mm:ss AM/PM`       | 20 | `h:mm`                     | 21 | `h:mm:ss`
  22 | `m/d/yy h:mm`         | 37 | `#,##0 ;(#,##0)`           | 38 | `#,##0 ;[Red](#,##0)`
@@ -477,27 +474,17 @@ The default formats are listed in `ECMA-376` 18.8.30:
  46 | `[h]:mm:ss`           | 47 | `mmss.0`                   | 48 | `##0.0E+0`
  49 | `@`
 
-**Format 14** (`m/d/yy`) is localized by Excel: even though the file specifies that number format, it will be drawn differently based on system settings. It makes sense when the producer and consumer of files are in the same locale, but that is not always the case over the Internet.  To get around this ambiguity, parse functions accept the `dateNF` option to override the interpretation of that specific format string.
+**Format 14 (`m/d/yy`)** is localized by Excel: even though the file specifies that number format, it will be drawn differently based on system settings. To get around this  ambiguity, parse functions accept the `dateNF` option to override the interpretation of that specific format string.
 
 #### Hyperlinks
 
-Hyperlinks are stored in the `l` key of cell objects.  The `Target` field of the
-hyperlink object is the target of the link, including the URI fragment. Tooltips
-are stored in the `Tooltip` field and are displayed when you move your mouse
-over the text.
-
-For example, the following snippet creates a link from cell `A3` to
-<http://sheetjs.com> with the tip `"Find us @ SheetJS.com!"`:
+Hyperlinks are stored in the `l` key of cell objects. For example, the following snippet creates a link from cell `A3` to <`http://sheetjs.com`> with the tip `"Find us @ SheetJS.com!"`:
 
 ```js
 ws['A3'].l = { Target:"http://sheetjs.com", Tooltip:"Find us @ SheetJS.com!" };
 ```
 
-Note that Excel does not automatically style hyperlinks -- they will generally
-be displayed as normal text.
-
-Links where the target is a cell or range or defined name in the same workbook
-("Internal Links") are marked with a leading hash character:
+Note that Excel does not automatically style hyperlinks(displayed as normal text). Links where the target is a cell or range or defined name in the same workbook ("Internal Links") are marked with a leading hash character:
 
 ```js
 ws['A2'].l = { Target:"#E2" }; /* link to cell E2 */
@@ -505,12 +492,7 @@ ws['A2'].l = { Target:"#E2" }; /* link to cell E2 */
 
 #### Sheet Visibility
 
-Excel enables hiding sheets in the lower tab bar. The sheet data is stored in
-the file but the UI does not readily make it available. Standard hidden sheets
-are revealed in the "Unhide" menu.  Excel also has "very hidden" sheets which
-cannot be revealed in the menu. It is only accessible in the VB Editor!
-
-The visibility setting is stored in the `Hidden` property of sheet props array.
+Excel enables hiding sheets in the lower tab bar. The sheet data is stored in the file but the UI does not readily make it available. Standard hidden sheets are revealed in the "Unhide" menu.  Excel also has "very hidden" sheets which cannot be revealed in the menu. It is **only** accessible in the VB Editor! The visibility setting is stored in the `Hidden` property of sheet props array.
 
 Value | Definition
 -----:| ------------
@@ -525,8 +507,7 @@ With [sheet_visibility.xlsx](https://rawgit.com/SheetJS/test_files/master/sheet_
 [ [ 'Visible', 0 ], [ 'Hidden', 1 ], [ 'VeryHidden', 2 ] ]
 ```
 
-Non-Excel formats do not support the Very Hidden state.  The best way to test
-if a sheet is visible is to check if the `Hidden` property is logical truth:
+Non-Excel formats do not support the Very Hidden state. The best way to test if a sheet is visible is to check if the `Hidden` property is logical truth:
 
 ```js
 > wb.Workbook.Sheets.map(function(x) { return [x.name, !x.Hidden] })
@@ -535,22 +516,19 @@ if a sheet is visible is to check if the `Hidden` property is logical truth:
 
 #### VBA and Macros
 
-VBA Macros are stored in a special data blob that is exposed in the `vbaraw`
-property of the workbook object when the `bookVBA` option is `true`. They aresupported in `XLSM`, `XLSB`, and `BIFF8 XLS` formats. The supported format
-writers automatically insert the data blobs if it is present in the workbook and associate with the worksheet names.
+VBA Macros are stored in a special data blob that is exposed in the `vbaraw` property of the workbook object when the `bookVBA` option is `true`. They aresupported in `XLSM`, `XLSB`, and `BIFF8 XLS` formats. The supported format writers automatically insert the data blobs if it is present in the workbook and associate with the worksheet names.
 
-**Custom Code Names**
++ Custom Code Names
 
-The workbook code name is stored in `wb.Workbook.WBProps.CodeName`.  By default, Excel will write `ThisWorkbook` or a translated phrase like  `DieseArbeitsmappe`. Worksheet and Chartsheet code names are in the worksheet properties object at `wb.Workbook.Sheets[i].CodeName`.  Macrosheets and Dialogsheets are ignored.
+The workbook code name is stored in `wb.Workbook.WBProps.CodeName`. By default, Excel will write `ThisWorkbook` or a translated phrase like `DieseArbeitsmappe`. Worksheet and  chartsheet code names are in the worksheet properties object at `wb.Workbook.Sheets[i].CodeName`. Macrosheets and Dialogsheets are ignored.
 
-The readers and writers preserve the code names, but they have to be manually
-set when adding a VBA blob to a different workbook.
+The readers and writers preserve the code names, but they have to be manually set when adding a VBA blob to a different workbook.
 
-**Macrosheets**
++ **Macrosheets**
 
 Older versions of Excel also supported a non-VBA "macrosheet" sheet type that stored automation commands. These are exposed in objects with the `!type` property set to `"macro"`.
 
-**Detecting macros in workbooks**
++ **Detecting macros in workbooks**
 
 The `vbaraw` field will only be set if macros are present, so testing is simple:
 
@@ -567,48 +545,54 @@ function wb_has_macro(wb/*:workbook*/)/*:boolean*/ {
 
 ### Pages
 
-0. navigator/`index`
+0. **navigator/index**
 
   主界面 : 申请场地借用 + 后台管理
 
-0. approval/`listApproval`
+0. **approval/listApproval**
 
-  列出符合条件的所有审批，访问时传入查询条件，比如`未审批`, `已审批 && 一个月内` 等。 用到 `WeUI` 里面的 `Preview` 模块。
+  列出符合条件的所有审批, 访问时传入查询条件, 比如`未审批`, `已审批 && 一个月内` 等. 用到 `WeUI` 里面的 `Preview` 模块. **TODO**: `limit` 上限为` 20`.
 
-0. approval/`viewApproval`
+0. approval/viewApproval
 
-  显示单个的审批， 即 借用信息 + 活动信息 + 审核情况（同意也需要有审批意见；审批意见可反复修改） + 操作按钮(同意/拒绝/撤回)。 用到 `WeUI` 里面的 `List` 中的部分。
+  显示单个的审批, 即 借用信息 + 活动信息 + 审核情况（同意也有审批意见; 审批意见可反复撤回/修改） + 操作按钮(同意/拒绝/撤回). 用到 `WeUI` 里面的 `List` 中的部分.
 
-0. approval/`exportApproval`
+0. **approval/exportApproval**
 
-  导出一定时段内的所有审批，导出为`xlsx`.
+  导出一定时段内的所有审批, 导出为`xlsx`.
+
+### Component
+
+0. **common/rulePanel**
+
+  带过渡的 注意事项及后续流程 折叠面板。
+
 
 ### Cloud Functions
 
-0. **updateApproval**
-
-  `{updateID, check, exam}`
-
-  用于 `viewApproval` 中更新审批情况. `updateID` : 要修改的 `doc` 的字段 `_id`. 返回一个对象 `{error: Boolean, msg: String [, updated : Number]}`, 若调用成功则 `error` 为 `true` 且有 `updated`, 若失败则 `error` 为 `false` 且 `msg` 为错误信息, 无 `updated` 属性.
-
-0. **login**
+0. login
 
    登录查询，返回 `openid` 等信息，管理员有字段 `isAdmin`.
 
+0. **updateApproval**
+
+  [in] `{updateID, check, exam}`
+
+  用于 `viewApproval` 中更新审批情况. `updateID` : 要修改的 `doc` 的字段 `_id`. 返回一个对象 `{error: Boolean, msg: String [, updated : Number]}`, 若调用成功则 `error` 为 `true` 且有 `updated`, 若失败则 `error` 为 `false` 且 `msg` 为错误信息, 无 `updated` 属性.
+
 0. **exportXlsx**
 
-  `{openID, startDate, endDate}`
+  [in] `{openID, startDate, endDate}`
 
-  生成 `xlsx`, 需要检查 `openid` 是否为管理员(有权限导出). 导出内容为 startDate 至 endDate 内所有的审核通过的审批.
+  生成 `xlsx` 文件, 需要检查 `openid` 是否为管理员(有权限导出). 导出内容为 startDate 至 endDate 内所有的审核通过的审批.
 
 
 ## 5 下一步
 
-0. 请各组注意阅读 `prd` , 落实内容的完成。
+0. 用户借用界面**急需**添加教室借用冲突检查，避免提交已提交或者他人以借用房间。
 0. `submitDate` 可以使用 [`db.serverDate`](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/reference-client-api/database/db.serverDate.html) API，因为客户端时间和格式可能与服务端有差距，而且该API提供了额外字段，参见 [数据类型文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/database/data-type.html)。
-0. 公告注意事项的`panel`使用过渡动画。
-0. 公告查询页面合并。
-
+0. 精简场地借用页面，预留物资借用页面。
+0. 所有人注意阅读 `prd` , 落实一期内容完成情况, 设计二期内容。
 
 ## 6 License
 
