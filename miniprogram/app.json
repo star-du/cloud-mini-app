@@ -8,7 +8,7 @@
     "pages/facilities/listBorrow",
     "pages/progressCheck/progressCheck",
     "pages/progressCheck/printForm",
-    "pages/material/material"
+    "pages/materials/materials"
   ],
   "window": {
     "backgroundColor": "#f6f6f6",
@@ -30,7 +30,7 @@
         "text": "场地借用"
       },
       {
-        "pagePath": "pages/material/material",
+        "pagePath": "pages/materials/materials",
         "iconPath": "assets/notification.png",
         "selectedIconPath": "assets/notification-HL.png",
         "text": "物资借用"
