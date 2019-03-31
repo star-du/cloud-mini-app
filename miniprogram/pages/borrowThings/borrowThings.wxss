@@ -8,13 +8,13 @@
   font-family:"";
 }
 
-.goods .menu-wrapper {
+.menu-wrapper {
   flex: 0 0 80px;
   width: 80px;
   background: #f3f5f7;
 }
 
-.goods .menu-wrapper .menu-item {
+.menu-item {
   display: table;
   width: 56px;
   height: 54px;
@@ -22,7 +22,7 @@
   padding: 0 12px;
 }
 
-.goods .menu-wrapper .menu-item:current {
+.menu-item:current {
   position: relative;
   z-index: 10;
   margin-top: -1px;
@@ -30,11 +30,10 @@
   font-weight: 700;
 }
 
-.goods .menu-wrapper .menu-item:current .text {
+.text {
   border: none;
 }
-
-.goods .menu-wrapper .menu-item .icon {
+.icon {
   display: inline-block;
   width: 12px;
   height: 12px;
@@ -44,7 +43,7 @@
   background-repeat: no-repeat;
 }
 
-.goods .menu-wrapper .menu-item .text {
+.text {
   display: table-cell;
   width: 56px;
   vertical-align: middle;
@@ -53,11 +52,11 @@
   border-bottom:1px solid rgba(7,17,27,0.1);
 }
 
-.goods .foods-wrapper {
+.foods-wrapper {
   flex: 1;
 }
 
-.goods .foods-wrapper .food-list .title {
+.title {
   padding-left: 14px;
   height: 26px;
   line-height: 26px;
@@ -67,7 +66,7 @@
   background: #f3f5f7;
 }
 
-.goods .foods-wrapper .food-list .food-item {
+.food-item {
   display: flex;
   margin: 18px;
   padding-bottom: 18px;
@@ -75,21 +74,21 @@
   border-bottom:1px solid rgba(7,17,27,0.1);
 }
 
-.goods .foods-wrapper .food-list .food-item:last-child {
+.food-item:last-child {
   border: none;
   margin-bottom: 0px;
 }
 
-.goods .foods-wrapper .food-list .food-item .icon {
+.icon {
   flex: 0 0 57px;
   margin-right: 10px;
 }
 
-.goods .foods-wrapper .food-list .food-item .content {
+.content {
   flex: 1;
 }
 
-.goods .foods-wrapper .food-list .food-item .content .name {
+.name {
   margin: 2px 0 8px 0;
   font-size: 14px;
   line-height: 14px;
@@ -97,39 +96,28 @@
   color: rgb(7, 17, 27);
 }
 
-.goods .foods-wrapper .food-list .food-item .content .desc, .extra {
+.desc, .extra {
   font-size: 10px;
   line-height: 10px;
   color: rgb(147, 153, 159);
 }
 
-.goods .foods-wrapper .food-list .food-item .content .desc {
+.desc {
   margin-bottom: 8px;
   line-height: 12px;
 }
 
-.goods .foods-wrapper .food-list .food-item .content .extra .count {
+.count {
   margin-right: 12px;
 }
 
-.goods .foods-wrapper .food-list .food-item .content .price {
-  font-weight: 700px;
-  line-height: 24px;
-}
-
-.goods .foods-wrapper .food-list .food-item .content .price .now {
-  margin-right: 8px;
-  font-size: 14px;
-  color: rgb(240, 20, 20);
-}
-
-.goods .foods-wrapper .food-list .food-item .content .price .old {
+.old {
   font-size: 10px;
   color: rgb(147, 153, 159);
   text-decoration: line-through;
 }
 
-.goods .foods-wrapper .food-list .food-item .content .cartControl-wrapper {
+.cartControl-wrapper {
   position: absolute;
   right: 0;
   bottom: 12px;
@@ -137,28 +125,26 @@
 
 /* cartControl 样式 */
 
-.goods .foods-wrapper .food-list .food-item .content .cartControl-wrapper .cartControl {
+.cartControl {
   font-size: 0;
 }
 
-.goods .foods-wrapper .food-list .food-item .content .cartControl-wrapper .cartControl .cart-decrease,
+.cart-decrease,
 .cart-add {
   display: inline-block;
   padding: 4px 6px 6px 6px;
 }
 
-.goods .foods-wrapper .food-list .food-item .content .cartControl-wrapper .cartControl .cart-decrease,
+.cart-decrease,
 .cart-add :fade-enter-active, :fade-leave-active {
   transition: all 0.4s linear;
 }
 
-.goods .foods-wrapper .food-list .food-item .content .cartControl-wrapper .cartControl .cart-decrease,
+.cart-decrease,
 .cart-add :fade-enter, :fade-leave-active {
   opacity: 0 transform translate3d(24px, 0, 0);
 }
-
-.goods .foods-wrapper .food-list .food-item .content .cartControl-wrapper .cartControl .cart-decrease,
-.cart-add .inner {
+.cart-decrease,.cart-add .inner {
   display: inline-block;
   line-height: 24px;
   font-size: 24px;
@@ -166,18 +152,18 @@
   color: rgb(0, 160, 220, 0.2);
 }
 
-.goods .foods-wrapper .food-list .food-item .content .cartControl-wrapper .cartControl .cart-decrease,
+.cart-decrease,
 .cart-add :inner-enter-active, :inner-leave-active {
   transition: all 0.4s linear;
   transform: rotate(0);
 }
 
-.goods .foods-wrapper .food-list .food-item .content .cartControl-wrapper .cartControl .cart-decrease,
+.cart-decrease,
 .cart-add :inner-enter, :inner-leave-active {
   opacity: 0 transform rotate(180deg);
 }
 
-.goods .foods-wrapper .food-list .food-item .content .cartControl-wrapper .cartControl .cart-count {
+.cart-count {
   display: inline-block;
   font-size: 10px;
   line-height: 24px;
@@ -188,7 +174,7 @@
   color: rgb(147, 153, 159);
 }
 
-.goods .foods-wrapper .food-list .food-item .content .cartControl-wrapper .cartControl .cart-add {
+.cart-add {
   display: inline-block;
   padding: 6px;
   line-height: 24px;
