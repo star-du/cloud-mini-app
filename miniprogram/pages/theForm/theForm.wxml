@@ -3,6 +3,11 @@
     <view class="page__title">借用确认单</view>
   </view>
   <view class="page__bd">
+  <canvas style="width: 315px; height: 450px;" canvas-id="formVerify"/>
+    <button type="default" size="defaultSize" bindtap="savePic">生成图片</button>
+  <view>
+</view>
+
     <view class="weui-form-preview" wx:for="{{progressList}}" wx:for-index="i" wx:for-item="it" wx:key="id">
       <view class="weui-form-preview__bd">
 
@@ -63,5 +68,6 @@
 
       </view>
     </view>
+    
   </view>
 </view>

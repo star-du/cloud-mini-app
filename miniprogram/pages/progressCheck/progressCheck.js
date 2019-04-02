@@ -25,9 +25,12 @@ Page({
     const PAGE = this; // 使得get回调函数可以访问this.setData
     // 获取db数据
     console.log(getOpenid());
-    db.collection('forms').get({
+    db.collection('forms').where({
+      _openid:getOpenid()
+    }).get({
       success(e) {
-        console.log(e, e.data);
+        // console.log(e, e.data);
+        // console.log(typeof(getOpenid()));
         PAGE.setData({
           progressList: e.data || []
         });
