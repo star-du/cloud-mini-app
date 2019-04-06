@@ -11,6 +11,7 @@
     "pages/removeThings/removeThings",
     "pages/borrowThings/borrowThings",
     "pages/addThings/addThings",
+    "pages/addThings/add",
     "pages/adminPage/adminPage",
     "pages/progressList/progressList",
     "pages/materialsIndex/materialsIndex"

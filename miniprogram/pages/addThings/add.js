@@ -1,28 +1,38 @@
-// miniprogram/pages/addThings/addThings.js
-
+// pages/addThings/add.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    rule: getApp().globalData.rule
+    index: 0,
+    multiArray: [['一号仓库', '二号仓库', "三号仓库",'四号仓库'], ['货架号1', '货架号2', '货架号3', '货架号4', '货架号5', '货架号6'], ['分区A', '分区B', '分区C', '分区D','分区E']],
+   
+    multiIndex: [0, 0, 0],
 
   },
-
-
-  jumpPage: function (e) {
-    wx.navigateTo({
-      url: '/pages/addThings/add',
+  bindMultiPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      multiIndex: e.detail.value
     })
   },
+  bindMultiPickerColumnChange: function (e) {
+    console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
+    var data = {
+      multiArray: this.data.multiArray,
+      multiIndex: this.data.multiIndex
+    };
+    data.multiIndex[e.detail.column] = e.detail.value;
 
- 
+    this.setData(data);
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+   
   },
 
   /**
@@ -31,7 +41,7 @@ Page({
   onReady: function () {
 
   },
-  
+
   /**
    * 生命周期函数--监听页面显示
    */
@@ -74,4 +84,3 @@ Page({
 
   }
 })
-

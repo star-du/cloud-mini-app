@@ -1,2 +1,15 @@
 <!--增加物品界面-->
-<text>miniprogram/pages/addThings/addThings.wxml</text>
+<view class="page">
+  <view calss="page_hd">  
+    <view class="page__title">注意事项</view>
+  </view>
+  <!-- 公告 -->
+    <view class="rule weui-cells">
+      <view class="title" >
+        <view class="rule-head" >注意事项及后续流程</view>
+      </view>
+      <text  class="rule-text">{{rule}}</text>
+    </view>
+  <button type="primary" bindtap="jumpPage">我已阅读</button>
+</view>
+    
