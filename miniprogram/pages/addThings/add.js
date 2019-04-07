@@ -5,11 +5,25 @@ Page({
    * 页面的初始数据
    */
   data: {
+    array: [],
+    category:['服饰类','宣传类','奖品类','工具类','装饰类','文本类','其他'],
     index: 0,
     multiArray: [['一号仓库', '二号仓库', "三号仓库",'四号仓库'], ['货架号1', '货架号2', '货架号3', '货架号4', '货架号5', '货架号6'], ['分区A', '分区B', '分区C', '分区D','分区E']],
    
     multiIndex: [0, 0, 0],
 
+  },
+  bindCategoryChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      index: e.detail.value
+    })
+  },
+ bindPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      index: e.detail.value
+    })
   },
   bindMultiPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
