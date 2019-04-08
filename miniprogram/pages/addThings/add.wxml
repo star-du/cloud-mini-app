@@ -1,6 +1,6 @@
 <view class="page">
   <view class="page__hd">
-    <view class="page__title">借用填表</view>
+    <view class="page__title">新增物资填表</view>
   </view>
   <form class="page__bd" bindsubmit="submit">
     <!-- form cells-group 1 -->
