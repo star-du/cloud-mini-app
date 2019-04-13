@@ -1,66 +1,70 @@
 // miniprogram/pages/borrowThings/borrowThings.js
+const db = wx.cloud.database();
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    items: 0,
+    tags: ["锦旗", "灯", "电子设备", "杂物"],
+    goods: [],
+    toView: '0',
+    scrollTop: 100,
+    foodCounts: 0,
+    carArray: [],
+    item:[],
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
+  //点击加号跳转至表单
+  navtoForm(e) {
+    var index = e.currentTarget.dataset.itemIndex;
+    var parentIndex = e.currentTarget.dataset.parentindex;
+    var name = this.data.goods[parentIndex].items[index].name;
+    var mark = 'a' + index + 'b' + parentIndex;
+    var obj = {name: name, index: index, parentIndex: parentIndex};
+    var carArray1 = this.data.carArray.filter(item => item.mark != mark)
+    carArray1.push(obj)
+    console.log(carArray1);
+    this.setData({
+      carArray: carArray1,
+      goods: this.data.goods,
+      item: this.data.goods[parentIndex].items[index],
+    });
+    const data = e.currentTarget.dataset;
+    wx.navigateTo(data);
+  },
+  
   onLoad: function (options) {
-
+    this.getDatabase();
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
+  //导航栏跳转
+  selectMenu: function (e) {
+    var index = e.currentTarget.dataset.itemIndex;
+    this.setData({
+      toView: 'order' + index.toString()
+    })
+    console.log(this.data.toView);
+  },
+
+  //获取数据库
+  //TODO:当物品条数高于100时，需要skip操作（get有100条的获取限制）
+  getDatabase: function () {
+    const PAGE = this;
+    db.collection("items").get().then(e => {
+      PAGE.setData({
+        goods:e.data
+      })
+    })
+  },
+
   onReady: function () {
-
+    // 页面渲染完成
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
-
+    // 页面显示
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
   onHide: function () {
-
+    // 页面隐藏
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
   onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    // 页面关闭
   }
 })

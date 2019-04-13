@@ -10,6 +10,7 @@
     "pages/thingsList/thingsList",
     "pages/removeThings/removeThings",
     "pages/borrowThings/borrowThings",
+    "pages/borrowThings/borrowThings_form",
     "pages/addThings/addThings",
     "pages/adminPage/adminPage",
     "pages/progressList/progressList",
