@@ -44,8 +44,8 @@ Page({
     console.log(this.data.toView);
   },
 
-  //获取数据库某一类物品的数据，并返回一个对象
-  //name=>类型，items=>物品列表
+  //获取数据库
+  //TODO:当物品条数高于100时，需要skip操作（get有100条的获取限制）
   getDatabase: function () {
     const PAGE = this;
     db.collection("items").get().then(e => {

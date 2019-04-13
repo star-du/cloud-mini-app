@@ -9,19 +9,19 @@ const db = wx.cloud.database();
 
 Page({
   data: {
-    date1: date,  //借用时间
+    date1: date, //借用时间
     date2: date,
-    date3: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + (new Date().getDay()+14),
+    date3: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + (new Date().getDay() + 14),
     today: date,
-    itemname : [],
-    itemcount : [],
+    itemname: [],
+    itemcount: [],
   },
 
   onLoad: function (options) {
     this.setData({
-      itemname : options.itemname,
-      itemcount :  options.itemcount ,
-      itemId : options.itemId
+      itemname: options.itemname,
+      itemcount: options.itemcount,
+      itemId: options.itemId
     })
     account[0] = options.itemcount;
   },
@@ -35,9 +35,9 @@ Page({
       date2: e.detail.value,
     })
   },
-//检查合法性:
+  //检查合法性:
   check: function (e) {
-    var contents=e.detail.value;
+    var contents = e.detail.value;
     console.log(contents);
     //若 部门/协会名称 为空：
     if (contents["association"].length === 0) {
@@ -111,13 +111,13 @@ Page({
     }
     //若 物资借用数量 大于剩余数量，或等于零：
     if (contents["quantity"] > account[0] || contents["account"] == 0) {
-        wx.showModal({
-          title: "信息不完整或有错误",
-          content: "请重新填写物资借用数量",
-          showCancel: false,
-          confirmText: "确定"
-        });
-        return;
+      wx.showModal({
+        title: "信息不完整或有错误",
+        content: "请重新填写物资借用数量",
+        showCancel: false,
+        confirmText: "确定"
+      });
+      return;
     }
     //若 归还日期 小于 借用日期：
     if (contents["eventTime2"] < contents["eventTime1"]) {
@@ -139,27 +139,30 @@ Page({
       });
       return;
     }
-
-  db.collection("formsForFacilities").add({
-    data:{
-    association: contents["association"],
-    class: contents["class"],
-    description: contents["description"],
-    eventTime1: contents["eventTime1"],
-    eventTime2: contents["eventTime2"],
-    itemName: contents["itemName"],
-    name: contents["name"],
-    phoneNumber: contents["phoneNumber"],
-    quantity: contents["quantity"],
-    studentId: contents["studentId"],
-    }
-  }).then(() => wx.showToast({
-    title: '提交成功！',
-    success: function(){
-      wx.navigateBack({
-        delta:1
-      })
-    }
-  }))
+//提交申请表单
+    db.collection("formsForFacilities").add({
+      data: {
+        association: contents["association"],
+        class: contents["class"],
+        description: contents["description"],
+        eventTime1: contents["eventTime1"],
+        eventTime2: contents["eventTime2"],
+        itemName: contents["itemName"],
+        name: contents["name"],
+        phoneNumber: contents["phoneNumber"],
+        quantity: contents["quantity"],
+        studentId: contents["studentId"],
+      }
+    }).then(() => {
+      wx.showToast({
+        title: '提交成功！',
+        success: function () {
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      });
+      //让库存减一（还没写
+    })
   }
 })
