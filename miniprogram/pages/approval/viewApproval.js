@@ -1,9 +1,9 @@
-// pages/listApproval/viewApproval.js
+// pages/approval/viewApproval.js
 const app = getApp();
 const db = wx.cloud.database();
 
 function fetchDB(PAGE) {
-  return db.collection('forms').doc(PAGE.data.id).get().then(res => {
+  return db.collection("forms").doc(PAGE.data.id).get().then(res => {
     console.log("[fetch DB]Get database", res.data);
     if (res.data) {
       let x = res.data;
@@ -17,8 +17,7 @@ function fetchDB(PAGE) {
           commentLength: x.check.comment.length
         });
       }
-      if(!x.check || !x.check.approver)
-      {
+      if (!x.check || !x.check.approver) {
         PAGE.setData({
           "appr.check.approver": app.loginState.name
         });
@@ -70,7 +69,7 @@ Page({
             wx.navigateBack({
               delta: 1
             });
-          }, 3200);
+          }, 3100);
         }
       });
       return;
@@ -88,6 +87,7 @@ Page({
   submit: function(e) {
     const flag = Number(e.detail.target.dataset.flag);
     const value = e.detail.value;
+    value.comment = value.comment.trim();
     console.log(flag, value, this.data.id);
     const PAGE = this;
     wx.showLoading({
@@ -96,14 +96,14 @@ Page({
     });
     // call cloud function
     wx.cloud.callFunction({
-      name: 'updateApproval',
+      name: "updateApproval",
       data: {
         updateID: this.data.id,
         check: value,
         exam: flag
       }
     }).then((res) => {
-      console.log("Update success", res);
+      console.log("[updateApproval]ok", res);
       wx.hideLoading();
       // [Boolean]res.error indicates if calling has error
       if (res.error || res.updated === 0) {
@@ -122,13 +122,73 @@ Page({
         });
       }
       fetchDB(PAGE);
-    });
+    }).catch(console.error);
   },
-  /*统计输入长度*/
+  /**
+   * userInput()
+   * 输入活动内容时的响应, 显示字数
+   * @param {Object} e 传入的事件, e.detail.value为文本表单的内容
+   */
   userInput: function(e) {
-    // console.log(e.detail.value.length);
     this.setData({
       commentLength: e.detail.value.length
-    })
+    });
+  },
+  /**
+   * checkAvailTime()
+   * 检查该审批的借用时间内该教室是否空闲
+   */
+  checkAvailTime: function() {
+    const a = this.data.appr;
+    if (!a || Object.keys(a).length === 0) return false;
+    const filter = {
+      exam: 3,
+      classroomNumber: a.classroomNumber,
+      eventDate: app._toDateStr(new Date(a.eventDate), true)
+    };
+    console.log("[filter]", filter);
+    db.collection("forms").where(filter).field({
+        eventTime1: true,
+        eventTime2: true,
+        formid: true
+      }).get()
+      .then(res => {
+        console.log("[checkAvailTim]", res);
+        const cmp = (_x, _y) => {
+          return _x.eventTime1 == _x.eventTime1 ? _x.eventTime2 < _y.eventTime2 : _x.eventTime1 < _y.eventTime1
+        };
+        const getInter = (a) => {
+          const inside = (v, arr) => {
+            for (let i = 0; i < arr.length; i++)
+              if (v >= arr.eventTime1 && v <= arr.eventTime2) return i;
+            return -1;
+          };
+          let x = [],
+            n;
+          for (let i = 0; i < a.length; a++) {
+            n = inside(a[i].eventTime1, x);
+            if (n < 0) x.push(a[i]);
+            else if (x[n].eventTime2 < a[i].eventTime2) x[n].eventTime2 = a[i].eventTime2;
+          }
+          x.sort(cmp);
+          return x;
+        };
+
+        let arr = res.data;
+        arr.sort(cmp);
+        arr = getInter(arr);
+        console.log("[interval]", arr);
+        const str = arr.length ? arr.reduce((s, cur) => {
+          console.log(cur);
+          return s + "\n" + cur.eventTime1 + "-" + cur.eventTime2;
+        }, "") : "全天空闲";
+        console.log("[str]", str);
+        wx.showModal({
+          title: "查询结果",
+          content: arr.length ? ("占用时间: " + str) : str,
+          showCancel: false,
+          confirmText: "好的"
+        });
+      });
   }
 })

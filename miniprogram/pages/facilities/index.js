@@ -1,4 +1,4 @@
-// miniprogram/pages/navigator/index.js
+// pages/facilities/index.js
 const app = getApp();
 const db = wx.cloud.database();
 let callLoginCnt = 0; // count times of calling Page.callCloudLogin
@@ -130,7 +130,7 @@ Page({
       success(res) {
         // session_key 未过期，并且在本生命周期一直有效
         console.log("[checkSession] Has session.");
-        if (callLoginCnt++ >= 5) {
+        if (callLoginCnt++ >= 3) {
           console.warn("Call cloud function [login]:", callLoginCnt);
           let promise1 = new Promise(function(resolve, reject) {
             setTimeout(() => {

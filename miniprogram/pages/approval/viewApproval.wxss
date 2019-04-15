@@ -1,4 +1,4 @@
-/* pages/listApproval/viewApproval.wxss */
+/* pages/approval/viewApproval.wxss */
 @import "../../assets/weui.wxss";
 
 .page {
@@ -15,4 +15,8 @@
   vertical-align: middle;
   width: 17px;
   height: 17px;
+}
+
+.weui-vcode-btn {
+  padding: 0 0 0 12px;
 }

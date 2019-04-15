@@ -34,7 +34,7 @@
     <!-- admin -->
     <view wx:if="{{isLogin && isAdmin}}" class="weui-panel">
       <view class="weui-panel__hd">借用审批</view>
-      <view class="weui-panel__bd">
+      <view class="weui-panel__bd" style="padding-bottom: 0;">
         <view class="weui-media-box weui-media-box_small-appmsg">
           <view class="weui-cells weui-cells_in-small-appmsg">
             <!-- begin for -->
