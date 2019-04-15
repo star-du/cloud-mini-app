@@ -1,0 +1,73 @@
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">借用确认单</view>
+  </view>
+  <view class="page__bd">
+  <canvas style="width: 315px; height: 450px;" canvas-id="formVerify"/>
+    <button type="default" size="defaultSize" bindtap="savePic">生成图片</button>
+  <view>
+</view>
+
+    <view class="weui-form-preview" wx:for="{{progressList}}" wx:for-index="i" wx:for-item="it" wx:key="id">
+      <view class="weui-form-preview__bd">
+
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">申请单位</view>
+          <view class="weui-form-preview__value">{{it.event.association}}</view>
+        </view>
+
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">活动名称</view>
+          <view class="weui-form-preview__value">{{it.event.name}}</view>
+        </view>
+
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">参与人数</view>
+          <view class="weui-form-preview__value">{{it.event.attendNumber}}</view>
+        </view>
+
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">活动日期</view>
+          <view class="weui-form-preview__value">{{it.eventDate}}</view>
+        </view>
+
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">活动时间</view>
+          <view class="weui-form-preview__value">{{it.eventTime1}} 至 {{it.eventTime2}}</view>
+        </view>
+
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">借用教室编号</view>
+          <view class="weui-form-preview__value">{{it.classroomNumber}}</view>
+        </view>
+
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">活动内容</view>
+          <view class="weui-form-preview__value">{{it.event.content}}</view>
+        </view>
+
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">活动负责人/联系电话</view>
+          <view class="weui-form-preview__value">{{it.event.responser}}/{{it.event.tel}}</view>
+        </view>
+
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">审批状态</view>
+          <view class="weui-form-preview__value">{{examState[it.exam]}}</view>
+        </view>
+
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">社联审批人</view>
+          <view class="weui-form-preview__value">{{it.check.approver}}</view>
+        </view>
+
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">审批人意见</view>
+          <view class="weui-form-preview__value">{{it.check.comment}}</view>
+        </view>
+
+      </view>
+    </view>
+    
+  </view>
+</view>

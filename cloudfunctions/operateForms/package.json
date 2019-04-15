@@ -1,7 +1,7 @@
 {
-  "name": "updateApproval",
+  "name": "operateForms",
   "version": "1.0.0",
-  "description": "Update infomation of collection 'forms' in db.",
+  "description": "opreate the collection of 'forms' in cloud database",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

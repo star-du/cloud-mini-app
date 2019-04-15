@@ -1,7 +1,9 @@
 // 云函数入口文件
-const cloud = require('wx-server-sdk');
+const cloud = require("wx-server-sdk");
 cloud.init({
-  env: "release-824dd3"
+  // env: "cloud-miniapp-96177b",
+  env: "release-824dd3",
+  traceUser: true
 });
 
 function regObj(check, examFlag) {
@@ -19,7 +21,7 @@ function regObj(check, examFlag) {
 }
 
 // 云函数入口函数
-exports.main = async (event, context) => {
+exports.main = async(event, context) => {
   console.log("event", event);
   if (typeof event.updateID !== "string" || !(/[0-9A-Za-z_-]{16}/.test(event.updateID))) {
     return {

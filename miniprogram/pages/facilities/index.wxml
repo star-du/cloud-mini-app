@@ -1,0 +1,70 @@
+<!--pages/navigator/index.wxml-->
+<import src="../common/foot.wxml" />
+<view class="page">
+  <view class="page__bd">
+    <view class="userinfo" wx:if="{{isLogin}}">
+      <button class="userinfo-avatar" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="background-image: url({{avatarUrl}})"></button>
+      <view class="userinfo-nickname">{{isAdmin ? name : nickName}}</view>
+    </view>
+    <view wx:else style="padding:5px;">
+      <button class="weui-btn" bindtap="userLogin" open-type="getUserInfo" type="primary">点击登录</button>
+    </view>
+    <view class="weui-panel weui-panel_access">
+      <view class="weui-panel__bd">
+        <view class="weui-flex">
+          <view class="weui-flex__item" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="listBorrow">
+            <image class="flex-icon" src="../../assets/availableClassroom.png" mode="aspectFit"></image>
+            <view>教室借用查询</view>
+          </view>
+          <view class="weui-flex__item" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="borrowClassroom">
+            <image class="flex-icon" src="../../assets/borrowClassroom.png" mode="aspectFit"></image>
+            <view>教室借用</view>
+          </view>
+        </view>
+        <view class="weui-flex">
+          <view class="weui-flex__item" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="../progressCheck/progressCheck">
+            <image class="flex-icon" src="../../assets/progressCheck.png" mode="aspectFit"></image>
+            <view>进度查询</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 公告 -->
+    <rulePanel/>
+    <!-- admin -->
+    <view wx:if="{{isLogin && isAdmin}}" class="weui-panel">
+      <view class="weui-panel__hd">借用审批</view>
+      <view class="weui-panel__bd" style="padding-bottom: 0;">
+        <view class="weui-media-box weui-media-box_small-appmsg">
+          <view class="weui-cells weui-cells_in-small-appmsg">
+            <!-- begin for -->
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{exam}}" wx:for-index="i" wx:for-item="it" wx:key="id" bindtap="navToApproval" data-idx="{{i}}" data-urlget="flag={{i}}&expireSubmit=30">
+              <view class="weui-cell__bd">
+                <text class="cell-text">{{it.text}}</text>
+                <view wx:if="{{it.num !== null}}" class="weui-badge" style="margin-left: 5px;">{{it.num}}</view>
+              </view>
+              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </view>
+            <!-- end for -->
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="navToApproval" data-idx="{{3}}" data-urlget="expireSubmit=366">
+              <view class="weui-cell__bd">
+                <text class="cell-text">所有审批</text>
+              </view>
+              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </view>
+            <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active" url="../approval/exportApproval">
+              <view class="weui-cell__bd">
+                <text class="cell-text">审批导出</text>
+              </view>
+              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- end div.page -->
+<view>
+  <template is="foot" />
+</view>
