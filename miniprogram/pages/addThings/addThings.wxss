@@ -1,1 +1,4 @@
-/* miniprogram/pages/addThings/addThings.wxss */
+/* pages/addThings/addThings.wxss */
+@import "../../assets/weui.wxss";
+@import "../noticeBoard/index.wxss";
+@import "../listApproval/listApproval.wxss";
