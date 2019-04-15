@@ -48,7 +48,7 @@
 
   <view>
     <view class='inputbox'><text id="to">至</text></view>
-    <picker  class='inputbox' name="eventTime2" mode="date" value="{{date2}}" start="{{date2}}" end="{{date3}}" bindchange="bindDateChange2">
+    <picker  class='inputbox' name="eventTime2" mode="date" value="{{date2}}" start="{{date1}}" end="{{date3}}" bindchange="bindDateChange2">
       <text name="endDate">{{date2}}</text>
     </picker>
   </view>

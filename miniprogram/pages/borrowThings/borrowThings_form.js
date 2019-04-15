@@ -1,23 +1,27 @@
 //规范日期显示格式：
-if ((new Date().getMonth() + 1) < 10 && new Date().getDate() < 10) var date = new Date().getFullYear() + '-' + '0' + (new Date().getMonth() + 1) + '-' + '0' + new Date().getDate();
-if ((new Date().getMonth() + 1) >= 10 && new Date().getDate() >= 10) var date = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
-if ((new Date().getMonth() + 1) < 10 && new Date().getDate() >= 10) var date = new Date().getFullYear() + '-' + '0' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
-if ((new Date().getMonth() + 1) >= 10 && new Date().getDate() < 10) var date = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + '0' + new Date().getDate();
+// if ((new Date().getMonth() + 1) < 10 && new Date().getDate() < 10) var date = new Date().getFullYear() + '-' + '0' + (new Date().getMonth() + 1) + '-' + '0' + new Date().getDate();
+// if ((new Date().getMonth() + 1) >= 10 && new Date().getDate() >= 10) var date = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+// if ((new Date().getMonth() + 1) < 10 && new Date().getDate() >= 10) var date = new Date().getFullYear() + '-' + '0' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+// if ((new Date().getMonth() + 1) >= 10 && new Date().getDate() < 10) var date = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + '0' + new Date().getDate();
 var account = new Array();
 
 const db = wx.cloud.database();
+const app = getApp();
+var today = app._toDateStr(new Date(),true);
 
 Page({
   data: {
-    date1: date, //借用时间
-    date2: date,
-    date3: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + (new Date().getDay() + 14),
+    date1: today, //借用时间
+    date2: today,
+    date3: app._toDateStr(new Date().setDate(new Date().getDate()+14), true), //14 days after today
     today: date,
     itemname: [],
     itemcount: [],
   },
 
   onLoad: function (options) {
+    const PAGE = this
+    // console.log('date1',PAGE.data.date1);
     this.setData({
       itemname: options.itemname,
       itemcount: options.itemcount,
@@ -152,6 +156,7 @@ Page({
         phoneNumber: contents["phoneNumber"],
         quantity: contents["quantity"],
         studentId: contents["studentId"],
+        exam: 0 //exam status
       }
     }).then(() => {
       wx.showToast({
