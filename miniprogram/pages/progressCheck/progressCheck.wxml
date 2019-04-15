@@ -1,7 +1,7 @@
-<!--miniprogram/pages/progressCheck/progressCheck.wxml-->
+<!--pages/progressCheck/progressCheck.wxml-->
 <view class="page">
   <view class="page__hd">
-    <view class="page__title">审批状态</view>
+    <view class="page__title">审批进度查询</view>
   </view>
   <view class="page__bd">
     <!-- 公告 -->
@@ -16,12 +16,12 @@
         </view>
         <view class="weui-form-preview__bd">
           <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">编号</view>
+            <view class="weui-form-preview__label">申请编号</view>
             <view class="weui-form-preview__value">{{it.formid}}</view>
           </view>
           <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">时间</view>
-            <view class="weui-form-preview__value">{{it.eventDate}}</view>
+            <view class="weui-form-preview__label">借用时间</view>
+            <view class="weui-form-preview__value">{{it.eventDate+ " " + it.eventTime1 + "-" + it.eventTime2}}</view>
           </view>
           <view class="weui-form-preview__item">
             <view class="weui-form-preview__label">申请单位</view>
@@ -33,9 +33,7 @@
           </view>
           <view class="weui-form-preview__item">
             <view class="weui-form-preview__label">审批状态</view>
-            <view class="weui-form-preview__value">
-              {{it.exam==0 ? '未审核' : ''}} {{it.exam==1 ? '审核撤回' : ''}} {{it.exam==2 ? '未通过' : ''}} {{it.exam==3 ? '通过' : ''}}
-            </view>
+            <view class="weui-form-preview__value">{{examState[it.exam]}}</view>
           </view>
           <view class="weui-form-preview__item" wx-if="{{it.check}}">
             <view class="weui-form-preview__label">审批人</view>
@@ -53,6 +51,11 @@
       </view>
     </block>
     <!-- end wx:if -->
-    <text wx:else>暂无申请</text>
+    <view wx:else class="weui-article">
+      <view class="weui-article__h1">暂无申请</view>
+      <view class="weui-article__section">
+        <view class="weui-article__p">您可以去查询是否有空闲教室，再根据借用流程借用教室。 </view>
+      </view>
+    </view>
   </view>
 </view>

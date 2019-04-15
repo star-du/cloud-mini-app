@@ -10,7 +10,7 @@ Page({
   onLoad: function(options) {
     const PAGE = this; // 使得get回调函数可以访问this.setData
     // get openid
-    let openid = app.loginState.openid;
+    const openid = app.loginState.openid;
     console.log(openid);
     if (!(/[0-9A-Za-z_-]{28}/.test(openid))){
       // invalid openid
@@ -34,11 +34,11 @@ Page({
       _openid: openid
     }).get({
       success(e) {
-        console.log(e, e.data);
+        console.log(e);
         PAGE.setData({
           progressList: e.data || []
         });
-        console.log(PAGE.data);
+        // console.log(PAGE.data);
       },
       fail: console.error
     });

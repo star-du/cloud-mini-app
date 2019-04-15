@@ -21,7 +21,7 @@ function regObj(check, examFlag) {
 }
 
 // 云函数入口函数
-exports.main = async (event, context) => {
+exports.main = async(event, context) => {
   console.log("event", event);
   if (typeof event.updateID !== "string" || !(/[0-9A-Za-z_-]{16}/.test(event.updateID))) {
     return {

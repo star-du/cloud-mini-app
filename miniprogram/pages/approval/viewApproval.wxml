@@ -1,4 +1,4 @@
-<!--pages/listApproval/viewApproval.wxml-->
+<!--pages/approval/viewApproval.wxml-->
 <view class="page">
   <view class="page__hd">
     <view class="page__title">查看审批</view>
@@ -50,14 +50,19 @@
           <view class="weui-cell__bd">审批人</view>
           <view class="weui-cell__ft">{{appr.check.approver}}</view>
         </view>
-        <view wx:else class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">审批人</view>
+        <block wx:else>
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">审批人</view>
+            </view>
+            <view class="weui-cell__bd">
+              <input class="weui-input" name="approver" placeholder="审批人姓名" value="{{appr.check.approver}}" />
+            </view>
+            <view class="weui-cell__ft">
+                    <view class="weui-vcode-btn" bindtap="checkAvailTime">查询借用情况</view>
+                </view>
           </view>
-          <view class="weui-cell__bd">
-            <input class="weui-input" name="approver" placeholder="审批人姓名" value="{{appr.check.approver}}" />
-          </view>
-        </view>
+        </block>
         <!-- 审批人 end -->
         <view class="weui-cell">
           <view class="weui-cell__bd">审批意见</view>

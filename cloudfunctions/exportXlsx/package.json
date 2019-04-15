@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "dorence",
+  "author": "Dorence Deng",
   "license": "MIT",
   "dependencies": {
     "wx-server-sdk": "latest",
