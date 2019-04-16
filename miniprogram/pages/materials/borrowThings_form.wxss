@@ -1,3 +1,4 @@
+@import "../../assets/weui.wxss";
 #head{
   font-size: x-large;
   padding: 5px 27% 0px;
