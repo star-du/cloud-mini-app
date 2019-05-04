@@ -72,13 +72,13 @@ Page({
     ctx.setTextAlign('start');
    // ctx.fillText("textAlign=start",30,20);
     let contentForPrint = {"协会名称":it.event.association, "活动名称":it.event.name, "参与人数":it.event.attendNumber, "活动日期":it.eventDate, "活动时间":it.eventTime1+'至'+it.eventTime2,"借用教室编号":it.classroomNumber,"活动内容":it.event.content,"活动负责人":it.event.responser,"联系电话":it.event.tel,"审批状态":PAGE.data.examState[it.exam],"社联审批人":it.check.approver,"审批人意见":it.check.comment}; 
-    var yCoord = 30;
+    var yCoord = 25;
     for (var title in contentForPrint){
-        ctx.fillText(title+':', 30, yCoord);
+        ctx.fillText(title+':', 25, yCoord);
         var textWidth = ctx.measureText(contentForPrint[title]).width;
         var maxLength=200;
         console.log(textWidth);
-       
+      var lastYCoord = yCoord;
        if (textWidth<=maxLength)
         {
            ctx.fillText(contentForPrint[title], 155, yCoord);
@@ -86,13 +86,13 @@ Page({
         }else if(textWidth<600)
         {
          var count = 0;
-         var lastYCoord=yCoord;
+         
          while (textWidth >maxLength) {
            var currentText = contentForPrint[title];
            ctx.fillText(currentText.substring(count * 10, (count + 1) * 10), 160, yCoord);
           
            count++;
-           yCoord += 30;
+           yCoord += 25;
            textWidth -= 200;
          }
         }else
@@ -105,21 +105,21 @@ Page({
            ctx.fillText(currentText.substring(count * 11, (count + 1) * 11), 155, yCoord);
 
            count++;
-           yCoord += 30;
+           yCoord += 25;
            textWidth -= 200;
          }
          ctx.fillText("......",155,yCoord);
         }
           
-        ctx.moveTo(15,lastYCoord-25)
-        ctx.lineTo(15,yCoord+10);
-        ctx.lineTo(360,yCoord+10);
-        ctx.lineTo(360,lastYCoord-25);
-        ctx.moveTo(150,lastYCoord-25);
-        ctx.lineTo(150,yCoord+10)
+        ctx.moveTo(15,lastYCoord-20)
+        ctx.lineTo(15,yCoord+5);
+        ctx.lineTo(360,yCoord+5);
+        ctx.lineTo(360,lastYCoord-20);
+        ctx.moveTo(150,lastYCoord-20);
+        ctx.lineTo(150,yCoord+5)
         ctx.stroke();
-        ctx.moveTo(15,yCoord+10);
-        yCoord +=30;
+        ctx.moveTo(15,yCoord+5);
+        yCoord +=25;
     }
    
     ctx.draw();
