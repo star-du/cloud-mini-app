@@ -1,0 +1,53 @@
+<!--pages/approval/listApproval.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">审批状态</view>
+    <view class="page__desc">{{expire}}内的审批</view>
+  </view>
+  <view class="page__bd">
+    <block wx:if="{{flagGet == 1}}">
+      <view class="weui-form-preview" wx:for="{{apprList}}" wx:for-index="i" wx:for-item="it" wx:key="id">
+        <view class="weui-form-preview__hd">
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">借用场地 日期</view>
+            <text class="weui-form-preview__value_in-hd">{{it.classroomNumber}} {{it.eventDate}}</text>
+          </view>
+          <view class="weui-form-preview__item preview-in-hd">
+            <view class="weui-form-preview__label">{{i + 1}}/{{apprList.length}}</view>
+            <text class="weui-form-preview__value">{{it.formid}}</text>
+          </view>
+        </view>
+        <!-- end hd -->
+        <view class="weui-form-preview__bd">
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">借用时间</view>
+            <view class="weui-form-preview__value">{{it.eventTime1}} - {{it.eventTime2}}</view>
+          </view>
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">申请单位</view>
+            <view class="weui-form-preview__value">{{it.event.association}}</view>
+          </view>
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">申请人 / 联系方式</view>
+            <view class="weui-form-preview__value">{{it.event.responser}} / {{it.event.tel}}</view>
+          </view>
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">审批状态</view>
+            <view class="weui-form-preview__value">{{examState[it.exam]}}</view>
+          </view>
+        </view>
+        <!-- end bd -->
+        <view class="weui-form-preview__ft">
+          <navigator url="viewApproval?id={{it._id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">{{it.exam > 1 ? "详细信息" : "去审批"}}</navigator>
+        </view>
+      </view>
+      <!-- end wx:for -->
+    </block>
+    <view wx:else class="weui-flex">
+      <view class="weui-flex__item" style="text-align:center;">
+        <text wx:if="{{flagGet < 0}}">加载中</text>
+        <text wx:else>无数据</text>
+      </view>
+    </view>
+  </view>
+</view>

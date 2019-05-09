@@ -1,0 +1,30 @@
+/* pages/approval/listApproval.wxss */
+@import "../../assets/weui.wxss";
+
+.page__desc {
+  color: #666;
+}
+
+.weui-form-preview__hd {
+  padding: 5rpx 15px 0;
+}
+
+.preview-in-hd {
+  font-size: 12px;
+  line-height: 12px;
+  padding-bottom: 8px;
+}
+
+.preview-in-hd .weui-form-preview__value {
+  color: #999 !important;
+}
+
+.weui-form-preview__ft {
+  border-bottom: 1px #f8f8f8 solid;
+  letter-spacing: 4px;
+  line-height: 42px;
+}
+
+.weui-form-preview__item .weui-form-preview__value {
+  color: #333;
+}

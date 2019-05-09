@@ -1,4 +1,2 @@
-/* miniprogram/pages/progressCheck/progressCheck.wxss */
-@import "../../assets/weui.wxss";
-@import "../noticeBoard/index.wxss";
-@import "../listApproval/listApproval.wxss";
+/* pages/progressCheck/progressCheck.wxss */
+@import "../approval/listApproval.wxss";

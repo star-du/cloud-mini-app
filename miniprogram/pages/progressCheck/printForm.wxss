@@ -1,0 +1,19 @@
+/* pages/progressCheck/printForm.wxss */
+@import "../../assets/weui.wxss";
+
+.weui-form-preview {
+  margin: 10rpx;
+}
+
+.weui-form-preview__hd {
+  padding: 5rpx 15px 0;
+}
+
+.weui-form-preview__ft{
+  line-height: 42px;
+  letter-spacing: 4px;
+  border-bottom: 1px #f8f8f8 solid;
+}
+.weui-form-preview__item .weui-form-preview__value {
+  color: #333;
+}

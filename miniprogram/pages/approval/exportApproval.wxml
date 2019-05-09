@@ -1,0 +1,48 @@
+<!--pages/approval/exportApproval.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">审核数据导出</view>
+    <view class="page__desc">选取数据(后期陆续添加高级筛选条件)</view>
+  </view>
+  <form class="page__bd" bindsubmit="submit">
+    <view class="weui-cells__title">基本信息</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">申请日期</view>
+        <view class="weui-cell__bd">
+          <picker mode="date" value="{{startDate}}" start="2019-1-1" end="3000-01-01" bindchange="bindStartDateChange" name="startDate" style="min-width:100px;">
+            <view class="weui-input">{{startDate}}</view>
+          </picker>
+        </view>
+        <text class="weui-cell__bd" style="position:relative;left:40rpx;">至</text>
+        <view class="weui-cell__ft">
+          <picker mode="date" value="{{endDate}}" start="2019-1-1" end="3000-01-01" bindchange="bindEndDateChange" name="endDate">
+            <view class="weui-input">{{endDate}}</view>
+          </picker>
+        </view>
+      </view>
+      <view wx:if="{{available > 0}}" class="weui-cell">
+        <view class="weui-cell__bd">查找到数据</view>
+        <view class="weui-cell__ft">{{available}} 条</view>
+      </view>
+    </view>
+    <!-- form submit -->
+    <view class="weui-flex" style="margin-top: 28rpx;margin-bottom: 100px;">
+      <view class="weui-flex__item">
+        <button class="weui-btn" type="primary" form-type="submit">查询数据</button>
+      </view>
+      <view class="weui-flex__item">
+        <button class="weui-btn" type="default" bindtap="tapExport" disabled="{{available > 0 ? false : true}}">导出xlsx</button>
+      </view>
+    </view>
+  </form>
+</view>
+<!--
+<block wx:if="{{available > 0}}">
+  <text> {{fileID}} </text>
+  <br/>
+  <text> {{fileURL}} </text>
+  <br/>
+  <text> {{filePath}} </text>
+</block>
+-->

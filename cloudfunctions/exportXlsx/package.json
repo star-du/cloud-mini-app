@@ -1,7 +1,7 @@
 {
-  "name": "updateApproval",
+  "name": "exportXlsx",
   "version": "1.0.0",
-  "description": "Update infomation of collection 'forms' in db.",
+  "description": "export database to excel worksheet",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,6 +9,7 @@
   "author": "Dorence Deng",
   "license": "MIT",
   "dependencies": {
-    "wx-server-sdk": "latest"
+    "wx-server-sdk": "latest",
+    "xlsx":">=0.13.0"
   }
 }

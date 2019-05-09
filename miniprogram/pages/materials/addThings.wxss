@@ -1,0 +1,3 @@
+/* pages/addThings/addThings.wxss */
+@import "../../assets/weui.wxss";
+@import "../approval/listApproval.wxss";

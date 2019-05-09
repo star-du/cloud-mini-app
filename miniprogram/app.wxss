@@ -1,4 +1,4 @@
-/* miniprogram/app.wxss */
+/* app.wxss */
 
 page {
   background-color: #f6f6f6;

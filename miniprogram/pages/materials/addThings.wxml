@@ -1,0 +1,125 @@
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">新增物资填表</view>
+  </view>
+  <form class="page__bd" bindsubmit="submit">
+    <!-- form cells-group 1 -->
+    <view class="weui-cells__title">基本信息</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <view class="weui-label">单位名称</view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="associationName" placeholder="社团/部门名称" />
+        </view>
+      </view>
+        <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <view class="weui-label">新增物资数量</view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="attendNumber" type="number" placeholder="请输入物资数" />
+        </view>
+      </view>
+       
+    <view class="weui-cells weui-cells_after-title">
+       <view class="weui-cell weui-cell_select">
+       <view class="weui-cell__hd" style="margin-left: 16px;">物资位置</view>
+        <view class="weui-cell__bd">
+          <picker mode="multiSelector" bindchange="bindMultiPickerChange"bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}" name='location'>
+            <view class="weui-select">{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}，{{multiArray[2][multiIndex[2]]}}</view>
+          </picker>
+        </view>
+      </view>
+    </view>
+      
+    <view class="weui-cell weui-cell_input" style="padding-right: 0;">
+      <view class="weui-cell__hd">新增时间</view>
+        <view class="weui-cell__bd" style="margin-left: 16px;">
+          <picker mode="date" value="{{date}}" start="2019-01-01" end="3000-01-01" bindchange="bindDateChange" name="eventDate">
+            <view class="weui-select">{{date}}</view>
+          </picker>
+        </view>
+      </view>
+      </view>
+    <!-- form cells-group 2 -->
+    <view class="weui-cells__title">新增原有物资</view>
+     <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input" style="padding-right: 0;">
+      <view class="weui-cell__hd">选择原有物资</view>
+          <view class="weui-cell__bd" style="margin-left: 40px;">
+            <picker mode="selector"  bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+              <view class="weui-select"></view>
+            </picker>
+          </view>
+        </view>
+     
+      </view>
+    <!-- form cells-group 3 -->
+    <view class="weui-cells__title">新增新物资</view>
+    <view class="weui-cells weui-cells_after-title">
+       <view class="weui-cell weui-cell_input" style="padding-right: 0;">
+             <view class="weui-cell__hd">新物资类别</view>
+          <view class="weui-cell__bd" style="margin-left: 40px;">
+            <picker mode="selector"  bindchange="bindCategoryChange" value="{{index}}" range="{{category}}">
+              <view class="weui-select"></view>
+            </picker>
+         </view>
+        </view>
+      <view class="weui-cell weui-cell_input">
+       <view class="weui-cell__bd">
+          <view class="weui-label">新物资名称</view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="newmaterialName" placeholder="请输入添加的新物资名称" />
+        </view>
+      </view>  
+    </view>
+    <!-- form cells-group 4 -->
+    <view class='weui-cells__title'>负责人信息</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <view class="weui-label">负责人姓名</view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="eventResponser" placeholder="负责人姓名" />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <view class="weui-label">联系方式</view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="phone" placeholder="请输入11位手机号" />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <view class="weui-label">学号</view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="studentID" placeholder="请输入您的学号" />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <view class="weui-label">院系班级</view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="class" placeholder="请输入您的院系班级" />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_form">
+        <view class="weui-cell__bd">
+        <view class="weui-label">备注</view>
+        <textarea class="weui-textarea" name="remarks" placeholder="如有需要请备注详细信息" rows="3"></textarea>
+        </view>
+      </view>
+    </view>
+    
+    <!-- form submit -->
+    <button class="weui-btn" type="primary" form-type="submit">提交</button>
+  </form>
+</view>

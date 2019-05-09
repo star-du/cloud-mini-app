@@ -1,0 +1,44 @@
+<!--pages/facilities/listBorrow.wxml-->
+<view class="page">
+  <view class="page__bd">
+    <!-- date picker -->
+    <view class="weui-cells__title">教室借用情况查询</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd" style="margin: 6rpx 45rpx;">
+          <text class="weui-label">选择日期</text>
+        </view>
+        <view class="weui-cell__bd">
+          <picker mode="date" name="eventDate" value="{{date}}" start="2019-01-01" end="2199-12-31" bindchange="bindDateChange">
+            <view class="weui-input">{{date}}</view>
+          </picker>
+        </view>
+      </view>
+    </view>
+    <!-- table -->
+    <view class="weui-panel">
+      <view class="weui-panel__bd">
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">房间</view>
+            <view class="th">时间</view>
+            <view class="th">借用单位</view>
+            <view class="th">负责人</view>
+            <view class="th">联系方式</view>
+          </view>
+          <block wx:for="{{listData}}" wx:for-item="item" wx:for-index="i" wx:key="_id">
+            <view class="tr{{i % 2 ?' bg-g':''}}">
+              <view class="td">{{item.room}}</view>
+              <view class="td">{{item.time}}</view>
+              <view class="td">{{item.association}}</view>
+              <view class="td">{{item.responser}}</view>
+              <view class="td">{{item.tel}}</view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+    <!-- 公告 -->
+    <rulePanel/>
+  </view>
+</view>
