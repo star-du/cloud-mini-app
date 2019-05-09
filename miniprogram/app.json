@@ -11,7 +11,8 @@
     "pages/materials/borrowThings_form",
     "pages/materials/addThings",
     "pages/materials/materialsIndex",
-    "pages/progressCheck/printForm"
+    "pages/progressCheck/printForm",
+    "pages/materials/thingsApproval"
   ],
   "window": {
     "backgroundColor": "#f6f6f6",

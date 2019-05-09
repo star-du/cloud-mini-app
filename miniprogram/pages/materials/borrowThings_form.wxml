@@ -65,7 +65,8 @@
         <view class="weui-label"><text>借用物资编号及名称：</text></view>
       </view>
       <view class="weui-cell__ft">
-        <input class="weui-input" id="itemname" name="itemName" disabled="true" value="{{itemname}}{{itemId}}"></input>
+        <input class="weui-input" id="itemname" name="itemName" disabled="true" value="{{itemname}}"></input>
+        <input class="weui-input" id="itemid" name="itemId" disabled="true" value="{{itemId}}"></input>
       </view>
     </view>
   

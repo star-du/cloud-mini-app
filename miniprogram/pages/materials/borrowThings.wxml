@@ -19,10 +19,9 @@
           <view class="cartControl-wrapper">
             <view class="cartControl">
               <view name="fade">
-                <view class="cart-decrease" wx:if="{{food.Count > 0}}" data-item-index="{{index}}" data-parentIndex="{{parentIndex}}" catchtap="decreaseCart">
+                <view class="cart-decrease" wx:if="{{food.quantity > 0}}" data-item-index="{{index}}" data-parentIndex="{{parentIndex}}" catchtap="decreaseCart">
                   <view class="inner iconfont icon-jian" style="font-size:24px;color:#00A0DC;"></view>
                 </view>
-                <view class="cart-count" wx:if="{{food.Count > 0 }}">{{food.Count}}</view>
                 <navigator catchtap="navtoForm" class=" iconfont icon-jia cart-add " url="./borrowThings_form?itemname={{item.itemName}}&itemcount={{item.quantity}}&&itemId={{item.itemId}}" hover-class="none" style="color:#00A0DC; " data-item-index="{{index}}" data-parentIndex="{{parentIndex}}"></navigator>
               </view>
             </view>

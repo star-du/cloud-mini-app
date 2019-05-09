@@ -6,21 +6,22 @@
 var account = new Array();
 
 const db = wx.cloud.database();
+const _ = db.command;
 const app = getApp();
-var today = app._toDateStr(new Date(),true);
+var today = app._toDateStr(new Date(), true);
 
 Page({
   data: {
-    validStartingDate: app._toDateStr(new Date(),true),
-    validEndingDate: app._toDateStr(new Date().setDate(new Date().getDate()+14), true), //14 days after today
+    validStartingDate: app._toDateStr(new Date(), true),
+    validEndingDate: app._toDateStr(new Date().setDate(new Date().getDate() + 14), true), //14 days after today
     date1: today, //借用时间
     date2: today,
     itemname: [],
     itemcount: [],
+    formid: 201900001
   },
 
   onLoad: function (options) {
-    const PAGE = this
     this.setData({
       itemname: options.itemname,
       itemcount: options.itemcount,
@@ -40,6 +41,13 @@ Page({
   },
   //检查合法性:
   check: function (e) {
+    const PAGE = this;
+    const search = {
+      items: [{
+        itemId: this.itemID,
+        itemName: this.itemname
+      }]
+    }
     var contents = e.detail.value;
     console.log(contents);
     //若 部门/协会名称 为空：
@@ -142,31 +150,48 @@ Page({
       });
       return;
     }
-//提交申请表单
+
+    db.collection("formsForMaterials").orderBy("formid", "desc").limit(3).get()
+      .then(res => {
+        const maxFormid = res.data[0].formid || new Date().getFullYear() * 100000;
+        console.log("[max formid]", maxFormid);
+        PAGE.setData({
+          formid: maxFormid + 1
+        })
+      })
+    //提交申请表单
     db.collection("formsForMaterials").add({
-      data: {
-        association: contents["association"],
-        class: contents["class"],
-        description: contents["description"],
-        eventTime1: contents["eventTime1"],
-        eventTime2: contents["eventTime2"],
-        itemName: contents["itemName"],
-        name: contents["name"],
-        phoneNumber: contents["phoneNumber"],
-        quantity: contents["quantity"],
-        studentId: contents["studentId"],
-        exam: 0 //exam status
-      }
-    }).then(() => {
-      wx.showToast({
-        title: '提交成功！',
-        success: function () {
-          wx.navigateBack({
-            delta: 1
-          })
+        data: {
+          association: contents["association"],
+          class: contents["class"],
+          description: contents["description"],
+          eventTime1: contents["eventTime1"],
+          eventTime2: contents["eventTime2"],
+          formid: PAGE.formid,
+          itemName: contents["itemName"],
+          name: contents["name"],
+          phoneNumber: contents["phoneNumber"],
+          quantity: contents["quantity"],
+          studentId: contents["studentId"],
+          exam: 0 //exam status
         }
-      });
-      //让库存减一（还没写
-    })
+      }).then(() => {
+        wx.showToast({
+          title: '提交成功！',
+          success: function () {
+            wx.navigateBack({
+              delta: 1
+            })
+          }
+        });
+        //让库存减一（还没写
+      })
+      .then(() => {
+        db.collection("items").where(search).update({
+          data: {
+            count: _.inc(-contents["quantity"])
+          }
+        })
+      })
   }
 })
