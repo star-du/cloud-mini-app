@@ -13,5 +13,7 @@
 	"appid": "wx659e3245769d466c",
 	"projectname": "cloud-mini-app",
 	"libVersion": "2.5.2",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {}
 }
