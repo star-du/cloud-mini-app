@@ -25,7 +25,7 @@
                                 <view>物资查询及借用</view>
                             </view>
 
-                            <view class="weui-flex__item" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="../progressCheck/progressCheck">
+                            <view class="weui-flex__item" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="../progressCheck/progressCheck?type=materials">
                             <!-- TODO:可以与借用教室跳转至同一页 但应传入参数以区分 -->
                                 <image class="flex-icon" src="../../assets/progressCheck.png" mode="aspectFit"></image>
                                 <view>表单状态</view>
@@ -68,7 +68,7 @@
       <view class="weui-panel__bd">
         <view class="weui-media-box weui-media-box_small-appmsg">
           <view class="weui-cells weui-cells_in-small-appmsg">
-            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{exam}}" wx:for-index="i" wx:for-item="it" wx:key="id" bindtap="navToApproval" data-idx="{{i}}" data-urlget="flag={{i}}&expireSubmit=30">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{exam}}" wx:for-index="i" wx:for-item="it" wx:key="id" bindtap="navToApproval" data-idx="{{i}}" data-urlget="flag={{i}}&expireSubmit=100&type=materials">
               <view class="weui-cell__bd">
                 <view style="display: inline-block; vertical-align: middle">{{it.text}}
                 </view>

@@ -152,10 +152,10 @@ Page({
         R.isLogin = true;
         that.updateUserInfo(R).then(() => {
           that.getUserInfo();
-          // // 如果是管理员,获取各状态的数量
-          // if (that.isUserAdmin()) {
-          //   that.updateNumber();
-          // }
+          // 如果是管理员,获取各状态的数量
+          if (that.isUserAdmin()) {
+            that.updateNumber();
+          }
         });
       }).catch((err) => {
         console.error("[login] call failed", err);
@@ -171,6 +171,43 @@ Page({
         });
       });
     },
+
+  /** 
+   * 更新符合条件的审批的数量
+   */
+
+  updateNumber: function() {
+    function updateSingle(flag, page) {
+      return db.collection("formsForMaterials").where({
+        exam: flag
+      }).count().then(res => {
+        console.log( page.data.exam[flag].text + " : " + res.total);
+        console.log(res);
+        page.setData({
+          ["exam[" + flag + "].num"]: res.total
+        });
+      });
+    }
+    let arr = [];
+    for (let i = 0; i < this.data.exam.length; i++)
+      arr.push(updateSingle(i, this));
+    return Promise.all(arr);
+  },
+
+    /** 链接至 listApproval */
+    navToApproval: function(e) {
+      // console.log(e);
+      const data = e.currentTarget.dataset;
+      // if (this.data.exam[data.idx].num && data.urlget.length > 0) {
+      // NOTE: DEBUG 阶段去掉了判断审批数不为零的限制
+      if (data.urlget.length > 0) {
+        console.log("navigateTo", data);
+        wx.navigateTo({
+          url: '../approval/listApproval?' + data.urlget
+        });
+      }
+    },
+
   /**
    * 生命周期函数--监听页面加载
    */

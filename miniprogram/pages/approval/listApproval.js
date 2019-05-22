@@ -29,6 +29,14 @@ Page({
         }
       });
     } else {
+      this.setData({type:options.type})
+      console.log('list approval', this.data);
+      if (options.type === 'materials')
+        {
+          console.log('fetch formsForMaterials for approval');
+          this.fetchFormsForMaterials();
+          return;
+        };
       this.newFetchData();
     }
   },
@@ -50,6 +58,7 @@ Page({
       obj.exSubmit = x;
       this.setData({
         expire: x + "天"
+        // expire: "所有时间"
       });
     } else {
       this.setData({
@@ -69,7 +78,7 @@ Page({
     this.newFetchData().then(wx.stopPullDownRefresh);
   },
   /**
-   * newFetcjData()
+   * newFetchData()
    * 调用云函数获取数据库
    */
   newFetchData: function() {
@@ -79,6 +88,7 @@ Page({
       data: {
         field: "approval",
         filter: this.data.filter
+        // filter:  new Object()
       }
     }).then(res => {
       console.log("[newFetchData]res", res);
@@ -95,9 +105,57 @@ Page({
           apprList: [],
           flagGet: 0
         });
-      }
+      }      
+      console.log(that.data.apprList);
     }).catch(err => {
       console.error("[newFetchData]failed", err);
     });
+  },
+
+/*NOTE:尚未写成云函数!!! */
+  fetchFormsForMaterials: function() {
+    const that = this;
+    // console.log('filter=',that.data.filter);
+    db.collection('formsForMaterials').where({
+      exam:that.data.filter.exam
+    })
+      .get({
+        success(res) {
+        // res.data 是包含以上定义的两条记录的数组
+          console.log(res.data);
+          that.setData({
+            apprList: res.data,
+            flagGet: res.data.length ? 2 : 0 /*2 denotes materials*/ 
+          })
+          // console.log('flag=',that.data.flagGet)
+        }
+      })
+    // return wx.cloud.callFunction({
+    //   name: "operateForms",
+    //   data: {
+    //     field: "approval",
+    //     filter: this.data.filter
+    //     // filter:  new Object()
+    //   }
+    // }).then(res => {
+    //   console.log("[newFetchData]res", res);
+    //   let x = res.result.data;
+    //   if (x.length) {
+    //     for (let i = 0; i < x.length; i++)
+    //       x[i].eventDate = app._toDateStr(new Date(x[i].eventDate));
+    //     that.setData({
+    //       apprList: x,
+    //       flagGet: x.length ? 1 : 0
+    //     });
+    //   } else {
+    //     that.setData({
+    //       apprList: [],
+    //       flagGet: 0
+    //     });
+    //   }
+    // }).catch(err => {
+    //   console.error("[newFetchData]failed", err);
+    // });
   }
+  
 })

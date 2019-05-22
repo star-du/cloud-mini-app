@@ -6,7 +6,8 @@
   </view>
   <view class="page__bd">
     <view class="weui-cells__title">借用信息</view>
-    <view class="weui-cells weui-cells_after-title">
+
+    <view wx:if="{{type == 'facilities'}}" class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__bd">教室</view>
         <view class="weui-cell__ft">{{appr.classroomNumber}}</view>
@@ -16,27 +17,68 @@
         <text class="weui-cell__ft">{{appr.eventDate}} {{appr.eventTime1}}-{{appr.eventTime2}}</text>
       </view>
     </view>
-    <!-- 活动信息 begin -->
-    <view class="weui-cells__title">活动信息</view>
-    <view class="weui-cells weui-cells_after-title">
-      <block wx:for="{{eventInfo}}" wx:for-index="i" wx:for-item="it" wx:key="name">
-        <view class="weui-cell">
-          <view class="weui-cell__hd">
-            <image src="{{'../../assets/' + it.badge}}" mode="aspectFit"></image>
-          </view>
-          <view class="weui-cell__bd" style="min-width: 72px;">{{it.name}}</view>
-          <text class="weui-cell__ft">{{appr.event[it.value]}}</text>
-        </view>
-      </block>
+
+    <view wx:if="{{type == 'materials'}}" class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
-        <view class="weui-cell__hd">
-          <image src="../../assets/time.png" mode="aspectFit"></image>
-        </view>
-        <view class="weui-cell__bd">申请时间</view>
-        <view class="weui-cell__ft">{{appr.submitDate}}</view>
+        <view class="weui-cell__bd">物资</view>
+        <view class="weui-cell__ft">{{appr.itemName}}</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__bd">借用物资数量</view>
+        <view class="weui-cell__ft">{{appr.quantity}}</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__bd">借用时间</view>
+        <text class="weui-cell__ft">{{appr.eventTime1}}至{{appr.eventTime2}}</text>
       </view>
     </view>
-    <!-- 活动信息 end -->
+
+    <!-- 活动/物资信息 begin -->
+    <view wx:if="{{type == 'facilities'}}">
+      <view class="weui-cells__title">活动信息</view>
+      <view class="weui-cells weui-cells_after-title">
+        <block wx:for="{{eventInfo}}" wx:for-index="i" wx:for-item="it" wx:key="name">
+          <view class="weui-cell">
+            <view class="weui-cell__hd">
+              <image src="{{'../../assets/' + it.badge}}" mode="aspectFit"></image>
+            </view>
+            <view class="weui-cell__bd" style="min-width: 72px;">{{it.name}}</view>
+            <text class="weui-cell__ft">{{appr.event[it.value]}}</text>
+          </view>
+        </block>
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            <image src="../../assets/time.png" mode="aspectFit"></image>
+          </view>
+          <view class="weui-cell__bd">申请时间</view>
+          <view class="weui-cell__ft">{{appr.submitDate}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{type == 'materials'}}">
+      <view class="weui-cells__title">物资信息</view>
+      <view class="weui-cells weui-cells_after-title">
+        <block wx:for="{{materialInfo}}" wx:for-index="i" wx:for-item="it" wx:key="name">
+          <view class="weui-cell">
+            <view class="weui-cell__hd">
+              <image src="{{'../../assets/' + it.badge}}" mode="aspectFit"></image>
+            </view>
+            <view class="weui-cell__bd" style="min-width: 72px;">{{it.name}}</view>
+            <text class="weui-cell__ft">{{appr[it.value]}}</text>
+          </view>
+        </block>
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            <image src="../../assets/time.png" mode="aspectFit"></image>
+          </view>
+          <view class="weui-cell__bd">申请时间</view>
+          <view class="weui-cell__ft">{{appr.submitDate}}</view>
+        </view>
+      </view>
+    </view>
+    <!-- 活动/物资信息 end -->
+
     <view class="weui-cells__title">审批情况</view>
     <!-- form begin -->
     <form bindsubmit="submit">
@@ -58,9 +100,9 @@
             <view class="weui-cell__bd">
               <input class="weui-input" name="approver" placeholder="审批人姓名" value="{{appr.check.approver}}" />
             </view>
-            <view class="weui-cell__ft">
+            <view wx:if="{{type=='facilities'}}" class="weui-cell__ft">
                     <view class="weui-vcode-btn" bindtap="checkAvailTime">查询借用情况</view>
-                </view>
+            </view>
           </view>
         </block>
         <!-- 审批人 end -->
@@ -86,5 +128,5 @@
       </view>
     </form>
     <!-- form end -->
-  </view>
+  </view> <!-- end of page__bd -->
 </view>

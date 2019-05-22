@@ -155,6 +155,7 @@ Page({
         phoneNumber: contents["phoneNumber"],
         quantity: contents["quantity"],
         studentId: contents["studentId"],
+        submitDate: new Date(),
         exam: 0 //exam status
       }
     }).then(() => {
