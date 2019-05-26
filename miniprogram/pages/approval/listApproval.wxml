@@ -43,7 +43,7 @@
       </view>
       <!-- end wx:for -->
     </block>
-    <block wx:if="{{flagGet == 2}}">
+    <block wx:elif="{{flagGet == 2}}">
       <view class="weui-form-preview" wx:for="{{apprList}}" wx:for-index="i" wx:for-item="it" wx:key="id">
         <view class="weui-form-preview__hd">
           <view class="weui-form-preview__item">
