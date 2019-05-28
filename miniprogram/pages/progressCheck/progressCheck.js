@@ -5,6 +5,7 @@ const db = wx.cloud.database();
 Page({
   data: {
     progressList: [],
+    type: 'facilities',
     examState: ["审批中", "审批中", "未通过", "通过"],
   },
   onLoad: function(options) {
@@ -29,6 +30,25 @@ Page({
       });
       return;
     }
+    
+    if (options.type === 'materials'){
+      console.log(options.type);
+      db.collection("formsForMaterials").where({
+        _openid: openid
+      }).get({
+        success(e) {
+          console.log(e);
+          PAGE.setData({
+            type:'materials',
+            progressList: e.data || []
+          });
+          // console.log(PAGE.data);
+        },
+        fail: console.error
+      });
+      return;
+    }
+
     // 获取db数据
     db.collection("forms").where({
       _openid: openid
@@ -42,5 +62,7 @@ Page({
       },
       fail: console.error
     });
+
+
   }
 })

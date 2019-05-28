@@ -1,8 +1,8 @@
 // 云函数入口文件
 const cloud = require("wx-server-sdk");
 cloud.init({
-  // env: "cloud-miniapp-96177b",
-  env: "release-824dd3",
+  env: "cloud-miniapp-96177b",
+  // env: "release-824dd3",
   traceUser: true
 });
 

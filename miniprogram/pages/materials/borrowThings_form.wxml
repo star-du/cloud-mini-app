@@ -1,0 +1,122 @@
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">借用填表</view>
+  </view>
+
+<form class="page__bd" bindsubmit="check">
+
+  <view class="weui-cells__title">基本信息</view>
+    <view class="weui-cells weui-cells_after-title">
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <view class="weui-label"><text>部门/协会名称：</text></view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="association"></input>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <view class="weui-label"><text>借用人姓名：</text></view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="name"></input>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <view class="weui-label"><text>联系电话：</text></view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="phoneNumber" type='number' maxlength="11"></input>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <view class="weui-label"><text>学号：</text></view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="studentId"></input>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <view class="weui-label"><text>院系班级：</text></view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="class"></input>
+        </view>
+      </view>
+
+    </view>
+  
+
+  <view class="weui-cells__title">借用物资信息</view>
+
+  <view class="weui-cells weui-cells_after-title">
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__bd">
+        <view class="weui-label"><text>借用物资编号及名称：</text></view>
+      </view>
+      <view class="weui-cell__ft">
+        <input class="weui-input" id="itemname" name="itemName" disabled="true" value="{{itemname}}{{itemId}}"></input>
+      </view>
+    </view>
+  
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__bd">
+        <view class="weui-label"><text>借用物资数量：</text></view>
+      </view>
+      <view class="weui-cell__ft">
+        <input class="weui-input" name="quantity" type='number' placeholder="(物资剩余数量为: {{itemcount}})"></input>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__bd">
+        <view class="weui-label"><text decode="{{true}}">借用时间\n(限制在两周内)：</text></view>
+      </view>
+      <picker class="weui-input"  name="eventTime1" mode="date" value="{{date1}}" start="{{validStartingDate}}" end="{{validEndingDate}}" bindchange="bindDateChange1">
+        <text name="startDate">{{date1}}</text>
+      </picker>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__bd">
+        <view class="weui-input"><text id="to">至</text></view>
+      </view>
+      <picker class="weui-input" name="eventTime2" mode="date" value="{{date2}}" start="{{validStartingDate}}" bindchange="bindDateChange2">
+      <text name="endDate">{{date2}}</text>
+      </picker>
+    </view>
+  </view> <!--  -->
+
+    <view class="weui-cells__title">借用用途</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_form">
+          <view class="weui-cell__bd">
+            <textarea class="weui-textarea" name="description" placeholder="请输入借用用途" rows="3"></textarea>
+          <!-- <div class="weui-textarea-counter"><span>0</span>/200</div> -->
+          </view>
+        </view>
+      </view>
+
+
+  <view class="weui-label"><text>\n</text></view>
+  
+  
+    <button class="weui-btn" type="primary" form-type="submit">提交</button>
+
+
+  <!--<view class="weui-label"><text>\n</text></view>
+-->
+
+</form>
+</view>

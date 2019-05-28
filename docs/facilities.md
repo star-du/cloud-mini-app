@@ -1,4 +1,4 @@
-# HUSTAU 场地/物资借用系统
+ # HUSTAU 场地/物资借用系统
 ## 场地借用管理 开发文档
 
 ## 1 WeUI
@@ -85,31 +85,17 @@
 
 ### 4.3 Cloud Functions
 
-0. login
-   登录查询，返回 `openid` 等信息，管理员有字段 `isAdmin`.
-
-0. **updateApproval**
-
-  [in] `{updateID, check, exam}`
-
-  用于 `viewApproval` 中更新审批情况. `updateID` : 要修改的 `doc` 的字段 `_id`. 返回一个对象 `{error: Boolean, msg: String [, updated : Number]}`, 若调用成功则 `error` 为 `true` 且有 `updated`, 若失败则 `error` 为 `false` 且 `msg` 为错误信息, 无 `updated` 属性.
-
-0. **exportXlsx**
-
-  [in] `{openID, startDate, endDate}`
-
-  生成 `xlsx` 文件, 需要检查 `openid` 是否为管理员(有权限导出). 导出内容为 startDate 至 endDate 内所有的审核通过的审批.
+参见云函数文档。
 
 
 ## 5 下一步
 
 0. 用户借用界面**急需**添加教室借用冲突检查，避免提交已提交或者他人以借用房间。
-0. `submitDate` 可以使用 [`db.serverDate`](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/reference-client-api/database/db.serverDate.html) API，因为客户端时间和格式可能与服务端有差距，而且该API提供了额外字段，参见 [数据类型文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/database/data-type.html)。
-0. 整合场地借用内容，预留物资借用页面。
 0. 所有人注意阅读 `prd` , **落实一期内容**完成情况, 设计二期内容。
+0. `submitDate` 可以使用 [`db.serverDate`](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/reference-client-api/database/db.serverDate.html) API，因为客户端时间和格式可能与服务端有差距，而且该API提供了额外字段，参见 [数据类型文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/database/data-type.html)。
 
 ## 6 License
 
 [The MIT License](http://opensource.org/licenses/MIT)
 
-如果你有好的意见或建议, new issue plz!!
+如果你有好的意见或建议, please make new issues!!

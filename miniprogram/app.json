@@ -7,8 +7,11 @@
     "pages/facilities/borrowClassroom",
     "pages/facilities/listBorrow",
     "pages/progressCheck/progressCheck",
-    "pages/progressCheck/printForm",
-    "pages/materials/materials"
+    "pages/materials/borrowThings",
+    "pages/materials/borrowThings_form",
+    "pages/materials/addThings",
+    "pages/materials/materialsIndex",
+    "pages/progressCheck/printForm"
   ],
   "window": {
     "backgroundColor": "#f6f6f6",
@@ -30,7 +33,7 @@
         "text": "场地借用"
       },
       {
-        "pagePath": "pages/materials/materials",
+        "pagePath": "pages/materials/materialsIndex",
         "iconPath": "assets/notification.png",
         "selectedIconPath": "assets/notification-HL.png",
         "text": "物资借用"

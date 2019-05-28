@@ -3,29 +3,59 @@ const app = getApp();
 const db = wx.cloud.database();
 
 function fetchDB(PAGE) {
-  return db.collection("forms").doc(PAGE.data.id).get().then(res => {
-    console.log("[fetch DB]Get database", res.data);
-    if (res.data) {
-      let x = res.data;
-      x.submitDate = app._toDateStr(x.submitDate);
-      x.eventDate = app._toDateStr(new Date(x.eventDate));
-      PAGE.setData({
-        appr: x || {}
-      });
-      if (x.check && x.check.comment) {
+  if (PAGE.data.type === 'materials'){
+    console.log('fetch forms of materials')
+    return db.collection("formsForMaterials").doc(PAGE.data.id).get().then(res => {
+      console.log("[fetch DB]Get database", res.data);
+      if (res.data) {
+        let x = res.data;
+        if (x.submitDate){
+          x.submitDate = app._toDateStr(x.submitDate);
+        }
+        //x.eventDate = app._toDateStr(new Date(x.eventDate));
         PAGE.setData({
-          commentLength: x.check.comment.length
+          appr: x || {}
         });
+        if (x.check && x.check.comment) {
+          PAGE.setData({
+            commentLength: x.check.comment.length
+          });
+        }
+        if (!x.check || !x.check.approver) {
+          PAGE.setData({
+            "appr.check.approver": app.loginState.name
+          });
+        }
+      } else {
+        console.error("Cannot get data");
       }
-      if (!x.check || !x.check.approver) {
+    });
+  } 
+  else{
+    return db.collection("forms").doc(PAGE.data.id).get().then(res => {
+      console.log("[fetch DB]Get database", res.data);
+      if (res.data) {
+        let x = res.data;
+        x.submitDate = app._toDateStr(x.submitDate);
+        x.eventTime1 = app._toDateStr(new Date(x.eventTime1));
+        x.eventTime2 = app._toDateStr(new Date(x.eventTime2));
         PAGE.setData({
-          "appr.check.approver": app.loginState.name
+          appr: x || {}
         });
+        if (x.check && x.check.comment) {
+          PAGE.setData({
+            commentLength: x.check.comment.length
+          });
+        }
+        if (!x.check || !x.check.approver) {
+          PAGE.setData({
+            "appr.check.approver": app.loginState.name
+          });
+        }
+      } else {
+        console.error("Cannot get data");
       }
-    } else {
-      console.error("Cannot get data");
-    }
-  });
+    });}
 }
 
 Page({
@@ -33,6 +63,7 @@ Page({
     examState: ["未审批", "撤回", "未通过", "通过"],
     commentLength: 0,
     maxCommentLength: 140,
+    type:'',
     eventInfo: [{
       badge: "group.png",
       name: "申请单位",
@@ -53,11 +84,27 @@ Page({
       badge: "flag.png",
       name: "活动内容",
       value: "content"
+    }],
+    materialInfo: [{
+      badge: "group.png",
+      name: "申请单位",
+      value: "association"
+    }, {
+      badge: "user.png",
+      name: "申请人",
+      value: "name"
+    }, {
+      badge: "phone.png",
+      name: "联系方式",
+      value: "phoneNumber"
+    }, {
+      badge: "flag.png",
+      name: "借用用途",
+      value: "description"
     }]
   },
   onLoad: function(options) {
     // get url_get info
-    console.log(options);
     if (!options.id || !(/[0-9A-Za-z_-]{16}/.test(options.id))) {
       wx.showToast({
         title: "无效访问",
@@ -75,6 +122,7 @@ Page({
       return;
     }
     this.setData(options);
+    console.log('viewApproval type = ',this.data.type);
     // get database
     fetchDB(this);
   },

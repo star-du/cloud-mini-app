@@ -22,7 +22,7 @@
           </view>
         </view>
         <view class="weui-flex">
-          <view class="weui-flex__item" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="../progressCheck/progressCheck">
+          <view class="weui-flex__item" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="../progressCheck/progressCheck?type=facilities">
             <image class="flex-icon" src="../../assets/progressCheck.png" mode="aspectFit"></image>
             <view>进度查询</view>
           </view>

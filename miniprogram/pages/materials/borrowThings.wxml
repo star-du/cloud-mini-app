@@ -1,0 +1,34 @@
+<view class="goods">
+  <view class="menu-wrapper">
+    <scroll-view scroll-y="true" style="height: 500px;">
+      <view wx:for="{{goods}}" class="menu-item border-1px" bindtap="selectMenu" data-item-index="{{index}}">
+        <view class="text">{{item.genre}}</view>
+      </view>
+    </scroll-view>
+  </view>
+  <scroll-view scroll-y="true" style="height: 500px;" scroll-into-view="{{toView}}" class="items-wrapper">
+    <view wx:for="{{goods}}" class="food-list food-list-hook" wx:for-index="parentIndex">
+      <view id="order{{parentIndex}}" class="title">{{item.genre}}</view>
+      <view wx:for="{{item.items}}" class="food-item">
+        <view class="content">
+          <view class="name">{{item.itemName}}</view>
+          <view class="desc">{{item.description}}</view>
+          <view class="extra">
+            <text class="count">剩余{{item.quantity}}</text>
+          </view>
+          <view class="cartControl-wrapper">
+            <view class="cartControl">
+              <view name="fade">
+                <view class="cart-decrease" wx:if="{{food.Count > 0}}" data-item-index="{{index}}" data-parentIndex="{{parentIndex}}" catchtap="decreaseCart">
+                  <view class="inner iconfont icon-jian" style="font-size:24px;color:#00A0DC;"></view>
+                </view>
+                <view class="cart-count" wx:if="{{food.Count > 0 }}">{{food.Count}}</view>
+                <navigator catchtap="navtoForm" class=" iconfont icon-jia cart-add " url="./borrowThings_form?itemname={{item.itemName}}&itemcount={{item.quantity}}&&itemId={{item.itemId}}" hover-class="none" style="color:#00A0DC; " data-item-index="{{index}}" data-parentIndex="{{parentIndex}}"></navigator>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

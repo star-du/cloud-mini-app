@@ -68,7 +68,7 @@ Page({
           // 已授权,可以直接调用 getUserInfo
           wx.getUserInfo({
             success(r) {
-              console.log("[getUserInfo] seccess.");
+              console.log("[getUserInfo] success.");
               that.setData(r.userInfo);
             }
           });
@@ -97,11 +97,11 @@ Page({
   navToApproval: function(e) {
     // console.log(e);
     const data = e.currentTarget.dataset;
-    if (this.data.exam[data.idx].num && data.urlget.length > 0) {
-      console.log("navigateTo", data);
+    if (this.data.exam[data.idx].num && data.urlget.length > 0) {    
       wx.navigateTo({
-        url: '../approval/listApproval?' + data.urlget
+        url: '../approval/listApproval?' + data.urlget + '&type=facilities'
       });
+      //console.log("navigateTo", data);
     }
   },
   /** 
