@@ -8,7 +8,24 @@ cloud.init({
 const db = cloud.database();
 const utils = require("./utils.js");
 
-// notice: 无法设置对象内的field, 即 `event: {name: true}` 与 `event: true` 作用相同. 默认获取 `_id`
+/** 设置合法的collection名字, 用于检验传入值 */
+const collectionList = ["adminInfo", "forms"];
+
+
+/** 
+ * 用于检查 co 是否是合法的 collection 名
+ * @param {String} co - 待检测的名称
+ * @return {Boolean} 是否合法(在数组中)
+ */
+function inCollections(co) {
+  if (!co) return false;
+  for (let i = 0; i < collectionList.length; i++)
+    if (co === collectionList[i]) return true;
+  return false;
+}
+
+// @note 无法设置对象内的field, 即 `event: {name: true}` 与 `event: true` 作用相同.
+// 默认获取 `_id`
 
 /**
  * toFilter()
@@ -115,23 +132,16 @@ async function getAllData(collect, offset = 0) {
   );
 }
 
-function inCollections(co) {
-  if (!co) return false;
-  const collectionList = ["forms", "adminInfo"];
-  for (let i = 0; i < collectionList.length; i++)
-    if (co === collectionList[i])
-      return true;
-  return false;
-}
-
 /**
  * 云函数入口函数
  * @param {Object} event - 传入参数
- * @param {Object} event.field - 封装好的关键字段表
  * @param {String} event.caller - 用于标识调用者
- * @param {String} event.operate - 操作
  * @param {String} event.collection - 需要操作的数据库集合
+ * @param {String} [event.docID] - (isDoc=true)表示需查询项的 _id
+ * @param {Object} [event.field] - 封装好的关键字段表
+ * @param {Object} event.filter - 查询条件
  * @param {Boolean} [event.isDoc] - 是否使用 doc() 方法获取一个数据
+ * @param {String} event.operate - 操作, 目前只支持 read, update
  * @return { {data: Object[], errMsg: String} | {err: Boolean, errMsg: String} }
  */
 exports.main = async(event, context) => {
@@ -179,8 +189,8 @@ exports.main = async(event, context) => {
       if (event.isDoc) {
         return c.get();
       } else {
-        return await getAllData(c,
-          event.hasOwnProperty("offset") ? Number(event.offset) : 0);
+        const offset = Number(event.offset);
+        return await getAllData(c, isNaN(offset) ? 0 : Number(offset));
       }
       // end read case
     case "update":

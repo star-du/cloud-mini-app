@@ -25,9 +25,9 @@
 
   /**
    * lastDay()
-   * 获取距今天 day 天之前那天的 Date 对象实例
+   * 获取距今天 day 天之前那天的 Date 实例
    * @param {Number} day - 需得到的那天与今天隔的天数(负数表示未来的某天)
-   * @return 得到的 Date 对象
+   * @return 得到的 Date 对象实例
    */
   U.lastDay = (day) => {
     const d = new Date();

@@ -56,9 +56,11 @@ Name | Description
 ## 2. adminInfo
 
 Field   | Type    | Description
--------:| ------- | -----------------------------------
+-------:| ------- | ---------------------------------------------------
 openid  | String  | 微信公开id, 用于区别用户
-isAdmin | Boolean | 是否有管理员权限
-isSuper | Boolean | 是否有超级管理员权限
+isAdmin | Boolean | 是否有管理员权限, 必填
+isSuper | Boolean | 是否有超级管理员权限, 选填
 name    | String  | 用户名称, 开发者必须加后缀 `[Dev]` 或 `[Rel]` 以区分
 tel     | String  | 用户手机号, 备用
+
+设置 `isAdmin` 字段的原因是秘书部的审批为值班制, 流动性大, 值班结束后只需将其置为

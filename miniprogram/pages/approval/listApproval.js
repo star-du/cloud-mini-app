@@ -87,11 +87,10 @@ Page({
     return wx.cloud.callFunction({
       name: "operateForms",
       data: {
-        //field: {},
-        collection: "forms",
         caller: "getApprovalList",
-        filter: this.data.filter
-        // filter:  new Object()
+        collection: "forms",
+        filter: this.data.filter,
+        operate: "read"
       }
     }).then(res => {
       console.log("[fetchFacData]res", res);
