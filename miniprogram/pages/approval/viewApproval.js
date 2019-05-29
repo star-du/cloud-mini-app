@@ -3,13 +3,13 @@ const app = getApp();
 const db = wx.cloud.database();
 
 function fetchDB(PAGE) {
-  if (PAGE.data.type === 'materials'){
+  if (PAGE.data.type === 'materials') {
     console.log('fetch forms of materials')
     return db.collection("formsForMaterials").doc(PAGE.data.id).get().then(res => {
       console.log("[fetch DB]Get database", res.data);
       if (res.data) {
         let x = res.data;
-        if (x.submitDate){
+        if (x.submitDate) {
           x.submitDate = app._toDateStr(x.submitDate);
         }
         //x.eventDate = app._toDateStr(new Date(x.eventDate));
@@ -30,40 +30,74 @@ function fetchDB(PAGE) {
         console.error("Cannot get data");
       }
     });
-  } 
-  else{
-    return db.collection("forms").doc(PAGE.data.id).get().then(res => {
-      console.log("[fetch DB]Get database", res.data);
-      if (res.data) {
-        let x = res.data;
-        x.submitDate = app._toDateStr(x.submitDate);
-        x.eventTime1 = app._toDateStr(new Date(x.eventTime1));
-        x.eventTime2 = app._toDateStr(new Date(x.eventTime2));
-        PAGE.setData({
-          appr: x || {}
-        });
-        if (x.check && x.check.comment) {
-          PAGE.setData({
-            commentLength: x.check.comment.length
-          });
-        }
-        if (!x.check || !x.check.approver) {
-          PAGE.setData({
-            "appr.check.approver": app.loginState.name
-          });
-        }
-      } else {
-        console.error("Cannot get data");
+  } else {
+    // 场地借用, 修改为云函数
+    return wx.cloud.callFunction({
+      name: "operateForms",
+      data: {
+        caller: "getAppr",
+        collection: "forms",
+        docID: PAGE.data.id,
+        isDoc: true,
+        operate: "read"
       }
-    });}
+    }).then(res => {
+      console.log("[fetchDB]res", res);
+      if (res.result.err) {
+        console.error("[ERROR]", res.result.errMsg);
+        return;
+      }
+
+      let x = res.result.data;
+      x.submitDate = app._toDateStr(x.submitDate);
+      // x.eventTime1 = app._toDateStr(new Date(x.eventTime1));
+      // x.eventTime2 = app._toDateStr(new Date(x.eventTime2));
+      PAGE.setData({
+        appr: x || {}
+      });
+      if (x.check && x.check.comment) {
+        PAGE.setData({
+          commentLength: x.check.comment.length
+        });
+      }
+      if (!x.check || !x.check.approver) {
+        PAGE.setData({
+          "appr.check.approver": app.loginState.name
+        });
+      }
+    }).catch(err => {
+      console.error("[fetchDB]failed", err);
+    });
+    // end else
+  }
 }
+
+const cmp = (_x, _y) => {
+  return _x.eventTime1 == _x.eventTime1 ? _x.eventTime2 < _y.eventTime2 : _x.eventTime1 < _y.eventTime1
+};
+
+function getInter(a) {
+  const inside = (v, arr) => {
+    for (let i = 0; i < arr.length; i++)
+      if (v >= arr.eventTime1 && v <= arr.eventTime2) return i;
+    return -1;
+  };
+  let n, x = [];
+  for (let i = 0; i < a.length; a++) {
+    n = inside(a[i].eventTime1, x);
+    if (n < 0) x.push(a[i]);
+    else if (x[n].eventTime2 < a[i].eventTime2) x[n].eventTime2 = a[i].eventTime2;
+  }
+  x.sort(cmp);
+  return x;
+};
 
 Page({
   data: {
     examState: ["未审批", "撤回", "未通过", "通过"],
     commentLength: 0,
     maxCommentLength: 140,
-    type:'',
+    type: '',
     eventInfo: [{
       badge: "group.png",
       name: "申请单位",
@@ -122,7 +156,7 @@ Page({
       return;
     }
     this.setData(options);
-    console.log('viewApproval type = ',this.data.type);
+    console.log('viewApproval type = ', this.data.type);
     // get database
     fetchDB(this);
   },
@@ -136,7 +170,7 @@ Page({
     const flag = Number(e.detail.target.dataset.flag);
     const value = e.detail.value;
     value.comment = value.comment.trim();
-    console.log(flag, value, this.data.id);
+    console.log("[update]", this.data.id, " [flag]", flag, " [value]", value);
     const PAGE = this;
     wx.showLoading({
       title: "提交中",
@@ -144,31 +178,34 @@ Page({
     });
     // call cloud function
     wx.cloud.callFunction({
-      name: "updateApproval",
+      name: "operateForms",
       data: {
-        updateID: this.data.id,
-        check: value,
-        exam: flag
+        caller: "updateFacAppr",
+        collection: "forms",
+        docID: this.data.id,
+        isDoc: true,
+        operate: "update",
+        update: {
+          check: value,
+          exam: flag
+        }
       }
-    }).then((res) => {
-      console.log("[updateApproval]ok", res);
+    }).then(res => {
+      console.log("[updateApproval]", res);
       wx.hideLoading();
       // [Boolean]res.error indicates if calling has error
-      if (res.error || res.updated === 0) {
-        wx.showToast({
-          title: "出错了, 请稍后重试",
-          icon: "none",
-          duration: 2000,
-          mask: true
-        });
-      } else {
-        wx.showToast({
-          title: "提交成功",
-          icon: "success",
-          duration: 2000,
-          mask: true
-        });
-      }
+      if (res.err || res.updated < 1) wx.showToast({
+        title: "出错了, 请稍后重试",
+        icon: "none",
+        duration: 3000,
+        mask: true
+      });
+      else wx.showToast({
+        title: "更新成功",
+        icon: "success",
+        duration: 2000,
+        mask: true
+      });
       fetchDB(PAGE);
     }).catch(console.error);
   },
@@ -201,42 +238,32 @@ Page({
         formid: true
       }).get()
       .then(res => {
-        console.log("[checkAvailTim]", res);
-        const cmp = (_x, _y) => {
-          return _x.eventTime1 == _x.eventTime1 ? _x.eventTime2 < _y.eventTime2 : _x.eventTime1 < _y.eventTime1
-        };
-        const getInter = (a) => {
-          const inside = (v, arr) => {
-            for (let i = 0; i < arr.length; i++)
-              if (v >= arr.eventTime1 && v <= arr.eventTime2) return i;
-            return -1;
-          };
-          let x = [],
-            n;
-          for (let i = 0; i < a.length; a++) {
-            n = inside(a[i].eventTime1, x);
-            if (n < 0) x.push(a[i]);
-            else if (x[n].eventTime2 < a[i].eventTime2) x[n].eventTime2 = a[i].eventTime2;
-          }
-          x.sort(cmp);
-          return x;
-        };
-
-        let arr = res.data;
-        arr.sort(cmp);
-        arr = getInter(arr);
-        console.log("[interval]", arr);
-        const str = arr.length ? arr.reduce((s, cur) => {
-          console.log(cur);
-          return s + "\n" + cur.eventTime1 + "-" + cur.eventTime2;
-        }, "") : "全天空闲";
-        console.log("[str]", str);
-        wx.showModal({
-          title: "查询结果",
-          content: arr.length ? ("占用时间: " + str) : str,
-          showCancel: false,
-          confirmText: "好的"
-        });
+        console.log("[checkAvailTime]res", res);
+        res.data.sort(cmp);
+        let arr = getInter(res.data);
+        console.log("[intervals]", arr);
+        if (arr.length) {
+          // 当天有借用
+          const str = arr.reduce((s, cur) => {
+            return s + "\n" + cur.eventTime1 + "-" + cur.eventTime2;
+          }, ""); // reduce 转为字符串
+          console.log("[str]", str);
+          wx.showModal({
+            title: "查询结果",
+            content: "当天占用时间: \n" + str,
+            showCancel: false,
+            confirmText: "好的"
+          });
+        } else {
+          // 当天全天无借用
+          wx.showModal({
+            title: "查询结果",
+            content: "全天空闲",
+            showCancel: false,
+            confirmText: "知道了"
+          });
+        }
+        return;
       });
   }
 })

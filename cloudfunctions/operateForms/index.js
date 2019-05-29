@@ -11,21 +11,17 @@ const utils = require("./utils.js");
 /** 设置合法的collection名字, 用于检验传入值 */
 const collectionList = ["adminInfo", "forms"];
 
-
 /** 
- * 用于检查 co 是否是合法的 collection 名
- * @param {String} co - 待检测的名称
+ * 用于检查 coName 是否是合法的 collection 名
+ * @param {String} coName - 待检测的名称
  * @return {Boolean} 是否合法(在数组中)
  */
-function inCollections(co) {
-  if (!co) return false;
+function inCollections(coName) {
+  if (!coName) return false;
   for (let i = 0; i < collectionList.length; i++)
-    if (co === collectionList[i]) return true;
+    if (coName === collectionList[i]) return true;
   return false;
 }
-
-// @note 无法设置对象内的field, 即 `event: {name: true}` 与 `event: true` 作用相同.
-// 默认获取 `_id`
 
 /**
  * toFilter()
@@ -42,12 +38,12 @@ function toFilter(ft) {
         if (utils.isArray(ft[s])) {
           x = [];
           for (let i = 0; i < ft[s].length; i++)
-            if (ft[s][i] >= 0 && ft[s][i] < 4) x.push(ft[s][i]);
+            if (utils.isExamNum(ft[s][i])) x.push(ft[s][i]);
           if (!x.length) return false;
           obj.exam = db.command.in(x);
         } else {
           x = Number(ft[s]);
-          if (!isNaN(x) && x >= 0 && x < 4) obj.exam = x;
+          if (utils.isExamNum(x)) obj.exam = x;
           else return false;
         }
         break; // exam
@@ -132,16 +128,200 @@ async function getAllData(collect, offset = 0) {
   );
 }
 
+async function getUserPermission(userOpenid) {
+  return await db.collection("adminInfo").where({
+    openid: userOpenid
+  }).get().then(res => {
+    if (res.data.length) {
+      return {
+        isAdmin: res.data[0].isAdmin,
+        isSuper: res.data[0].isSuper
+      }
+    } else return {
+      isAdmin: false
+    };
+  }).catch(err => {
+    return {
+      isAdmin: false
+    };
+  });
+  console.log("[isAdmin]", isAdmin);
+  if (!isAdmin) {
+    return {
+      err: true,
+      errMsg: "Promision denied."
+    };
+  }
+}
+
+/**
+ * 是否有修改 collection 的权限
+ */
+function hasPermission(perm, collction) {
+  switch (collction) {
+    case "adminInfo":
+      return perm.isAdmin && perm.isSuper;
+    case "forms":
+      return perm.isAdmin;
+    default:
+      return false;
+  }
+}
+
+/**
+ * "read" 操作主函数
+ */
+async function readMain(event) {
+  // 设置 collection
+  if (!inCollections(event.collection)) {
+    return {
+      err: true,
+      errMsg: "Wrong collection."
+    };
+  }
+  let c = db.collection(event.collection);
+
+  // 设置取值
+  if (event.isDoc) {
+    // 取单个记录
+    if (!utils.isIDString(event.docID, [16, 32]))
+      return {
+        err: true,
+        errMsg: "Error docID format.",
+        doc: event.docID
+      };
+    c = c.doc(event.docID);
+  } else {
+    // 取所有记录
+    const filter = toFilter(event.filter);
+    if (filter === false) return {
+      err: true,
+      errMsg: "Error filter."
+    };
+    c = c.where(filter);
+  }
+
+  // 设置返回字段
+  if (event.hasOwnProperty("field") && Object.keys(event.field).length)
+    c = c.field(collectionField[event.field]);
+
+  // 获取数据并返回
+  if (event.isDoc) {
+    return c.get();
+  } else {
+    const offset = Number(event.offset);
+    return await getAllData(c, isNaN(offset) ? 0 : Number(offset));
+  }
+}
+
+function toUpdateObj(event) {
+  const u = event.update;
+  console.log("[openid]", event.openid, event);
+  let o = {
+    check: {
+      openid: event.openid
+    }
+  };
+
+  // 检查 check
+  if (u.check && Object.keys(u.check).length) {
+    if (u.check.approver) o.check.approver = u.check.approver;
+    if (u.check.comment) o.check.comment = u.check.comment;
+    o.check.time = db.serverDate();
+  } else return {
+    err: true,
+    errMsg: "Error check."
+  }
+
+  // 检查 exam
+  if (utils.isExamNum(u.exam)) o.exam = u.exam;
+  else return {
+    err: true,
+    errMsg: "Error exam."
+  }
+
+  // 更新历史记录
+  let tmp = o.check;
+  tmp.exam = o.exam;
+  o.checkHis = db.command.push([tmp]);
+
+  console.log("[update object]", o);
+  return {
+    data: o
+  };
+}
+
+/**
+ * "update" 操作主函数
+ */
+async function updateMain(event) {
+  // 设置 collection
+  if (!inCollections(event.collection)) {
+    return {
+      err: true,
+      errMsg: "Collection error."
+    };
+  }
+  let c = db.collection(event.collection);
+
+  // 设置取值
+  if (event.isDoc) {
+    // 取单个记录
+    if (!utils.isIDString(event.docID, [16, 32]))
+      return {
+        err: true,
+        errMsg: "Error docID format.",
+        doc: event.docID
+      };
+    c = c.doc(event.docID);
+  } else {
+    // 取所有记录
+    const filter = toFilter(event.filter);
+    if (filter === false) return {
+      err: true,
+      errMsg: "Filter error."
+    };
+    c = c.where(filter);
+  }
+
+  // 对于不同的 caller 可有不同的操作 
+  switch (event.caller) {
+    case "updateFacAppr":
+      const u = toUpdateObj(event);
+      if (u.err) return u;
+
+      return await c.update(u).then(res => {
+        console.log("[update]", res);
+        return {
+          err: false,
+          errMsg: res.errMsg,
+          updated: res.stats.updated
+        }
+      });
+      // end updateFacAppr
+    default:
+      return {
+        err: true,
+        errMsg: "Caller error."
+      }
+  }
+  return {
+    err: true,
+    errMsg: "Runtime null."
+  };
+}
+
 /**
  * 云函数入口函数
  * @param {Object} event - 传入参数
  * @param {String} event.caller - 用于标识调用者
  * @param {String} event.collection - 需要操作的数据库集合
- * @param {String} [event.docID] - (isDoc=true)表示需查询项的 _id
- * @param {Object} [event.field] - 封装好的关键字段表
- * @param {Object} event.filter - 查询条件
+ * @param {String} [event.docID] - (isDoc=true时必填) 表示需查询项的 _id
+ * @param {Object} [event.field] - 需要返回的关键字段表. 1)无法设置对象内的field, 即 `event: {name: true}` 与 `event: true` 作用相同. 2)返回的数据默认有 `_id`, 不需在field中
+ * @param {Object} [event.filter] - (isDoc=false时必填) 查询条件
  * @param {Boolean} [event.isDoc] - 是否使用 doc() 方法获取一个数据
  * @param {String} event.operate - 操作, 目前只支持 read, update
+ * @param {Object} [event.update] - (operate=update时必填)更新对象
  * @return { {data: Object[], errMsg: String} | {err: Boolean, errMsg: String} }
  */
 exports.main = async(event, context) => {
@@ -152,49 +332,21 @@ exports.main = async(event, context) => {
       errMsg: "Invalid caller."
     };
 
+  event.openid = event.userInfo.openId || cloud.getWXContext().OPENID;
+
   switch (event.operate) {
     case "read": // 获取数据表
-      if (!inCollections(event.collection)) {
-        return {
-          err: true,
-          errMsg: "Wrong collection."
-        };
-      }
-      let c = db.collection(event.collection);
-
-      // 设置取值
-      if (event.isDoc) {
-        // 取单个记录
-        if (!utils.isIDString(event.docID, [16, 32]))
-          return {
-            err: true,
-            errMsg: "Error docID format."
-          };
-        c = c.doc(event.docID);
-      } else {
-        // 取所有记录
-        const filter = toFilter(event.filter);
-        if (filter === false) return {
-          err: true,
-          errMsg: "Error filter."
-        };
-        c = c.where(filter);
-      }
-
-      // 设置返回字段
-      if (event.hasOwnProperty("field") && Object.keys(event.field).length)
-        c = c.field(collectionField[event.field]);
-
-      // 获取数据并返回
-      if (event.isDoc) {
-        return c.get();
-      } else {
-        const offset = Number(event.offset);
-        return await getAllData(c, isNaN(offset) ? 0 : Number(offset));
-      }
+      return await readMain(event);
       // end read case
     case "update":
-
+      const perm = await getUserPermission(event.openid);
+      console.log("[permission]", perm);
+      if (hasPermission(perm, event.collection)) {
+        return await updateMain(event);
+      } else return {
+        err: true,
+        errMsg: "Promision denied."
+      }
       break;
       // end update case
     default:
@@ -203,5 +355,8 @@ exports.main = async(event, context) => {
         errMsg: "Unknown operate."
       }
   }
-  return;
+  return {
+    err: true,
+    errMsg: "Runtime null."
+  };
 }

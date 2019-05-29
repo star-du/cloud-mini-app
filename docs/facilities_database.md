@@ -9,28 +9,30 @@
 
 ## 1. forms
 
- Field Name     | Type   | Description
----------------:| ------ | ------------------------
-_openid         | String | 微信公开id, 用于区别用户
-formid          | Number | 表单编号 `yyyy\d{5}`
-check           | Object | 审核的详细信息, 详见下
-classroomNumber | String | 教室编号
-event           | Object | 活动的详细内容, 详见下
-eventDate       | String | 活动日期 `yyyy-MM-dd`
-eventTime1      | String | 活动时间（起） `HH:mm`
-eventTime2      | String | 活动时间（终） `HH:mm`
-exam            | Number | 审核状态, 详见下
-submitDate      | Date   | 提交日期
+Field Name      | Type     | Description
+---------------:| -------- | ------------------------
+_openid         | String   | 微信公开id, 用于区别用户
+formid          | Number   | 表单编号 `yyyy\d{5}`
+check           | Object   | 审核的详细信息, 详见下
+checkHis        | Object[] | 审核的历史记录数组 
+classroomNumber | String   | 教室编号
+event           | Object   | 活动的详细内容, 详见下
+eventDate       | String   | 活动日期 `yyyy-MM-dd`
+eventTime1      | String   | 活动时间（起） `HH:mm`
+eventTime2      | String   | 活动时间（终） `HH:mm`
+exam            | Number   | 审核状态, 详见下
+submitDate      | Date     | 提交日期
  
 ### 字段内容
 
 - [Object] **check**
 
 Name     |  Type  | Description
---------:| ------ | --------------
+--------:| ------ | -----------------
 approver | String | 审批人
 comment  | String | 审批意见
-openid   | String | 审批人的openid
+time     | Date   | 审核提交的时间
+openid   | String | 审批人的 `openid`
 
 - [Object] **event**
 
