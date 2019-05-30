@@ -87,7 +87,7 @@ Page({
     return wx.cloud.callFunction({
       name: "operateForms",
       data: {
-        caller: "getApprovalList",
+        caller: "getApprList",
         collection: "forms",
         filter: this.data.filter,
         operate: "read"
@@ -95,7 +95,7 @@ Page({
     }).then(res => {
       console.log("[fetchFacData]res", res);
       if (res.result.err) {
-        console.warn("ERROR");
+        console.error("ERROR", res.result.errMsg);
         return;
       }
 
