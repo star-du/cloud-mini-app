@@ -9,7 +9,7 @@ const db = cloud.database();
 const utils = require("./utils.js");
 
 /** 设置合法的collection名字, 用于检验传入值 */
-const collectionList = ["adminInfo", "forms"];
+const collectionList = ["adminInfo", "forms", "formsForMaterials"];
 
 /** 
  * 用于检查 coName 是否是合法的 collection 名
@@ -163,6 +163,8 @@ function hasPermission(perm, collction) {
       return perm.isAdmin && perm.isSuper;
     case "forms":
       return perm.isAdmin;
+    case "formsForMaterials":
+      return perm.isAdmin; //NOTE：可能存在两种管理员的问题
     default:
       return false;
   }
@@ -286,7 +288,7 @@ async function updateMain(event) {
 
   // 对于不同的 caller 可有不同的操作 
   switch (event.caller) {
-    case "updateFacAppr":
+    case "updateAppr":
       const u = toUpdateObj(event);
       if (u.err) return u;
 
