@@ -68,7 +68,7 @@
       <view class="weui-panel__bd">
         <view class="weui-media-box weui-media-box_small-appmsg">
           <view class="weui-cells weui-cells_in-small-appmsg">
-            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{exam}}" wx:for-index="i" wx:for-item="it" wx:key="id" bindtap="navToApproval" data-idx="{{i}}" data-urlget="flag={{i}}&expireSubmit=100&type=materials">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{exam}}" wx:for-index="i" wx:for-item="it" wx:key="id" bindtap="navToApproval" data-idx="{{i}}" data-urlget="flag={{i}}&expireSubmit=30&type=materials">
               <view class="weui-cell__bd">
                 <view style="display: inline-block; vertical-align: middle">{{it.text}}
                 </view>

@@ -5,30 +5,40 @@ const db = wx.cloud.database();
 function fetchDB(PAGE) {
   if (PAGE.data.type === 'materials') {
     console.log('fetch forms of materials')
-    return db.collection("formsForMaterials").doc(PAGE.data.id).get().then(res => {
-      console.log("[fetch DB]Get database", res.data);
-      if (res.data) {
-        let x = res.data;
-        if (x.submitDate) {
-          x.submitDate = app._toDateStr(x.submitDate);
-        }
-        //x.eventDate = app._toDateStr(new Date(x.eventDate));
-        PAGE.setData({
-          appr: x || {}
-        });
-        if (x.check && x.check.comment) {
-          PAGE.setData({
-            commentLength: x.check.comment.length
-          });
-        }
-        if (!x.check || !x.check.approver) {
-          PAGE.setData({
-            "appr.check.approver": app.loginState.name
-          });
-        }
-      } else {
-        console.error("Cannot get data");
+    return wx.cloud.callFunction({
+      name: "operateForms",
+      data: {
+        caller: "getAppr",
+        collection: "formsForMaterials",
+        docID: PAGE.data.id,
+        isDoc: true,
+        operate: "read"
       }
+    }).then(res => {
+      console.log("[fetchDB]res", res);
+      if (res.result.err) {
+        console.error("[ERROR]", res.result.errMsg);
+        return;
+      }
+      let x = res.result.data;
+      x.submitDate = app._toDateStr(x.submitDate);
+      // x.eventTime1 = app._toDateStr(new Date(x.eventTime1));
+      // x.eventTime2 = app._toDateStr(new Date(x.eventTime2));
+      PAGE.setData({
+        appr: x || {}
+      });
+      if (x.check && x.check.comment) {
+        PAGE.setData({
+          commentLength: x.check.comment.length
+        });
+      }
+      if (!x.check || !x.check.approver) {
+        PAGE.setData({
+          "appr.check.approver": app.loginState.name
+        });
+      }
+    }).catch(err => {
+      console.error("[fetchDB]failed", err);
     });
   } else {
     // 场地借用, 修改为云函数
@@ -157,6 +167,7 @@ Page({
     }
     this.setData(options);
     console.log('viewApproval type = ', this.data.type);
+    console.log(options);
     // get database
     fetchDB(this);
   },
@@ -172,6 +183,8 @@ Page({
     value.comment = value.comment.trim();
     console.log("[update]", this.data.id, " [flag]", flag, " [value]", value);
     const PAGE = this;
+    if (PAGE.data.type == 'facilities') var collectionName = "forms";
+    else if (PAGE.data.type == 'materials') var collectionName = "formsForMaterials";
     wx.showLoading({
       title: "提交中",
       mask: true
@@ -180,8 +193,8 @@ Page({
     wx.cloud.callFunction({
       name: "operateForms",
       data: {
-        caller: "updateFacAppr",
-        collection: "forms",
+        caller: "updateAppr",
+        collection: collectionName,
         docID: this.data.id,
         isDoc: true,
         operate: "update",

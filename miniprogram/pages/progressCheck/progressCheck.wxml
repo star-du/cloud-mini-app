@@ -27,6 +27,10 @@
             <view class="weui-form-preview__value">{{examState[it.exam]}}</view>
           </view>
         </view><!--end of preview body-->
+        
+        <view class="weui-form-preview__ft" wx-if="{{it.exam === 3}}">
+          <navigator url='' class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">去归还</navigator>
+        </view>
       </view>
 
 
