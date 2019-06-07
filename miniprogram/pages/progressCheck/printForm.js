@@ -33,16 +33,14 @@ Page({
 
   onLoad: function (options) {
     const PAGE = this;
-    console.log("options:" + options.type +' - ' + options.formid);
+    // console.log("options:" + options.type +' - ' + options.id);
     db.collection("forms").where({
-      formid: Number(options.formid)
+      _id: options.id
     }).get({
       success(e) {
         PAGE.setData({
           progressList: e.data || []
         });
-        // console.log("here???");
-        // console.log('a',PAGE.data.progressList);
         PAGE.createNewImg(PAGE);
       },
       fail: console.error
@@ -52,8 +50,8 @@ Page({
 
 
   createNewImg: function (PAGE) {
-    var it = PAGE.data.progressList[0]; //NOTE：测试用数据库有部分formid重复
-    console.log('item:',it);
+    var it = PAGE.data.progressList[0]; 
+    // console.log('item:',it);
     let ctx = wx.createCanvasContext('formVerify');
     ctx.setFillStyle('white')
     ctx.fillRect(0, 0, PAGE.data.WIDTH, PAGE.data.HEIGHT);
@@ -77,7 +75,7 @@ Page({
         ctx.fillText(title+':', 25, yCoord);
         var textWidth = ctx.measureText(contentForPrint[title]).width;
         var maxLength=200;
-        console.log(textWidth);
+        // console.log(textWidth);
       var lastYCoord = yCoord;
        if (textWidth<=maxLength)
         {
@@ -132,7 +130,7 @@ Page({
     wx.canvasToTempFilePath({
       canvasId: 'formVerify',
       success: function (res) {
-        console.log(res.tempFilePath)
+        // console.log(res.tempFilePath)
         wx.saveImageToPhotosAlbum({
           filePath: res.tempFilePath,
           success: (res) =>{

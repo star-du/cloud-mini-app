@@ -229,6 +229,8 @@ function toUpdateObj(event) {
   if (u.check && Object.keys(u.check).length) {
     if (u.check.approver) o.check.approver = u.check.approver;
     if (u.check.comment) o.check.comment = u.check.comment;
+    if (u.check.returnApprover) o.check.returnApprover = u.check.returnApprover;
+    if (u.check.returnComment) o.check.returnComment = u.check.returnComment;
     o.check.time = db.serverDate();
   } else return {
     err: true,
@@ -299,7 +301,7 @@ async function updateMain(event) {
           errMsg: res.errMsg,
           updated: res.stats.updated
         }
-      });
+      }); 
       // end updateFacAppr
     default:
       return {

@@ -19,7 +19,13 @@ Page({
       text: "未通过"
     }, {
       num: null,
-      text: "已通过"
+      text: "已借出"
+    }, {
+      num: null,
+      text: "待归还"
+    }, {
+      num: null,
+      text: "已归还"
     }]
   },
 
@@ -181,8 +187,8 @@ Page({
       return db.collection("formsForMaterials").where({
         exam: flag
       }).count().then(res => {
-        console.log( page.data.exam[flag].text + " : " + res.total);
-        console.log(res);
+        // console.log( page.data.exam[flag].text + " : " + res.total);
+        // console.log(res);
         page.setData({
           ["exam[" + flag + "].num"]: res.total
         });

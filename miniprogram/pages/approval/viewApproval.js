@@ -104,7 +104,7 @@ function getInter(a) {
 
 Page({
   data: {
-    examState: ["未审批", "撤回", "未通过", "通过"],
+    examState: ["未审批", "撤回", "未通过", "通过", "待归还", "已归还"],
     commentLength: 0,
     maxCommentLength: 140,
     type: '',
@@ -167,9 +167,10 @@ Page({
     }
     this.setData(options);
     console.log('viewApproval type = ', this.data.type);
-    console.log(options);
+    // console.log(options);
     // get database
     fetchDB(this);
+    console.log(this.data)
   },
   /* 用户下拉动作刷新 */
   onPullDownRefresh: function() {
@@ -178,11 +179,18 @@ Page({
     });
   },
   submit: function(e) {
-    const flag = Number(e.detail.target.dataset.flag);
+    var flag = Number(e.detail.target.dataset.flag);
     const value = e.detail.value;
-    value.comment = value.comment.trim();
-    console.log("[update]", this.data.id, " [flag]", flag, " [value]", value);
     const PAGE = this;
+
+    if (value.comment)    value.comment = value.comment.trim();
+    if (value.returnComment) value.returnComment = value.returnComment.trim();
+    
+
+    if (PAGE.data.appr.exam == 4) flag = flag == 3 ? 5:6; //若同意 ze归还的flag设为5
+    console.log("[update]", this.data.id, " [flag]", flag, " [value]", value);
+
+    // switch db.collection
     if (PAGE.data.type == 'facilities') var collectionName = "forms";
     else if (PAGE.data.type == 'materials') var collectionName = "formsForMaterials";
     wx.showLoading({

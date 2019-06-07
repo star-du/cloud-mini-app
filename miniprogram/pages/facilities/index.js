@@ -112,7 +112,7 @@ Page({
       return db.collection("forms").where({
         exam: flag
       }).count().then(res => {
-        console.log(flag + " : " + res.total);
+        // console.log(flag + " : " + res.total);
         page.setData({
           ["exam[" + flag + "].num"]: res.total
         });

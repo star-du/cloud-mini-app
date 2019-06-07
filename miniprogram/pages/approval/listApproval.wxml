@@ -76,7 +76,7 @@
         </view>
         <!-- end bd -->
         <view class="weui-form-preview__ft">
-          <navigator url="viewApproval?id={{it._id}}&type=materials" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">{{it.exam > 1 ? "详细信息" : "去审批"}}</navigator>
+          <navigator url="viewApproval?id={{it._id}}&type=materials" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">{{it.exam == 0 || it.exam == 4 ? "去审批" : "详细信息" }}</navigator>
         </view>
       </view>
       <!-- end wx:for -->

@@ -30,12 +30,13 @@ Page({
     return wx.cloud.callFunction({
       name: "operateForms",
       data: {
-        field: "listBorrow",
+        caller: "listBorrow",
+        collection: "forms",
         filter: {
           exam: 3,
           date: this.data.date
-        }
-      }
+        },
+        operate: "read"      }
     }).then(res => {
       console.log("[updateTable]res", res);
       let x = res.result.data;

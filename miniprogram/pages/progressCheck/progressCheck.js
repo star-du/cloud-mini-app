@@ -37,12 +37,12 @@ Page({
         _openid: openid
       }).get({
         success(e) {
-          console.log(e);
+          // console.log(e);
           PAGE.setData({
             type:'materials',
             progressList: e.data || []
           });
-          // console.log(PAGE.data);
+          console.log('PAGE.data:',PAGE.data);
         },
         fail: console.error
       });
@@ -54,11 +54,11 @@ Page({
       _openid: openid
     }).get({
       success(e) {
-        console.log(e);
+        // console.log(e);
         PAGE.setData({
           progressList: e.data || []
         });
-        // console.log(PAGE.data);
+        console.log('PAGE.data:',PAGE.data);
       },
       fail: console.error
     });

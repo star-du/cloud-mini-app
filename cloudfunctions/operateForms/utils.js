@@ -2,7 +2,7 @@
   "use strict";
   let U = {};
   U.dateReg = /2\d{3}-(0\d|1[0-2])-([0-2]\d|3[01])/;
-  U.maxExamNumber = 4;
+  U.maxExamNumber = 7;
 
   U.isArray = (obj) => {
     return obj && typeof obj === "object" && Array === obj.constructor;

@@ -5,7 +5,7 @@ const db = wx.cloud.database();
 Page({
   data: {
     apprList: [],
-    examState: ["未审批", "撤回", "未通过", "通过"],
+    examState: ["未审批", "撤回", "未通过", "通过", "待归还"],
     flagGet: -1
   },
   /**
@@ -37,8 +37,9 @@ Page({
         //console.log('fetch formsForMaterials for approval');
         this.fetchMatData();
         return;
-      };
-      this.fetchFacData();
+      }
+      else {
+      this.fetchFacData()}
     }
   },
   /**

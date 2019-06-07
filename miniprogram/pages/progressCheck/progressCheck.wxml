@@ -29,7 +29,7 @@
         </view><!--end of preview body-->
         
         <view class="weui-form-preview__ft" wx-if="{{it.exam === 3}}">
-          <navigator url='' class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">去归还</navigator>
+          <navigator url='../materials/returnThings?id={{it._id}}&type={{type}}' class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">去归还</navigator>
         </view>
       </view>
 
@@ -75,7 +75,7 @@
         </view><!--end of preview body-->
 
         <view class="weui-form-preview__ft" wx-if="{{it.exam === 3}}">
-          <navigator url='printForm?formid={{it.formid}}&type={{type}}' class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">打印表单</navigator>
+          <navigator url='printForm?id={{it._id}}&type={{type}}' class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">打印表单</navigator>
         </view>
 
       </view>

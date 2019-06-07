@@ -76,6 +76,32 @@
           <view class="weui-cell__ft">{{appr.submitDate}}</view>
         </view>
       </view>
+
+      <view wx:if="{{appr.exam == 4}}" class="weui-cells__title">归还情况</view>
+      <view wx:if="{{appr.exam == 4}}" class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            <image src="../../assets/time.png" mode="aspectFit"></image>
+          </view>
+          <view class="weui-cell__bd">归还数量</view>
+          <view class="weui-cell__ft">{{appr.returnQuantity}}</view>
+        </view>
+          <view class="weui-cell">
+          <view class="weui-cell__hd">
+            <image src="../../assets/time.png" mode="aspectFit"></image>
+          </view>
+          <view class="weui-cell__bd">归还时间</view>
+          <view class="weui-cell__ft">{{appr.returnTime}}</view>
+        </view>
+            <view class="weui-cell">
+          <view class="weui-cell__hd">
+            <image src="../../assets/time.png" mode="aspectFit"></image>
+          </view>
+          <view class="weui-cell__bd">归还状态</view>
+          <view class="weui-cell__ft">{{appr.returnStatus}}</view>
+        </view>
+      </view>
+
     </view>
     <!-- 活动/物资信息 end -->
 
@@ -89,13 +115,13 @@
         </view>
         <!-- 审批人 begin -->
         <view wx:if="{{appr.exam > 1}}" class="weui-cell">
-          <view class="weui-cell__bd">审批人</view>
+          <view class="weui-cell__bd">借用审批人</view>
           <view class="weui-cell__ft">{{appr.check.approver}}</view>
         </view>
         <block wx:else>
           <view class="weui-cell weui-cell_input">
             <view class="weui-cell__hd">
-              <view class="weui-label">审批人</view>
+              <view class="weui-label">借用审批人</view>
             </view>
             <view class="weui-cell__bd">
               <input class="weui-input" name="approver" placeholder="审批人姓名" value="{{appr.check.approver}}" />
@@ -105,19 +131,32 @@
             </view>
           </view>
         </block>
+
+        <view wx:if="{{appr.exam  == 4}}" class="weui-cell  weui-cell_input">
+          <view class="weui-cell__hd">
+              <view class="weui-label">归还审批人</view>
+            </view>
+          <view class="weui-cell__bd"><input class="weui-input" name="returnApprover" placeholder="审批人姓名"
+           value="{{appr.check.approver}}" /></view>
+        </view>
+          <view wx:if="{{appr.exam > 4}}" class="weui-cell">
+          <view class="weui-cell__bd">归还审批人</view>
+          <view class="weui-cell__ft">{{appr.check.returnApprover}}</view>
+        </view>
         <!-- 审批人 end -->
         <view class="weui-cell">
           <view class="weui-cell__bd">审批意见</view>
         </view>
         <view class="weui-cell">
           <view class="weui-cell__bd">
-            <textarea class="weui-textarea" name="comment" placeholder="请输入文本" maxlength="{{maxCommentLength}}" bindinput="userInput" disabled="{{appr.exam > 1?true:false}}" value="{{appr.check.comment}}" />
-            <view wx:if="{{appr.exam <= 1}}" class="weui-textarea-counter">{{commentLength}}/{{maxCommentLength}}</view>
+            <textarea wx:if="{{appr.exam >3}}" class="weui-textarea" name="returnComment" placeholder="请输入文本" maxlength="{{maxCommentLength}}" bindinput="userInput"  disabled="{{appr.exam >4 ?true:false}}" value="{{appr.check.returnComment}}" />
+            <textarea wx:else class="weui-textarea" name="comment" placeholder="请输入文本" maxlength="{{maxCommentLength}}" bindinput="userInput" disabled="{{appr.exam > 1?true:false}}" value="{{appr.check.comment}}" />
+            <view wx:if="{{appr.exam == 0 || appr.exam == 4 }}" class="weui-textarea-counter">{{commentLength}}/{{maxCommentLength}}</view>
           </view>
         </view>
       </view>
       <!-- buttons begin -->
-      <button wx:if="{{appr.exam > 1}}" class="weui-btn" type="warn" form-type="submit" data-flag="1">撤回</button>
+      <button wx:if="{{appr.exam > 1 && appr.exam != 4}}" class="weui-btn" type="warn" form-type="submit" data-flag="1">撤回</button>
       <view wx:else class="weui-flex" style="margin-top: 28rpx">
         <view class="weui-flex__item">
           <button class="weui-btn" type="primary" form-type="submit" data-flag="3">同意</button>
