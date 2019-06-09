@@ -5,7 +5,7 @@ const db = wx.cloud.database();
 Page({
   data: {
     apprList: [],
-    examState: ["未审批", "撤回", "未通过", "通过", "待归还"],
+    examState: ["未审批", "撤回", "未通过", "通过", "待归还", "已归还"],
     flagGet: -1
   },
   /**

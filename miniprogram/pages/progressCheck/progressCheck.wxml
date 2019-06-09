@@ -26,6 +26,14 @@
             <view class="weui-form-preview__label">审批状态</view>
             <view class="weui-form-preview__value">{{examState[it.exam]}}</view>
           </view>
+          <view class="weui-form-preview__item" wx:if="{{it.exam > 2}}">
+            <view class="weui-form-preview__label">物资位置</view>
+            <view class="weui-form-preview__value">
+              <view wx:if="{{it.location[0]}}">{{it.location[0]}}号仓库</view>
+              <view wx:if="{{it.location[1]}}">{{it.location[1]}}号货架</view>
+              <view wx:if="{{it.location[2]}}">{{it.location[2]}}分区</view>
+            </view>
+          </view>
         </view><!--end of preview body-->
         
         <view class="weui-form-preview__ft" wx-if="{{it.exam === 3}}">

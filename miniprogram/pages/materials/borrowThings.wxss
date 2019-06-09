@@ -1,4 +1,16 @@
 /* miniprogram/pages/borrowThings/borrowThings.wxss */
+.itemControllerWrapper {
+  position: absolute;
+  right: 0;
+  bottom: 14px; 
+}
+
+
+
+
+
+
+/*--------------------------- */
 .goods {
   display: flex;
   width: 100%;

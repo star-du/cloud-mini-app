@@ -27,6 +27,7 @@ Page({
       itemId: options.itemId
     })
     account[0] = options.itemcount;
+    console.log('borrowThings form: PAGE.data',PAGE.data)
   },
   bindDateChange1: function (e) {
     this.setData({
@@ -151,6 +152,7 @@ Page({
         eventTime1: contents["eventTime1"],
         eventTime2: contents["eventTime2"],
         itemName: contents["itemName"],
+        itemId: contents.itemId,
         name: contents["name"],
         phoneNumber: contents["phoneNumber"],
         quantity: contents["quantity"],

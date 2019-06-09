@@ -9,7 +9,7 @@ const db = cloud.database();
 const utils = require("./utils.js");
 
 /** 设置合法的collection名字, 用于检验传入值 */
-const collectionList = ["adminInfo", "forms", "formsForMaterials"];
+const collectionList = ["adminInfo", "forms", "formsForMaterials", "items"];
 
 /** 
  * 用于检查 coName 是否是合法的 collection 名
@@ -78,6 +78,12 @@ function toFilter(ft) {
           obj.eventDate = ft.date;
         } else return false;
         break; // date
+      
+      case "quantityGreaterThan":
+        x = Number(ft.quantityGreaterThan);
+        if (isNaN(x)) return false;
+        obj.quantity = db.command.gt(x);
+        break;
 
       case "_id":
         // skip _id field because if using '_id', it's better to try 'doc' mode

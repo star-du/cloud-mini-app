@@ -41,7 +41,8 @@
             <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{exam}}" wx:for-index="i" wx:for-item="it" wx:key="id" bindtap="navToApproval" data-idx="{{i}}" data-urlget="flag={{i}}&expireSubmit=30">
               <view class="weui-cell__bd">
                 <text class="cell-text">{{it.text}}</text>
-                <view wx:if="{{it.num !== null}}" class="weui-badge" style="margin-left: 5px;">{{it.num}}</view>
+                <view wx:if="{{it.num !== null & it.num !== 0}}" class="weui-badge" style="margin-left: 5px;">{{it.num}}</view>
+                <view wx:if="{{it.num == 0}}" class="weui-badge" style="margin-left: 5px;background-color: #576b95;">全部完成</view>
               </view>
               <view class="weui-cell__ft weui-cell__ft_in-access"></view>
             </view>

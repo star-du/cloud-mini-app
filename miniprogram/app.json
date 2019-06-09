@@ -1,18 +1,18 @@
 {
   "pages": [
     "pages/facilities/index",
+    "pages/facilities/borrowClassroom",
+    "pages/facilities/listBorrow",
     "pages/approval/exportApproval",
     "pages/approval/listApproval",
     "pages/approval/viewApproval",
-    "pages/facilities/borrowClassroom",
-    "pages/facilities/listBorrow",
-    "pages/progressCheck/progressCheck",
     "pages/materials/borrowThings",
     "pages/materials/borrowThings_form",
     "pages/materials/addThings",
     "pages/materials/materialsIndex",
+    "pages/materials/returnThings",
     "pages/progressCheck/printForm",
-    "pages/materials/returnThings"
+    "pages/progressCheck/progressCheck"
   ],
   "window": {
     "backgroundColor": "#f6f6f6",
@@ -40,5 +40,6 @@
         "text": "物资借用"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap95.json"
 }
