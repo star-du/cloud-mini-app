@@ -37,6 +37,7 @@ Page({
     //   item: this.data.goods[parentIndex].items[index],
     // });
     // const data = e.currentTarget.dataset;
+    // console.log("navtoForm",data)
     // wx.navigateTo(data);  
     // wxml中已设置navigator url
   },
@@ -44,8 +45,10 @@ Page({
   onLoad: function (options) {
     // this.getDatabase();
     this.fetchItemsData();
+    if (options.extra == "selectOriginalMaterial" )
+    this.setData({redirectToAddThings:true})
     console.log('[borrowThings]',this.data)
-  },
+    },
 
   //导航栏跳转
   selectMenu: function (e) {

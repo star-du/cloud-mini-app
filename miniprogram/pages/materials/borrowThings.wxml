@@ -32,11 +32,18 @@
               </view>
             </view>
           </view> -->
-            <view class="itemControllerWrapper">
-              <navigator catchtap="navtoForm" class=" iconfont icon-jia cart-add" hover-class="none" style="color:#00A0DC;" 
-              url="./borrowThings_form?itemname={{singleItem.itemName}}&itemcount={{singleItem.quantity}}&&itemId={{singleItem.itemId}}" 
-              
-              data-item-index="{{index}}" data-parentIndex="{{parentIndex}}"></navigator>
+            <view wx:if="{{redirectToAddThings}}" class="itemControllerWrapper">
+              <navigator catchtap="navtoForm" class=" iconfont icon-jia cart-add" 
+              hover-class="none" style="color:#00A0DC;"
+              url="./addThings?itemName={{singleItem.itemName}}&&itemId={{singleItem.itemId}}"
+             ></navigator>
+            </view>
+
+            <view wx:else class="itemControllerWrapper">
+              <navigator catchtap="navtoForm" class=" iconfont icon-jia cart-add" 
+              hover-class="none" style="color:#00A0DC;"
+              url="./borrowThings_form?itemname={{singleItem.itemName}}&itemcount={{singleItem.quantity}}&&itemId={{singleItem.itemId}}"
+             ></navigator>
             </view>
         </view> <!--end of content--> 
       </view>

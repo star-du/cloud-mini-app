@@ -3,7 +3,72 @@
     <view class="page__title">新增物资填表</view>
   </view>
   <form class="page__bd" bindsubmit="submit">
-    <!-- form cells-group 1 -->
+
+
+    <view class="weui-cells__title" >新增物资信息</view>
+     <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <view class="weui-label">是否新增原有物资</view>
+        </view>
+        <view class="weui-cell__ft">
+          <switch checked bindchange="switchChange"/>
+        </view>
+      </view>
+      <view class="weui-cell" wx:if="{{isOriginalMaterials}}">
+        <view class="weui-cell__bd">
+          <view class="weui-label">原有物资</view>
+        </view>
+        <view class="weui-cell__ft">
+          <navigator url="borrowThings?extra=selectOriginalMaterial" class="weui-form-preview__btn weui-form-preview__btn_primary">{{itemName && itemId ? "重新选择" : "去选择"}}</navigator>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input"  wx:if="{{isOriginalMaterials && itemName}}">
+       <view class="weui-cell__bd">
+          <view  class="weui-label">物资名称</view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="itemName" value = "{{itemName}}" disabled="{{true}}" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input"  wx:if="{{isOriginalMaterials && itemId}}">
+       <view class="weui-cell__bd">
+          <view  class="weui-label">物资编号</view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="itemId" value = "{{itemId}}" disabled="{{true}}" />
+        </view>
+      </view>  
+     
+      <!-- </view> -->
+
+    <!-- form cells-group 3
+    <view class="weui-cells__title" wx:if="{{!isOriginalMaterials}}">新增新类别物资</view> -->
+
+    <!-- <view class="weui-cells weui-cells_after-title" wx:if="{{!isOriginalMaterials}}"> -->
+       <view class="weui-cell weui-cell_input" style="padding-right: 0;"  wx:if="{{!isOriginalMaterials}}">
+             <view class="weui-cell__hd">新物资类别</view>
+          <view class="weui-cell__bd" style="margin-left: 60px;">
+            <picker mode="selector"  bindchange="bindCategoryChange" value="{{materialIndex}}" range="{{category}}">
+              <view class="weui-select">{{category[materialIndex]}}</view>
+            </picker>
+         </view>
+        </view>
+
+      <view class="weui-cell weui-cell_input"  wx:if="{{!isOriginalMaterials}}">
+       <view class="weui-cell__bd">
+          <view  class="weui-label">新物资名称</view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="newmaterialName" placeholder="请输入添加的新物资名称" />
+        </view>
+      </view>  
+    </view>
+
+
+    <!-- form cells-group 2 -->
     <view class="weui-cells__title">基本信息</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
@@ -41,48 +106,9 @@
             <view class="weui-select">{{date}}</view>
           </picker>
         </view>
-      </view>
-      </view>
-
-    <!-- form cells-group 2 -->
-    <!-- <view class="body-view">
-    <switch checked bindchange="switchChange"/>
-    新增原有物资/新增新物资
-    </view> -->
-
-    <!-- <view class="weui-cells__title" >新增原有物资</view>
-     <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input" style="padding-right: 0;">
-      <view  class="weui-cell__hd">选择原有物资</view>
-          <view class="weui-cell__bd" style="margin-left: 40px;">
-            <picker mode="selector"  bindchange="bindPickerChange" value="{{index}}" range="{{array}}"                          name="originMaterials"> 
-              <view class="weui-select"></view>
-            </picker>
-          </view>
-        </view>
-     
-      </view> -->
-
-    <!-- form cells-group 3 -->
-    <view class="weui-cells__title">新增物资</view>
-    <view class="weui-cells weui-cells_after-title">
-       <view class="weui-cell weui-cell_input" style="padding-right: 0;">
-             <view class="weui-cell__hd">新物资类别</view>
-          <view class="weui-cell__bd" style="margin-left: 40px;">
-            <picker mode="selector"  bindchange="bindCategoryChange" value="{{materialIndex}}" range="{{category}}">
-              <view class="weui-select">{{category[materialIndex]}}</view>
-            </picker>
-         </view>
-        </view>
-      <view class="weui-cell weui-cell_input">
-       <view class="weui-cell__bd">
-          <view  class="weui-label">新物资名称</view>
-        </view>
-        <view class="weui-cell__ft">
-          <input class="weui-input" name="newmaterialName" placeholder="请输入添加的新物资名称" />
-        </view>
-      </view>  
     </view>
+      </view> 
+<!-- end of cell-group -->
 
     <!-- form cells-group 4 -->
     <view class='weui-cells__title'>负责人信息</view>
@@ -100,10 +126,10 @@
           <view class="weui-label">联系方式</view>
         </view>
         <view class="weui-cell__ft">
-          <input class="weui-input" name="phone" placeholder="请输入11位手机号" />
+          <input type="number" class="weui-input" name="phone" placeholder="请输入11位手机号" />
         </view>
       </view>
-      <view class="weui-cell weui-cell_input">
+      <!-- <view class="weui-cell weui-cell_input">
         <view class="weui-cell__bd">
           <view class="weui-label">学号</view>
         </view>
@@ -118,7 +144,7 @@
         <view class="weui-cell__ft">
           <input class="weui-input" name="school&Class" placeholder="请输入您的院系班级" />
         </view>
-      </view>
+      </view> -->
       <view class="weui-cell weui-cell_form">
         <view class="weui-cell__bd">
         <view class="weui-label">备注</view>

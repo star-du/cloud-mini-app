@@ -9,7 +9,7 @@ const db = cloud.database();
 const utils = require("./utils.js");
 
 /** 设置合法的collection名字, 用于检验传入值 */
-const collectionList = ["adminInfo", "forms", "formsForMaterials", "items"];
+const collectionList = ["adminInfo", "forms", "formsForMaterials", "items", "addNewMaterials"];
 
 /** 
  * 用于检查 coName 是否是合法的 collection 名

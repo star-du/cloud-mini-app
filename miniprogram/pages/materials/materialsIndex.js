@@ -26,6 +26,13 @@ Page({
     }, {
       num: null,
       text: "已归还"
+    }],
+    examNewMaterials: [{
+      num: null,
+      text: "未审批"
+    }, {
+      num: null,
+      text: "已审批"
     }]
   },
 
@@ -141,47 +148,48 @@ Page({
       return false;
   },
 
-    /** 调用云函数登录并修改页面状态 */
-    callCloudLogin: function (isShowToast) {
-      const that = this;
-      wx.cloud.callFunction({
-        name: "login",
-        data: {}
-      }).then((res) => {
-        console.log("[login] call success", res.result);
-        if (isShowToast)
-          wx.showToast({
-            title: "登录成功",
-            icon: "success"
-          });
-        let R = res.result;
-        R.isLogin = true;
-        that.updateUserInfo(R).then(() => {
-          that.getUserInfo();
-          // 如果是管理员,获取各状态的数量
-          if (that.isUserAdmin()) {
-            that.updateNumber();
-          }
+  /** 调用云函数登录并修改页面状态 */
+  callCloudLogin: function (isShowToast) {
+    const that = this;
+    wx.cloud.callFunction({
+      name: "login",
+      data: {}
+    }).then((res) => {
+      console.log("[login] call success", res.result);
+      if (isShowToast)
+        wx.showToast({
+          title: "登录成功",
+          icon: "success"
         });
-      }).catch((err) => {
-        console.error("[login] call failed", err);
-        if (isShowToast) {
-          wx.showToast({
-            title: "登录失败",
-            icon: 'none',
-            duration: 2000
-          });
+      let R = res.result;
+      R.isLogin = true;
+      that.updateUserInfo(R).then(() => {
+        that.getUserInfo();
+        // 如果是管理员,获取各状态的数量
+        if (that.isUserAdmin()) {
+          that.updateNumber();
+          that.updateNewMaterials();
+          console.log(that.data)
         }
-        that.updateUserInfo({
-          isLogin: false
-        });
       });
-    },
+    }).catch((err) => {
+      console.error("[login] call failed", err);
+      if (isShowToast) {
+        wx.showToast({
+          title: "登录失败",
+          icon: 'none',
+          duration: 2000
+        });
+      }
+      that.updateUserInfo({
+        isLogin: false
+      });
+    });
+  },
 
   /** 
    * 更新符合条件的审批的数量
    */
-
   updateNumber: function() {
     function updateSingle(flag, page) {
       return db.collection("formsForMaterials").where({
@@ -200,19 +208,41 @@ Page({
     return Promise.all(arr);
   },
 
-    /** 链接至 listApproval */
-    navToApproval: function(e) {
-      // console.log(e);
-      const data = e.currentTarget.dataset;
-      // if (this.data.exam[data.idx].num && data.urlget.length > 0) {
-      // NOTE: DEBUG 阶段去掉了判断审批数不为零的限制
-      if (data.urlget.length > 0) {
-        console.log("navigateTo", data);
-        wx.navigateTo({
-          url: '../approval/listApproval?' + data.urlget
+  /**
+   * 更新新增物资的审批数量
+   */
+  updateNewMaterials: function() {
+    function updateSingle(flag, page) {
+      return db.collection("addNewMaterials").where({
+        exam: flag
+      }).count().then(res => {
+        // console.log( page.data.exam[flag].text + " : " + res.total);
+        // console.log(res);
+        page.setData({
+          ["examNewMaterials[" + flag + "].num"]: res.total
         });
-      }
-    },
+      });
+    }
+
+    let arr = [];
+    for (let i = 0; i < this.data.examNewMaterials.length; i++)
+      arr.push(updateSingle(i, this));
+    return Promise.all(arr);
+  },
+
+  /** 链接至 listApproval */
+  navToApproval: function(e) {
+    // console.log(e);
+    const data = e.currentTarget.dataset;
+    // if (this.data.exam[data.idx].num && data.urlget.length > 0) {
+    // NOTE: DEBUG 阶段去掉了判断审批数不为零的限制
+    if (data.urlget.length > 0) {
+      console.log("navigateTo", data);
+      wx.navigateTo({
+        url: '../approval/listApproval?' + data.urlget
+      });
+    }
+  },
 
   /**
    * 生命周期函数--监听页面加载

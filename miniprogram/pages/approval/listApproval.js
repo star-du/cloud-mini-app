@@ -6,6 +6,7 @@ Page({
   data: {
     apprList: [],
     examState: ["未审批", "撤回", "未通过", "通过", "待归还", "已归还"],
+    newMaterialsExamState: ["未审批", "已审批"],
     flagGet: -1
   },
   /**
@@ -38,8 +39,16 @@ Page({
         this.fetchMatData();
         return;
       }
+      else if (options.type === 'facilities') {
+        this.fetchFacData();
+        return;}
+      else if (options.type === 'newMaterials') {
+        // console.log('TODO: add new materials')
+        this.fetchNewMatData();
+        return;}
       else {
-      this.fetchFacData()}
+        console.error('[listApproval] Missing parameters')
+      }
     }
   },
   /**
@@ -169,6 +178,45 @@ Page({
         that.setData({
           apprList: x,
           flagGet: x.length ? 2 : 0
+        });
+      } else {
+        that.setData({
+          apprList: [],
+          flagGet: 0
+        });
+      }
+      console.log(that.data.apprList);
+    }).catch(err => {
+      console.error("[newFetchData]failed", err);
+    });
+  },
+
+  /**
+   * fetchNewMatData()
+   * 调用云函数获取物资借用审批
+   */
+  fetchNewMatData: function() {
+    const that = this;
+    return wx.cloud.callFunction({
+      name: "operateForms",
+      data: {
+        caller: "getApprovalList",
+        collection: "addNewMaterials",
+		    filter: that.data.filter,	
+        operate: "read"
+      }
+    }).then(res => {
+      console.log("[fetchNewMatData]res", res);
+      if (res.result.err) {
+        console.warn("ERROR");
+        return;
+      }
+
+      let x = res.result.data;
+      if (x.length) {
+        that.setData({
+          apprList: x,
+          flagGet: x.length ? 3 : 0
         });
       } else {
         that.setData({

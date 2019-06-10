@@ -105,6 +105,7 @@ function getInter(a) {
 Page({
   data: {
     examState: ["未审批", "撤回", "未通过", "通过", "待归还", "已归还"],
+    newMaterialsExamState: ["未审批", "已审批"],
     commentLength: 0,
     maxCommentLength: 140,
     type: '',
