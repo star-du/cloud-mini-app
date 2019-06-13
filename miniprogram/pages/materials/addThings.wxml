@@ -20,7 +20,7 @@
           <view class="weui-label">原有物资</view>
         </view>
         <view class="weui-cell__ft">
-          <navigator url="borrowThings?extra=selectOriginalMaterial" class="weui-form-preview__btn weui-form-preview__btn_primary">{{itemName && itemId ? "重新选择" : "去选择"}}</navigator>
+          <navigator url="borrowThings?extra=selectOriginalMaterial&navBack=addThings" class="weui-form-preview__btn weui-form-preview__btn_primary">{{itemName && itemId ? "重新选择" : "去选择"}}</navigator>
         </view>
       </view>
 
@@ -51,8 +51,8 @@
        <view class="weui-cell weui-cell_input" style="padding-right: 0;"  wx:if="{{!isOriginalMaterials}}">
              <view class="weui-cell__hd">新物资类别</view>
           <view class="weui-cell__bd" style="margin-left: 60px;">
-            <picker mode="selector"  bindchange="bindCategoryChange" value="{{materialIndex}}" range="{{category}}">
-              <view class="weui-select">{{category[materialIndex]}}</view>
+            <picker mode="selector"  bindchange="bindCategoryChange" value="{{genreIndex}}" range="{{category}}">
+              <view class="weui-select">{{category[genreIndex]}}</view>
             </picker>
          </view>
         </view>
@@ -69,16 +69,8 @@
 
 
     <!-- form cells-group 2 -->
-    <view class="weui-cells__title">基本信息</view>
+    <view class="weui-cells__title">物资的补充信息</view>
     <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__bd">
-          <view class="weui-label">单位名称</view>
-        </view>
-        <view class="weui-cell__ft">
-          <input class="weui-input" name="associationName" placeholder="社团/部门名称" />
-        </view>
-      </view>
         <view class="weui-cell weui-cell_input">
         <view class="weui-cell__bd">
           <view class="weui-label">新增物资数量</view>
@@ -92,9 +84,12 @@
        <view class="weui-cell weui-cell_select">
        <view class="weui-cell__hd" style="margin-left: 16px;">物资位置</view>
         <view class="weui-cell__bd">
-          <picker mode="multiSelector" bindchange="bindLocationPickerChange" value="{{locationIndex}}" range="{{locationArray}}" name='location'>
+          <picker mode="multiSelector" bindchange="bindLocationPickerChange" value="{{locationIndex}}" range="{{locationArray}}" name='location' disabled="{{isOriginalMaterials}}">
             <view class="weui-select">{{locationArray[0][locationIndex[0]]}}，{{locationArray[1][locationIndex[1]]}}，{{locationArray[2][locationIndex[2]]}}</view>
+            <view wx:if="{{isOriginalMaterials}}" class="weui-badge" style="background-color: #576b95;">位置不应变动</view>
+            
           </picker>
+
         </view>
       </view>
     </view>
@@ -111,7 +106,7 @@
 <!-- end of cell-group -->
 
     <!-- form cells-group 4 -->
-    <view class='weui-cells__title'>负责人信息</view>
+    <view class='weui-cells__title'>基本信息</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__bd">
@@ -127,6 +122,14 @@
         </view>
         <view class="weui-cell__ft">
           <input type="number" class="weui-input" name="phone" placeholder="请输入11位手机号" />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <view class="weui-label">单位名称</view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="associationName" placeholder="社团/部门名称" />
         </view>
       </view>
       <!-- <view class="weui-cell weui-cell_input">

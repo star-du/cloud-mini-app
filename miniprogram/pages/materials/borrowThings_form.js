@@ -21,11 +21,7 @@ Page({
 
   onLoad: function (options) {
     const PAGE = this
-    this.setData({
-      itemname: options.itemname,
-      itemcount: options.itemcount,
-      itemId: options.itemId
-    })
+    this.setData(options)
     account[0] = options.itemcount;
     console.log('borrowThings form: PAGE.data',PAGE.data)
   },

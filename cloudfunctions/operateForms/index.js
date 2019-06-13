@@ -171,6 +171,10 @@ function hasPermission(perm, collction) {
       return perm.isAdmin;
     case "formsForMaterials":
       return perm.isAdmin; //NOTE：可能存在两种管理员的问题
+    case "items":
+      return perm.isAdmin;
+    case "addNewMaterials":
+        return perm.isAdmin      
     default:
       return false;
   }
@@ -294,13 +298,13 @@ async function updateMain(event) {
     c = c.where(filter);
   }
 
+  var updateObj = toUpdateObj(event);
   // 对于不同的 caller 可有不同的操作 
   switch (event.caller) {
     case "updateAppr":
-      const u = toUpdateObj(event);
-      if (u.err) return u;
+      if (updateObj.err) return updateObj;
 
-      return await c.update(u).then(res => {
+      return await c.update(updateObj).then(res => {
         console.log("[update]", res);
         return {
           err: false,
@@ -308,7 +312,15 @@ async function updateMain(event) {
           updated: res.stats.updated
         }
       }); 
-      // end updateFacAppr
+      // end updateAppr
+    case "addMaterials":
+      // console.log("[update]", c)
+      return await db.collection(event.collection).doc(event.docID).update({
+        data: {
+          quantity: db.command.inc(event.update.addQuantity)
+        }
+      }).catch(console.error)
+
     default:
       return {
         err: true,

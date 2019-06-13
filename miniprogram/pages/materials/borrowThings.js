@@ -45,8 +45,19 @@ Page({
   onLoad: function (options) {
     // this.getDatabase();
     this.fetchItemsData();
-    if (options.extra == "selectOriginalMaterial" )
-    this.setData({redirectToAddThings:true})
+    if (options.extra == "selectOriginalMaterial" ){
+      this.setData({
+        navBackTo:options.navBack,
+        selectOriginalMaterial: true
+      });
+
+      if (options.navBack == '../approval/viewApproval')
+      this.setData({
+        navBackExtraData: '&id=' + options.itemDocId + '&type=newMaterials' + '&isOriginalMaterials=true' 
+      });
+      
+    }
+    
     console.log('[borrowThings]',this.data)
     },
 

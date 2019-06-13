@@ -32,17 +32,17 @@
               </view>
             </view>
           </view> -->
-            <view wx:if="{{redirectToAddThings}}" class="itemControllerWrapper">
+            <view wx:if="{{selectOriginalMaterial}}" class="itemControllerWrapper">
               <navigator catchtap="navtoForm" class=" iconfont icon-jia cart-add" 
               hover-class="none" style="color:#00A0DC;"
-              url="./addThings?itemName={{singleItem.itemName}}&&itemId={{singleItem.itemId}}"
+              url="./{{navBackTo}}?itemName={{singleItem.itemName}}&itemId={{singleItem.itemId}}&itemDocId={{singleItem._id}}{{navBackExtraData}}"
              ></navigator>
             </view>
 
             <view wx:else class="itemControllerWrapper">
               <navigator catchtap="navtoForm" class=" iconfont icon-jia cart-add" 
               hover-class="none" style="color:#00A0DC;"
-              url="./borrowThings_form?itemname={{singleItem.itemName}}&itemcount={{singleItem.quantity}}&&itemId={{singleItem.itemId}}"
+              url="./borrowThings_form?itemname={{singleItem.itemName}}&itemcount={{singleItem.quantity}}&itemId={{singleItem.itemId}}&itemDocId={{singleItem._id}}"
              ></navigator>
             </view>
         </view> <!--end of content--> 

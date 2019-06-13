@@ -13,7 +13,8 @@ Page({
     location: [1, 1], //location 初值为[1,1] 即对应：一号仓库 货架号1 无分区
     category:['服饰类','宣传类','奖品类','工具类','装饰类','文本类','其他'],
     genreLetters : ["A", "B", "C", "D", "E", "F", "G"],
-    materialIndex:0,
+    genreIndex:0,
+    genre: "A",
     // index: 0,
     isOriginalMaterials: true,
     locationArray: [['一号仓库', '二号仓库', "三号仓库", '四号仓库'], ['无货架号', '货架号1', '货架号2', '货架号3', '货架号4', '货架号5', '货架号6'], ['无分区号','分区A', '分区B', '分区C', '分区D','分区E']],
@@ -28,9 +29,11 @@ Page({
     let value = e.detail.value
 
     this.setData({
-      genre: genreLetters[value]
+      genre: genreLetters[value],
+      genreIndex: value
     })
     console.log(PAGE.data.genre)
+    console.log(PAGE.data.genreIndex)
   },//新增物资类别
 
  bindPickerChange: function (e) {
@@ -48,20 +51,23 @@ Page({
   bindLocationPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     const PAGE = this;
-    let value = e.detail.value;
-    PAGE.setData({locationIndex: e.detail.value})
-    value[0] += 1;
-    if (value[2] == 0) {
-      value.pop();
-      if (value[1] == 0) value.pop();
+    const value = e.detail.value;
+    var value1= value.slice();
+
+    value1[0] = value1[0] +  1;
+    if (value1[2] == 0) {
+      value1.pop();
+      if (value1[1] == 0) value1.pop();
   }
     else 
-    { value[2] = PAGE.data.genreLetters[value[2]-1]
+    { value1[2] = PAGE.data.genreLetters[value1[2]-1]
       // convert index to genre letters
-      if (value[1] == 0) value[1] = null;}
-    // console.log("value", value)
+      if (value1[1] == 0) value1[1] = null;}
+    console.log("value1", value1)
+    console.log("value",value)
     PAGE.setData({
-      location: value
+      location: value1,
+      locationIndex: value
     })
     console.log(PAGE.data)
   },//物资位置
@@ -130,14 +136,17 @@ Page({
         addAssociation:data["associationName"],
         addNumber: Number(data["addNumber"]),
         location:p.location,
+        locationIndex: p.locationIndex,
         addDate: p.date,
         //isOriginalMaterials == true
         itemId:p.itemId,
         itemName:p.itemName,
-        responser: data["responser"],
-        tel: data.phone,
+        itemDocId: p.itemDocId,
+        name: data["responser"],
+        phoneNumber: data.phone,
         // studentID: data.studentID,
         comment: data.remarks,
+        submitDate: new Date(),
         exam: 0      
     }
     else
@@ -146,14 +155,17 @@ Page({
       addAssociation:data["associationName"],
       addNumber: Number(data["addNumber"]),
       location:p.location,
+      locationIndex: p.locationIndex,
       addDate: p.date,
       //isOriginalMaterials == false
       genre:p.genre,//类别目录
+      genreIndex: p.genreIndex,
       newMaterialName: data["newmaterialName"],
-      responser: data["responser"],
-      tel: data.phone,
+      name: data["responser"],
+      phoneNumber: data.phone,
       // studentID: data.studentID,
       comment: data.remarks,
+      submitDate: new Date(),
       exam: 0      
   }
   },//校验结束
@@ -198,7 +210,7 @@ Page({
               content: "请妥善保留发票按流程报销",
               success: res => {
                 if (res.confirm)
-                  if (PAGE.isOriginalMaterials){
+                  if (PAGE.data.isOriginalMaterials){
                     wx.navigateBack({
                       delta: 3
                     });
@@ -220,12 +232,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log("options",options)
-    if (options.itemName && options.itemId)
-    this.setData({
-      itemName: options.itemName,
-      itemId: options.itemId
-    })
+    // console.log("options",options)
+    this.setData(options)
+    // if (options.itemName && options.itemId)
+    // this.setData({
+    //   itemName: options.itemName,
+    //   itemId: options.itemId
+    // })
     console.log('[addThings]',this.data)
    
   },
