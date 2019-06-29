@@ -139,33 +139,48 @@ Page({
       });
       return;
     }
+    
+    let formObj = {        
+      association: contents["association"],
+    class: contents["class"],
+    description: contents["description"],
+    eventTime1: contents["eventTime1"],
+    eventTime2: contents["eventTime2"],
+    itemName: contents["itemName"],
+    itemId: contents.itemId,
+    name: contents["name"],
+    phoneNumber: contents["phoneNumber"],
+    quantity: contents["quantity"],
+    studentId: contents["studentId"],
+    submitDate: new Date(),
+    exam: 0 //exam status
+  }
+
 //提交申请表单
-    db.collection("formsForMaterials").add({
-      data: {
-        association: contents["association"],
-        class: contents["class"],
-        description: contents["description"],
-        eventTime1: contents["eventTime1"],
-        eventTime2: contents["eventTime2"],
-        itemName: contents["itemName"],
-        itemId: contents.itemId,
-        name: contents["name"],
-        phoneNumber: contents["phoneNumber"],
-        quantity: contents["quantity"],
-        studentId: contents["studentId"],
-        submitDate: new Date(),
-        exam: 0 //exam status
-      }
-    }).then(() => {
-      wx.showToast({
-        title: '提交成功！',
-        success: function () {
-          wx.navigateBack({
-            delta: 1
-          })
-        }
+    const forms = db.collection("formsForMaterials")
+    forms.orderBy("formid", "desc").limit(3).get()
+      .then(res => {
+        console.log('res',res.data);
+        let maxFormid = new Date().getFullYear() * 100000; 
+        if (res.data[0]) maxFormid = res.data[0].formid
+        console.log("[max formid]", maxFormid);
+        formObj.formid = maxFormid + 1;
+        console.log("[formObj]", formObj);
+       
+        // begin forms.add()
+        forms.add({
+          data: formObj
+        }).then(() => {
+          wx.showToast({
+            title: '提交成功！',
+            success: function () {
+              wx.navigateBack({
+                delta: 1
+              })
+            }
+          });
+        })
+        // end forms.add()
       });
-      //让库存减一（还没写
-    })
   }
 })

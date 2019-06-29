@@ -261,11 +261,12 @@
       <view class="weui-cell weui-cell_select">
        <view class="weui-cell__hd" style="margin-left: 16px;">物资位置</view>
         <view class="weui-cell__bd">
-          <picker mode="multiSelector" bindchange="bindLocationPickerChange" value="{{appr.locationIndex}}" range="{{locationArray}}" name='location'>
+          <picker wx:if="{{!appr.isOriginalMaterials}}" mode="multiSelector" bindchange="bindLocationPickerChange" value="{{appr.locationIndex}}" range="{{locationArray}}" name='location' >
             <view class="weui-select">{{locationArray[0][appr.locationIndex[0]]}}，{{locationArray[1][appr.locationIndex[1]]}}，{{locationArray[2][appr.locationIndex[2]]}}</view>
           </picker>
         </view>
-      </view>
+      </view> 
+      <!-- 如果为原有物资则不使用选择器 -->
 
       <view wx:if="{{!appr.isOriginalMaterials}}" class="weui-cell">
       <view class="weui-cell__bd">

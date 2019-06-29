@@ -9,7 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    array: [], 
+    // array: [], 
     location: [1, 1], //location 初值为[1,1] 即对应：一号仓库 货架号1 无分区
     category:['服饰类','宣传类','奖品类','工具类','装饰类','文本类','其他'],
     genreLetters : ["A", "B", "C", "D", "E", "F", "G"],
@@ -18,7 +18,7 @@ Page({
     // index: 0,
     isOriginalMaterials: true,
     locationArray: [['一号仓库', '二号仓库', "三号仓库", '四号仓库'], ['无货架号', '货架号1', '货架号2', '货架号3', '货架号4', '货架号5', '货架号6'], ['无分区号','分区A', '分区B', '分区C', '分区D','分区E']],
-    locationIndex: [0, 1, 0],
+    locationIndex: [0, 1, 0], //用于选择器的index信息
     date: app._toDateStr(new Date(), true)
    
     },
@@ -52,21 +52,28 @@ Page({
     console.log('picker发送选择改变，携带值为', e.detail.value)
     const PAGE = this;
     const value = e.detail.value;
-    var value1= value.slice();
 
-    value1[0] = value1[0] +  1;
-    if (value1[2] == 0) {
-      value1.pop();
-      if (value1[1] == 0) value1.pop();
-  }
-    else 
-    { value1[2] = PAGE.data.genreLetters[value1[2]-1]
-      // convert index to genre letters
-      if (value1[1] == 0) value1[1] = null;}
-    console.log("value1", value1)
-    console.log("value",value)
+    function locationIndexToLocation(idx){
+      var value1= idx.slice();
+
+      value1[0] = value1[0] +  1;
+      if (value1[2] == 0) {
+        value1.pop();
+        if (value1[1] == 0) value1.pop();
+      }
+      else 
+      { value1[2] = PAGE.data.genreLetters[value1[2]-1]
+        // convert index to genre letters
+        if (value1[1] == 0) value1[1] = null;}
+
+      return value1
+    }
+
+    let loc = locationIndexToLocation(value);
+    console.log("location",loc)
+    console.log("locationIndex",value)
     PAGE.setData({
-      location: value1,
+      location: loc,
       locationIndex: value
     })
     console.log(PAGE.data)
@@ -196,7 +203,6 @@ Page({
         if (res.data[0]) maxFormid = res.data[0].formid
        // const newFormID = res.data[0].formid + new Date().getDate()*100000
         console.log("[max formid]", maxFormid);
-        console.log(res.data);
         formObj.formid = maxFormid + 1;
         console.log("[formObj]", formObj);
        

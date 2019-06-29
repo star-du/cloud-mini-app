@@ -19,6 +19,10 @@
 
         <view class="weui-form-preview__bd">
           <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">申请编号</view>
+            <view class="weui-form-preview__value">{{it.formid}}</view>
+          </view>
+          <view class="weui-form-preview__item">
             <view class="weui-form-preview__label">借用时间</view>
             <view class="weui-form-preview__value">{{it.eventTime1 + "-" + it.eventTime2}}</view>
           </view>

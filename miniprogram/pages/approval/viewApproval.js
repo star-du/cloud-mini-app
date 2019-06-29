@@ -498,20 +498,30 @@ Page({
     console.log('picker发送选择改变，携带值为', e.detail.value)
     const PAGE = this;
     let value = e.detail.value;
-    PAGE.setData({"appr.locationIndex": e.detail.value})
-    value[0] += 1;
-    if (value[2] == 0) {
-      value.pop();
-      if (value[1] == 0) value.pop();
-  }
-    else 
-    { value[2] = PAGE.data.genreLetters[value[2]-1]
-      // convert index to genre letters
-      if (value[1] == 0) value[1] = null;}
-    // console.log("value", value)
+
+    function locationIndexToLocation(idx){
+      var value1= idx.slice();
+
+      value1[0] = value1[0] +  1;
+      if (value1[2] == 0) {
+        value1.pop();
+        if (value1[1] == 0) value1.pop();
+      }
+      else 
+      { value1[2] = PAGE.data.genreLetters[value1[2]-1]
+        // convert index to genre letters
+        if (value1[1] == 0) value1[1] = null;}
+
+      return value1
+    }
+    let loc = locationIndexToLocation(value);
+    console.log("location",loc)
+    console.log("locationIndex",value)
     PAGE.setData({
-      "appr.location": value
+      "appr.location": loc,
+      "appr.locationIndex": value
     })
+
     console.log(PAGE.data)
   }//物资位置
 })

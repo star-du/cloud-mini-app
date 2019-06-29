@@ -84,10 +84,8 @@
        <view class="weui-cell weui-cell_select">
        <view class="weui-cell__hd" style="margin-left: 16px;">物资位置</view>
         <view class="weui-cell__bd">
-          <picker mode="multiSelector" bindchange="bindLocationPickerChange" value="{{locationIndex}}" range="{{locationArray}}" name='location' disabled="{{isOriginalMaterials}}">
-            <view class="weui-select">{{locationArray[0][locationIndex[0]]}}，{{locationArray[1][locationIndex[1]]}}，{{locationArray[2][locationIndex[2]]}}</view>
-            <view wx:if="{{isOriginalMaterials}}" class="weui-badge" style="background-color: #576b95;">位置不应变动</view>
-            
+          <picker  wx:if="{{!isOriginalMaterials}}" mode="multiSelector" bindchange="bindLocationPickerChange" value="{{locationIndex}}" range="{{locationArray}}" name='location'>
+            <view class="weui-select">{{locationArray[0][locationIndex[0]]}}，{{locationArray[1][locationIndex[1]]}}，{{locationArray[2][locationIndex[2]]}}</view>           
           </picker>
 
         </view>
