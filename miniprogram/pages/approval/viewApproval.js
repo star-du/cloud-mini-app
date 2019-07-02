@@ -217,7 +217,7 @@ Page({
     }
     this.setData(options);
     // console.log('[viewApproval] type = ', this.data.type);
-    console.log(options);
+    console.log('onLoad options',options);
     // get database
     fetchDB(this).then(() =>{
       console.log('fetch DB back!PAGE.data is',PAGE.data)
@@ -348,6 +348,18 @@ Page({
         });
         return;
       }
+        db.collection("items").where({
+          "itemId":formsData.itemId
+        }).count().then(res => {if (res.total)
+          wx.showModal({
+            title:"提交失败",
+            content:"物资id已存在",
+            showCancel:false,
+            confirmText:"再去改改"
+          });
+          return;
+        })
+
       let formObj = {
         itemName: formsData.itemName,
         itemId: formsData.itemId,
@@ -372,7 +384,8 @@ Page({
           console.error;
           return
         }
-      });}
+      });
+    }
       // end of else
 
       // call cloud function
