@@ -1,0 +1,22 @@
+/* pages/approval/viewApproval.wxss */
+@import "../../assets/weui.wxss";
+
+.page {
+  padding-bottom: 600rpx;
+}
+
+.weui-textarea {
+  height: 5.2em;
+  min-height: 4em;
+}
+
+.weui-cell__hd image {
+  margin: 0 5px;
+  vertical-align: middle;
+  width: 17px;
+  height: 17px;
+}
+
+.weui-vcode-btn {
+  padding: 0 0 0 12px;
+}

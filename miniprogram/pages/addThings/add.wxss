@@ -1,3 +1,0 @@
-@import "../../assets/weui.wxss";
-@import "../noticeBoard/index.wxss";
-@import "../listApproval/listApproval.wxss";

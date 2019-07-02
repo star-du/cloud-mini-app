@@ -1,0 +1,324 @@
+<!--pages/approval/viewApproval.wxml-->
+<view wx:if="{{type != 'newMaterials'}}" class="page">
+  <view class="page__hd">
+    <view class="page__title">查看审批</view>
+    <view class="page__desc">编号： {{appr.formid}}</view>
+  </view>
+  <view class="page__bd">
+    <view class="weui-cells__title">借用信息</view>
+
+    <view wx:if="{{type == 'facilities'}}" class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">教室</view>
+        <view class="weui-cell__ft">{{appr.classroomNumber}}</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__bd">借用时间</view>
+        <text class="weui-cell__ft">{{appr.eventDate}} {{appr.eventTime1}}-{{appr.eventTime2}}</text>
+      </view>
+    </view>
+
+    <view wx:if="{{type == 'materials'}}" class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">物资</view>
+        <view class="weui-cell__ft">{{appr.itemName}}</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__bd">借用物资数量</view>
+        <view class="weui-cell__ft">{{appr.quantity}}</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__bd">借用时间</view>
+        <text class="weui-cell__ft">{{appr.eventTime1}}至{{appr.eventTime2}}</text>
+      </view>
+    </view>
+
+
+    <!-- 活动/物资信息 begin -->
+    <view wx:if="{{type == 'facilities'}}">
+      <view class="weui-cells__title">活动信息</view>
+      <view class="weui-cells weui-cells_after-title">
+        <block wx:for="{{eventInfo}}" wx:for-index="i" wx:for-item="it" wx:key="name">
+          <view class="weui-cell">
+            <view class="weui-cell__hd">
+              <image src="{{'../../assets/' + it.badge}}" mode="aspectFit"></image>
+            </view>
+            <view class="weui-cell__bd" style="min-width: 72px;">{{it.name}}</view>
+            <text class="weui-cell__ft">{{appr.event[it.value]}}</text>
+          </view>
+        </block>
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            <image src="../../assets/time.png" mode="aspectFit"></image>
+          </view>
+          <view class="weui-cell__bd">申请时间</view>
+          <view class="weui-cell__ft">{{appr.submitDate}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{type == 'materials'}}">
+      <view class="weui-cells__title">物资信息</view>
+      <view class="weui-cells weui-cells_after-title">
+        <block wx:for="{{materialInfo}}" wx:for-index="i" wx:for-item="it" wx:key="name">
+          <view class="weui-cell">
+            <view class="weui-cell__hd">
+              <image src="{{'../../assets/' + it.badge}}" mode="aspectFit"></image>
+            </view>
+            <view class="weui-cell__bd" style="min-width: 72px;">{{it.name}}</view>
+            <text class="weui-cell__ft">{{appr[it.value]}}</text>
+          </view>
+        </block>
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            <image src="../../assets/time.png" mode="aspectFit"></image>
+          </view>
+          <view class="weui-cell__bd">申请时间</view>
+          <view class="weui-cell__ft">{{appr.submitDate}}</view>
+        </view>
+      </view>
+
+      <view wx:if="{{appr.exam == 4}}" class="weui-cells__title">归还情况</view>
+      <view wx:if="{{appr.exam == 4}}" class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            <image src="../../assets/time.png" mode="aspectFit"></image>
+          </view>
+          <view class="weui-cell__bd">归还数量</view>
+          <view class="weui-cell__ft">{{appr.returnQuantity}}</view>
+        </view>
+          <view class="weui-cell">
+          <view class="weui-cell__hd">
+            <image src="../../assets/time.png" mode="aspectFit"></image>
+          </view>
+          <view class="weui-cell__bd">归还时间</view>
+          <view class="weui-cell__ft">{{appr.returnTime}}</view>
+        </view>
+            <view class="weui-cell">
+          <view class="weui-cell__hd">
+            <image src="../../assets/time.png" mode="aspectFit"></image>
+          </view>
+          <view class="weui-cell__bd">归还状态</view>
+          <view class="weui-cell__ft">{{appr.returnStatus}}</view>
+        </view>
+      </view>
+
+    </view>
+    <!-- 活动/物资信息 end -->
+
+    <view class="weui-cells__title">审批情况</view>
+    <!-- form begin -->
+    <form bindsubmit="submit">
+      <view class="weui-cells weui-cells_after-title">
+        <view wx:if="{{appr.exam}}" class="weui-cell">
+          <view class="weui-cell__bd">审批状态</view>
+          <view class="weui-cell__ft">{{examState[appr.exam]}}</view>
+        </view>
+        <!-- 审批人 begin -->
+        <view wx:if="{{appr.exam > 1}}" class="weui-cell">
+          <view class="weui-cell__bd">借用审批人</view>
+          <view class="weui-cell__ft">{{appr.check.approver}}</view>
+        </view>
+        <block wx:else>
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">借用审批人</view>
+            </view>
+            <view class="weui-cell__bd">
+              <input class="weui-input" name="approver" placeholder="审批人姓名" value="{{appr.check.approver}}" />
+            </view>
+            <view wx:if="{{type=='facilities'}}" class="weui-cell__ft">
+                    <view class="weui-vcode-btn" bindtap="checkAvailTime">查询借用情况</view>
+            </view>
+          </view>
+        </block>
+
+        <view wx:if="{{appr.exam  == 4}}" class="weui-cell  weui-cell_input">
+          <view class="weui-cell__hd">
+              <view class="weui-label">归还审批人</view>
+            </view>
+          <view class="weui-cell__bd"><input class="weui-input" name="returnApprover" placeholder="审批人姓名"
+           value="{{appr.check.approver}}" /></view>
+        </view>
+          <view wx:if="{{appr.exam > 4}}" class="weui-cell">
+          <view class="weui-cell__bd">归还审批人</view>
+          <view class="weui-cell__ft">{{appr.check.returnApprover}}</view>
+        </view>
+        <!-- 审批人 end -->
+        <view class="weui-cell">
+          <view class="weui-cell__bd">审批意见</view>
+        </view>
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <textarea wx:if="{{appr.exam >3}}" class="weui-textarea" name="returnComment" placeholder="请输入文本" maxlength="{{maxCommentLength}}" bindinput="userInput"  disabled="{{appr.exam >4 ?true:false}}" value="{{appr.check.returnComment}}" />
+            <textarea wx:else class="weui-textarea" name="comment" placeholder="请输入文本" maxlength="{{maxCommentLength}}" bindinput="userInput" disabled="{{appr.exam > 1?true:false}}" value="{{appr.check.comment}}" />
+            <view wx:if="{{appr.exam == 0 || appr.exam == 4 }}" class="weui-textarea-counter">{{commentLength}}/{{maxCommentLength}}</view>
+          </view>
+        </view>
+      </view>
+      <!-- buttons begin -->
+        <button wx:if="{{appr.exam > 1 && appr.exam != 4}}" class="weui-btn" type="warn" form-type="submit" data-flag="1">撤回</button>
+        <view wx:else class="weui-flex" style="margin-top: 28rpx">
+          <view class="weui-flex__item">
+            <button class="weui-btn" type="primary" form-type="submit" data-flag="3">同意</button>
+          </view>
+          <view class="weui-flex__item">
+            <button class="weui-btn" type="warn" form-type="submit" data-flag="2">拒绝</button>
+          </view>
+        </view>
+      
+    </form>
+    <!-- form end -->
+  </view> <!-- end of page__bd -->
+</view>
+
+
+<!-- Page for newMaterials approval -->
+<view wx:else class="page">
+  <view class="page__hd">
+    <view class="page__title">查看审批</view>
+    <view class="page__desc">编号： {{appr.formid}}</view>
+  </view>
+  <view class="page__bd">
+  <form bindsubmit="submitNewMaterials">
+
+    <view class="weui-cells__title">新增物资信息</view>
+      <view class="weui-cells weui-cells_after-title">
+
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__bd">
+            <view class="weui-label">是否为原有物资</view>
+          </view>
+          <view class="weui-cell__ft">
+            <switch checked="{{appr.isOriginalMaterials}}" bindchange="switchChange"/>
+          </view>
+        </view>
+
+        <view class="weui-cell" wx:if="{{appr.isOriginalMaterials}}">
+        <view class="weui-cell__bd">
+          <view class="weui-label">原有物资</view>
+        </view>
+        <view class="weui-cell__ft">
+          <navigator url="../materials/borrowThings?extra=selectOriginalMaterial&navBack=../approval/viewApproval&itemDocId={{appr._id}}" class="weui-form-preview__btn weui-form-preview__btn_primary">{{appr.itemName && appr.itemId ? "重新选择" : "去选择"}}</navigator>
+        </view>
+      </view>
+
+        <view class="weui-cell weui-cell_input" wx:if="{{appr.isOriginalMaterials}}">
+        <view class="weui-cell__bd">
+            <view  class="weui-label">物资名称</view>
+          </view>
+          <view class="weui-cell__ft">
+            <input class="weui-input" name="itemName" value = "{{itemName? itemName : appr.itemName}}" disabled="{{true}}" style="color:black"/>
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_input" wx:if="{{appr.isOriginalMaterials}}">
+        <view class="weui-cell__bd">
+            <view  class="weui-label">物资编号</view>
+          </view>
+          <view class="weui-cell__ft">
+            <input class="weui-input" name="itemId" value = "{{itemId ? itemId : appr.itemId}}" disabled="{{true}}"  style="color:black" />
+          </view>
+        </view>  
+
+        <view class="weui-cell weui-cell_input" style="padding-right: 0;"  wx:if="{{!appr.isOriginalMaterials}}">
+             <view class="weui-cell__hd">新物资类别</view>
+          <view class="weui-cell__bd" style="margin-left: 60px;">
+            <picker mode="selector"  bindchange="bindCategoryChange" value="{{appr.genreIndex}}" range="{{category}}">
+              <view class="weui-select">{{category[appr.genreIndex]}}</view>
+            </picker>
+         </view>
+        </view>
+
+      <view class="weui-cell weui-cell_input"  wx:if="{{!appr.isOriginalMaterials}}">
+       <view class="weui-cell__bd">
+          <view  class="weui-label">新物资名称</view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="itemName" value = "{{appr.newMaterialName}}" style="color:black"/>
+        </view>
+      </view>  
+
+        <view class="weui-cell weui-cell_input" wx:if="{{!appr.isOriginalMaterials}}">
+        <view class="weui-cell__bd">
+            <view  class="weui-label">新物资编号</view>
+          </view>
+          <view class="weui-cell__ft">
+            <input class="weui-input" name="itemId" placeholder = "{{genreLetters[appr.genreIndex]}}xxx"  style="color:black" />
+          </view>
+        </view>
+
+        
+      </view><!-- end of 新增物资信息 -->
+
+     <view class="weui-cells__title">物资的补充信息</view>
+     <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">新增物资数量</view>
+        <view class="weui-cell__ft">{{appr.addNumber}}</view>
+      </view>
+
+      <view class="weui-cell weui-cell_select">
+       <view class="weui-cell__hd" style="margin-left: 16px;">物资位置</view>
+        <view class="weui-cell__bd">
+          <picker wx:if="{{!appr.isOriginalMaterials}}" mode="multiSelector" bindchange="bindLocationPickerChange" value="{{appr.locationIndex}}" range="{{locationArray}}" name='location' >
+            <view class="weui-select">{{locationArray[0][appr.locationIndex[0]]}}，{{locationArray[1][appr.locationIndex[1]]}}，{{locationArray[2][appr.locationIndex[2]]}}</view>
+          </picker>
+        </view>
+      </view> 
+      <!-- 如果为原有物资则不使用选择器 -->
+
+      <view wx:if="{{!appr.isOriginalMaterials}}" class="weui-cell">
+      <view class="weui-cell__bd">
+        <view class="weui-label" >新物资备注</view>
+        <textarea class="weui-textarea" name="description" placeholder="如有需要请备注信息：该信息会在借用物资时作为物资的补充描述显示" rows="3"></textarea>
+      </view>
+      </view>
+
+
+      <view class="weui-cell">
+        <view class="weui-cell__bd">新增日期</view>
+        <text class="weui-cell__ft">{{appr.addDate}}</text>
+      </view>
+    </view><!-- end of 物资的补充信息 -->
+
+
+    <view class="weui-cells__title">负责人信息</view>
+    <view class="weui-cells weui-cells_after-title">
+
+      <view class="weui-cell">
+        <view class="weui-cell__bd">负责人姓名</view>
+        <text class="weui-cell__ft">{{appr.name}}</text>
+      </view>
+
+      <view class="weui-cell">
+        <view class="weui-cell__bd">联系方式</view>
+        <text class="weui-cell__ft">{{appr.phoneNumber}}</text>
+      </view>
+
+      <view class="weui-cell">
+        <view class="weui-cell__bd">单位名称</view>
+        <text class="weui-cell__ft">{{appr.addAssociation}}</text>
+      </view>
+
+            <view class="weui-cell" wx:if="{{appr.comment}}">
+        <view class="weui-cell__bd">来自{{appr.name}}的备注信息</view>
+        <text class="weui-cell__ft">{{appr.comment}}</text>
+      </view>
+
+
+    <view wx:if="{{appr.check}}" class="weui-cell">
+      <view class="weui-cell__bd">审批人</view>
+      <text class="weui-cell__ft">{{appr.check.approver}}</text>
+    </view>
+
+    </view>
+
+
+
+  <button wx:if="{{appr.exam == 0}}"  class="weui-btn" type="primary" form-type="submit" data-flag="">完成审批</button>
+
+ 
+  </form>
+  </view> <!-- end of page__bd -->
+</view>

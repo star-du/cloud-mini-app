@@ -1,17 +1,29 @@
 {
-  "miniprogramRoot": "miniprogram/",
-  "cloudfunctionRoot": "cloudfunctions/",
-  "setting": {
-    "autoAudits": false,
-    "es6": true,
-    "minified": true,
-    "newFeature": true,
-    "postcss": true,
-    "uglifyFileName": true,
-    "urlCheck": true
-  },
-  "appid": "wx659e3245769d466c",
-  "projectname": "cloud-mini-app",
-  "libVersion": "2.2.5",
-  "condition": {}
+	"miniprogramRoot": "miniprogram/",
+	"cloudfunctionRoot": "cloudfunctions/",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"enhance": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"nodeModules": false,
+		"autoAudits": false,
+		"uglifyFileName": true,
+		"checkInvalidKey": true,
+		"checkSiteMap": false,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
+	},
+	"appid": "wx659e3245769d466c",
+	"projectname": "cloud-mini-app",
+	"libVersion": "2.7.1",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {}
 }

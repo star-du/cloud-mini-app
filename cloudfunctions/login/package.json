@@ -1,13 +1,13 @@
 {
   "name": "login",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "Login and check users' auth.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Dorence Deng",
+  "license": "MIT",
   "dependencies": {
     "wx-server-sdk": "latest"
   }

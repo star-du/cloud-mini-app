@@ -1,0 +1,41 @@
+/** pages/facilities/listBorrow.wxss **/
+@import "../../assets/weui.wxss";
+
+.table {
+  background-color: #fff;
+}
+
+.tr {
+  align-items: center;
+  display: flex;
+  height: auto;
+  justify-content: center;
+  width: 100%;
+  word-break: break-all;
+}
+
+.td, .th {
+  width: 5rem;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+}
+
+.th {
+  background: #36f;
+  color: #fff;
+  display: flex;
+  height: 2rem;
+  align-items: center;
+}
+
+.bg-g {
+  background: #e6f3f9;
+}
+
+picker .weui-input {
+  font-size: 24px;
+  height: 48px;
+  min-height: 24px;
+  line-height: 48px;
+}
