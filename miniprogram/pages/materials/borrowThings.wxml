@@ -9,7 +9,7 @@
     </view>
   </view>
 
-  <scroll-view scroll-y style="height: 700px;" scroll-into-view="{{toView}}" class="items-wrapper" enable-back-to-top>
+  <scroll-view scroll-y style="height: 100vh;" scroll-into-view="{{toView}}" class="items-wrapper" enable-back-to-top>
     <view wx:for="{{availableItemsGenres}}" class="food-list food-list-hook" wx:for-item="genreName">
       <!-- <view id="order{{parentIndex}}" class="title">{{item.genre}}</view> -->
       <view class="title">{{genreToChineseName[genreName]}}</view>
