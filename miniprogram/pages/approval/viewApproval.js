@@ -25,18 +25,20 @@ function fetchDB(PAGE) {
       // x.eventTime1 = app._toDateStr(new Date(x.eventTime1));
       // x.eventTime2 = app._toDateStr(new Date(x.eventTime2));
       PAGE.setData({
-        appr: x || {}
+        appr: x || {},
+        "appr.check.approver": app.loginState.name
+
       });
       if (x.check && x.check.comment) {
         PAGE.setData({
           commentLength: x.check.comment.length
         });
       }
-      if (!x.check || !x.check.approver) {
-        PAGE.setData({
-          "appr.check.approver": app.loginState.name
-        });
-      }
+      // if (!x.check || !x.check.approver) {
+      //   PAGE.setData({
+      //     "appr.check.approver": app.loginState.name
+      //   });
+      // }
     }).catch(err => {
       console.error("[fetchDB]failed", err);
     });
@@ -64,18 +66,19 @@ function fetchDB(PAGE) {
       // x.eventTime1 = app._toDateStr(new Date(x.eventTime1));
       // x.eventTime2 = app._toDateStr(new Date(x.eventTime2));
       PAGE.setData({
-        appr: x || {}
+        appr: x || {},
+        "appr.check.approver": app.loginState.name
       });
       if (x.check && x.check.comment) {
         PAGE.setData({
           commentLength: x.check.comment.length
         });
       }
-      if (!x.check || !x.check.approver) {
-        PAGE.setData({
-          "appr.check.approver": app.loginState.name
-        });
-      }
+      // if (!x.check || !x.check.approver) {
+      //   PAGE.setData({
+      //     "appr.check.approver": app.loginState.name
+      //   });
+      // }
       // if (!x.isOriginalMaterials && x.genre) {
       //   PAGE.setData({
       //     genreIndex: PAGE.data.genreLetters.indexOf(x.genre)
@@ -108,18 +111,19 @@ function fetchDB(PAGE) {
       // x.eventTime1 = app._toDateStr(new Date(x.eventTime1));
       // x.eventTime2 = app._toDateStr(new Date(x.eventTime2));
       PAGE.setData({
-        appr: x || {}
+        appr: x || {},
+        "appr.check.approver": app.loginState.name
       });
       if (x.check && x.check.comment) {
         PAGE.setData({
           commentLength: x.check.comment.length
         });
       }
-      if (!x.check || !x.check.approver) {
-        PAGE.setData({
-          "appr.check.approver": app.loginState.name
-        });
-      }
+      // if (!x.check || !x.check.approver) {
+      //   PAGE.setData({
+      //     "appr.check.approver": app.loginState.name
+      //   });
+      // }
     }).catch(err => {
       console.error("[fetchDB]failed", err);
     });
@@ -217,7 +221,7 @@ Page({
     }
     this.setData(options);
     // console.log('[viewApproval] type = ', this.data.type);
-    console.log(options);
+    console.log('onLoad options',options);
     // get database
     fetchDB(this).then(() =>{
       console.log('fetch DB back!PAGE.data is',PAGE.data)
@@ -329,6 +333,40 @@ Page({
         });
         return;
       }
+
+        // call cloud function
+        wx.cloud.callFunction({
+          name: "operateForms",
+          data: {
+            caller: "updateAppr",
+            collection: "addNewMaterials",
+            docID: this.data.id,
+            isDoc: true,
+            operate: "update",
+            update: {
+              check: apprData.check,
+              exam: 1
+            }
+          }
+        }).then(res => {
+          console.log("[updateApproval]", res);
+          wx.hideLoading();
+          // [Boolean]res.error indicates if calling has error
+          if (res.result.err || res.updated < 1) wx.showToast({
+            title: "出错了, 请稍后重试",
+            icon: "none",
+            duration: 3000,
+            mask: true
+          });
+          else wx.showToast({
+            title: "数据库已更新",
+            icon: "success",
+            duration: 2000,
+            mask: true
+          });
+          fetchDB(PAGE);
+        }).catch(console.error);
+        
     }).catch(err => {
       console.error(err);
       return;
@@ -348,65 +386,80 @@ Page({
         });
         return;
       }
-      let formObj = {
-        itemName: formsData.itemName,
-        itemId: formsData.itemId,
-        description:formsData.description,
-        genre: apprData.genre,
-        location: apprData.location,
-        quantity: apprData.addNumber
-        
-      }
-      console.log("formObj", formObj)
-      wx.showLoading({
-        title: "提交中",
-        mask: true
-      });
-      
-      db.collection("items").add({
-        data: formObj,
-        success(res) {
-          console.log("Successfully add to db!");
-          console.log("res:", res)
-        }, fail(res) {
-          console.error;
-          return
-        }
-      });}
-      // end of else
 
-      // call cloud function
-      wx.cloud.callFunction({
-        name: "operateForms",
-        data: {
-          caller: "updateAppr",
-          collection: "addNewMaterials",
-          docID: this.data.id,
-          isDoc: true,
-          operate: "update",
-          update: {
-            check: apprData.check,
-            exam: 1
-          }
+      db.collection("items").where({
+        "itemId":formsData.itemId
+      }).count().then(res => {
+        if (!res.total)
+        { let formObj = {
+          itemName: formsData.itemName,
+          itemId: formsData.itemId,
+          description:formsData.description,
+          genre: apprData.genre,
+          location: apprData.location,
+          quantity: apprData.addNumber
+          
         }
-      }).then(res => {
-        console.log("[updateApproval]", res);
-        wx.hideLoading();
-        // [Boolean]res.error indicates if calling has error
-        if (res.result.err || res.updated < 1) wx.showToast({
-          title: "出错了, 请稍后重试",
-          icon: "none",
-          duration: 3000,
+        console.log("formObj", formObj, res.total)
+        wx.showLoading({
+          title: "提交中",
           mask: true
         });
-        else wx.showToast({
-          title: "数据库已更新",
-          icon: "success",
-          duration: 2000,
-          mask: true
+        db.collection("items").add({
+          data: formObj,
+          success(res) {
+            console.log("Successfully add to db!");
+            console.log("res:", res)
+          }, fail(res) {
+            console.error;
+            return
+          }
         });
-        fetchDB(PAGE);
-      }).catch(console.error);
+
+        // call cloud function
+        wx.cloud.callFunction({
+          name: "operateForms",
+          data: {
+            caller: "updateAppr",
+            collection: "addNewMaterials",
+            docID: this.data.id,
+            isDoc: true,
+            operate: "update",
+            update: {
+              check: apprData.check,
+              exam: 1
+            }
+          }
+        }).then(res => {
+          console.log("[updateApproval]", res);
+          wx.hideLoading();
+          // [Boolean]res.error indicates if calling has error
+          if (res.result.err || res.updated < 1) wx.showToast({
+            title: "出错了, 请稍后重试",
+            icon: "none",
+            duration: 3000,
+            mask: true
+          });
+          else wx.showToast({
+            title: "数据库已更新",
+            icon: "success",
+            duration: 2000,
+            mask: true
+          });
+          fetchDB(PAGE);
+        }).catch(console.error);
+      } // end of if(!res.total) 
+        else {     
+            wx.showModal({
+          title:"提交失败",
+          content:"物资id已存在",
+          showCancel:false,
+          confirmText:"再去改改"
+        });
+        return;}
+    })
+
+    }// end of else
 
   },
 

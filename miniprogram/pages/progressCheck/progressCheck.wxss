@@ -1,2 +1,2 @@
-/* pages/progressCheck/progressCheck.wxss */
+    /* pages/progressCheck/progressCheck.wxss */
 @import "../approval/listApproval.wxss";

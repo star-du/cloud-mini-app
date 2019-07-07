@@ -81,3 +81,8 @@ e.g.
 <view hidden="{{flag ? true : false}}"> Hidden </view>
 ```
 see [docs](https://developers.weixin.qq.com/miniprogram/dev/reference/wxml/data.html)
+
+Q: js promise 如何获取返回值？    
+A：promise只能传递值，但是却**不能返回值**。    
+也就是说，通过then连接起来的每一步操作，是可以接收到上一步产生的值的，但是这个值，在外面是接收不到的。你想要利用这个异步操作产生的值，要么用then把你的操作串起来，要么设定个全局变量来接收你这个值。    
+来自 [思否](https://segmentfault.com/q/1010000007889310)
