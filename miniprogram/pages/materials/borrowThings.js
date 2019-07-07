@@ -7,7 +7,7 @@ Page({
     availableItems:{},
     availableItemsGenres:[],
     // goods: [],
-    toView: '0',
+    toView: 'number0',
     scrollTop: 100,
     // foodCounts: 0,
     // carArray: [],
@@ -63,12 +63,10 @@ Page({
 
   //导航栏跳转
   selectMenu: function (e) {
-    // var index = e.currentTarget.dataset.itemIndex;
-    // console.log(e.currentTarget.dataset)
-    // this.setData({
-    //   toView: 'order' + index.toString()
-    // })
-    // console.log(this.data.toView);
+    console.log(e);
+    this.setData({
+      toView:e.target.id
+    })
   },
 
   //获取数据库

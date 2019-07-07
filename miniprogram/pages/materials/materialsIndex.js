@@ -171,6 +171,7 @@ Page({
           that.updateNewMaterials();
           console.log(that.data)
         }
+        that.showRedDot();
       });
     }).catch((err) => {
       console.error("[login] call failed", err);
@@ -245,12 +246,29 @@ Page({
   },
 
   /**
+   *红点渲染函数，用于提醒归还物资 
+   */
+  showRedDot: function(){
+    if(db.collection("formsForMaterials").where({
+      _openid: app.loginState.openid
+    }).get()){
+      wx.showTabBarRedDot({
+        index:1,
+        success:function(){
+          console.log("redDOT!")
+        }
+      })
+    }
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.checkLogin();
     // 获取用户信息
     this.getUserInfo();
+    
   },
 
   /**

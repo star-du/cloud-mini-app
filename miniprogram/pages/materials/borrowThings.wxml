@@ -2,17 +2,17 @@
 
   <view class="menu-wrapper">
     <view style="height: 100%;">
-      <view wx:for="{{availableItemsGenres}}" class="menu-item border-1px" bindtap="selectMenu" wx:for-index="idx" wx:for-item="genreName"> 
+      <view wx:for="{{availableItemsGenres}}" class="menu-item border-1px" wx:for-index="idx" wx:for-item="genreName"> 
       <!-- TODO: menu 跳转 -->
-        <view class="text">{{genreToChineseName[genreName]}}</view>
+        <view class="text" bindtap="selectMenu" id="number{{idx}}">{{genreToChineseName[genreName]}}</view>
       </view>
     </view>
   </view>
 
   <scroll-view scroll-y style="height: 100vh;" scroll-into-view="{{toView}}" class="items-wrapper" enable-back-to-top>
-    <view wx:for="{{availableItemsGenres}}" class="food-list food-list-hook" wx:for-item="genreName">
+    <view wx:for="{{availableItemsGenres}}" class="food-list food-list-hook" wx:for-index="idx" wx:for-item="genreName">
       <!-- <view id="order{{parentIndex}}" class="title">{{item.genre}}</view> -->
-      <view class="title">{{genreToChineseName[genreName]}}</view>
+      <view class="title" id="number{{idx}}">{{genreToChineseName[genreName]}}</view>
       <view wx:for="{{availableItems[genreName]}}" class="food-item"  wx:for-item="singleItem">
         <view class="content">
           <view class="name">{{singleItem.itemName}}</view>
