@@ -250,14 +250,18 @@ Page({
    */
   showRedDot: function(){
     db.collection("formsForMaterials").where({
-      _openid: app.loginState.openid
-    }).get().then(() => {
+      _openid: app.loginState.openid,
+      exam: 3
+    }).get().then(res => {
+      console.log(res)
+      if (res.data.length)
       wx.showTabBarRedDot({
         index:1,
         success:function(){
           console.log("redDOT!")
         }
       })
+      else console.log('no need for reddot')
     })
   },
 
