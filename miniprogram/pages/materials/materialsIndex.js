@@ -249,16 +249,16 @@ Page({
    *红点渲染函数，用于提醒归还物资 
    */
   showRedDot: function(){
-    if(db.collection("formsForMaterials").where({
+    db.collection("formsForMaterials").where({
       _openid: app.loginState.openid
-    }).get()){
+    }).get().then(() => {
       wx.showTabBarRedDot({
         index:1,
         success:function(){
           console.log("redDOT!")
         }
       })
-    }
+    })
   },
 
   /**
