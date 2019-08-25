@@ -198,12 +198,13 @@ Page({
     // console.log("[formObj]", formObj);
     forms.orderBy("formid", "desc").limit(3).get()
       .then(res => {
-        console.log('res',res.data);
-        let maxFormid = new Date().getFullYear() * 100000; 
-        if (res.data[0]) maxFormid = res.data[0].formid
-       // const newFormID = res.data[0].formid + new Date().getDate()*100000
-        console.log("[max formid]", maxFormid);
-        formObj.formid = maxFormid + 1;
+        let prefix = (new Date().getFullYear() - 2000) + (1 < new Date().getMonth() < 8 ? "Spri" : "Fall")
+        let maxFormid = "00001";
+        if (res.data[0] && res.data[0].formid.slice(0,6) == prefix ) 
+        maxFormid = (res.data[0].formid.slice(6,11) * 1 + 100001).toString().slice(1, 6); 
+        //NOTE: "abc".slice(0,2) = "ab" not "abc" !
+        // console.log("[max formid]", maxFormid);
+        formObj.formid = prefix + maxFormid;
         console.log("[formObj]", formObj);
        
         // begin forms.add()
