@@ -266,8 +266,8 @@
           </picker>
 
           <view wx:else class="weui-select">
-              <text wx:if="{{appr.location[0]}}">{{appr.location[0]}}号仓库  </text> <text wx:if="{{appr.location[1]}}">{{appr.location[1]}}号货架</text>
-              <view wx:if="{{appr.location[2]}}">{{appr.location[2]}}分区</view>
+              <text wx:if="{{appr.location[0]}}">{{appr.location[0]}}号仓库  </text> <text wx:if="{{appr.location[1]}}">{{appr.location[1]}}号货架 </text>
+              <text wx:if="{{appr.location[2]}}">{{appr.location[2]}}分区</text>
             </view>  
         </view>
 
