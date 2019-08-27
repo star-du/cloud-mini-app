@@ -51,7 +51,8 @@ Page({
             }).get({
               success(e) {
                 if (e.data.length == 1)
-                location = e.data[0].location;
+                {location = e.data[0].location;
+                console.log(location)}
                 else console.error('itemId is not unique');
 
                 progressList[i].location = location;

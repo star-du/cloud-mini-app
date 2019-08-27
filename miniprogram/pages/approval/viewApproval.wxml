@@ -264,7 +264,13 @@
           <picker wx:if="{{!appr.isOriginalMaterials}}" mode="multiSelector" bindchange="bindLocationPickerChange" value="{{appr.locationIndex}}" range="{{locationArray}}" name='location' >
             <view class="weui-select">{{locationArray[0][appr.locationIndex[0]]}}，{{locationArray[1][appr.locationIndex[1]]}}，{{locationArray[2][appr.locationIndex[2]]}}</view>
           </picker>
+
+          <view wx:else class="weui-select">
+              <text wx:if="{{appr.location[0]}}">{{appr.location[0]}}号仓库  </text> <text wx:if="{{appr.location[1]}}">{{appr.location[1]}}号货架</text>
+              <view wx:if="{{appr.location[2]}}">{{appr.location[2]}}分区</view>
+            </view>  
         </view>
+
       </view> 
       <!-- 如果为原有物资则不使用选择器 -->
 

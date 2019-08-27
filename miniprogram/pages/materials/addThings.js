@@ -94,6 +94,7 @@ Page({
     PAGE.setData({
       isOriginalMaterials:e.detail.value
      })
+     console.log(PAGE.data)
   },
 
   
@@ -137,13 +138,13 @@ Page({
       err: "请填写正确的手机号"
     };
 
+    //TODO：新增原有物资时是否需要locationIndex?
     if (p.isOriginalMaterials)
     return {
         isOriginalMaterials:true,
         addAssociation:data["associationName"],
         addNumber: Number(data["addNumber"]),
-        location:p.location,
-        locationIndex: p.locationIndex,
+        location:p.location, 
         addDate: p.date,
         //isOriginalMaterials == true
         itemId:p.itemId,
@@ -199,12 +200,12 @@ Page({
     forms.orderBy("formid", "desc").limit(3).get()
       .then(res => {
         let prefix = (new Date().getFullYear() - 2000) + (1 < new Date().getMonth() < 8 ? "Spri" : "Fall")
-        let maxFormid = "00001";
+        let newFormNumber = "00001";
         if (res.data[0] && res.data[0].formid.slice(0,6) == prefix ) 
-        maxFormid = (res.data[0].formid.slice(6,11) * 1 + 100001).toString().slice(1, 6); 
+        newFormNumber = (res.data[0].formid.slice(6,11) * 1 + 100001).toString().slice(1, 6); 
         //NOTE: "abc".slice(0,2) = "ab" not "abc" !
-        // console.log("[max formid]", maxFormid);
-        formObj.formid = prefix + maxFormid;
+        // console.log("[max formid]", newFormNumber);
+        formObj.formid = prefix + newFormNumber;
         console.log("[formObj]", formObj);
        
         // begin forms.add()
@@ -240,13 +241,36 @@ Page({
    */
   onLoad: function (options) {
     // console.log("options",options)
-    this.setData(options)
+    const PAGE = this
+    PAGE.setData(options)
+    // console.log(this.data)
+    if (PAGE.data.isOriginalMaterials && PAGE.data.itemId)
+    {
+      db.collection("items").where({
+        itemId : PAGE.data.itemId
+      }).get({
+        success(e) {
+          if (e.data.length == 1)
+          {location = e.data[0].location;
+          console.log("Item location:"+location);}
+          else console.error('itemId is not unique');
+          PAGE.setData({
+            location: location
+          })
+        .catch(err => {
+      console.error("[itemLocation]failed", err);
+     })
+    },
+     fail: console.error
+    })}
+  
+
     // if (options.itemName && options.itemId)
     // this.setData({
     //   itemName: options.itemName,
     //   itemId: options.itemId
     // })
-    console.log('[addThings]',this.data)
+    console.log('[addThings]',PAGE.data)
    
   },
 

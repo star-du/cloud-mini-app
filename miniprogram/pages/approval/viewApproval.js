@@ -302,6 +302,7 @@ Page({
 
     if(formsData.description) formsData.description = formsData.description.trim();
 
+    //若为原有物资
     if (apprData.isOriginalMaterials) {
       console.log("[update]", apprData.itemDocId, "in  collection `item`, add quantity = ",apprData.addNumber);
       wx.showLoading({
