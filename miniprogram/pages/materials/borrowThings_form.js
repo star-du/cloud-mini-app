@@ -161,7 +161,7 @@ Page({
     forms.orderBy("formid", "desc").limit(3).get()
       .then(res => {
         // console.log('res',res.data);
-        let prefix = (new Date().getFullYear() - 2000) + (1 < new Date().getMonth() < 8 ? "Spri" : "Fall")
+        let prefix = (new Date().getFullYear() - 2000) + (1 < new Date().getMonth() && new Date().getMonth() < 8 ? "Spri" : "Fall")
         let newFormNumber = "00001";
         if (res.data[0] && res.data[0].formid.slice(0,6) == prefix ) 
         newFormNumber = (res.data[0].formid.slice(6,11) * 1 + 100001).toString().slice(1, 6); 
