@@ -105,13 +105,29 @@ Page({
     }
     forms.orderBy("formid", "desc").limit(3).get()
       .then(res => {
-        let prefix = (new Date().getFullYear() - 2000) + (1 < new Date().getMonth() < 8 ? "Spri" : "Fall")
-        let newFormNumber = "00001";
-        if (res.data[0] && res.data[0].formid.slice(0,6) == prefix ) 
-        newFormNumber = (res.data[0].formid.slice(6,11) * 1 + 100001).toString().slice(1, 6); 
-        //NOTE: "abc".slice(0,2) = "ab" not "abc" !
-        // console.log("[max formid]", newFormNumber);
-        formObj.formid = prefix + newFormNumber;
+
+        let genIDNew = (formid) => {
+          let prefix = (new Date().getFullYear() - 2000) + (1 < new Date().getMonth() < 8 ? "Spri" : "Fall")
+          let newFormNumber = "00001";
+          if (formid.slice(0, 6) == prefix)
+            newFormNumber = (formid.slice(6, 11) * 1 + 100001).toString().slice(1, 6);
+          //NOTE: "abc".slice(0,2) = "ab" not "abc" !
+          // console.log("[max formid]", newFormNumber);
+          return prefix + newFormNumber;
+        };
+
+        let genIDOld = (formid) => {
+          let date = new Date();
+          let yr = date.getFullYear();
+          let newFormNumber = "00001";
+          if (formid && Number(formid.substr(0, 4)) === yr) {
+            return (Number(formid) + 1).toString();
+          } else {
+            return yr + "00001";
+          }
+        };
+
+        formObj.formid = genIDOld(res.data[0] ? res.data[0].formid : "");
         console.log("[formObj]", formObj);
         // begin forms.add()
         forms.add({

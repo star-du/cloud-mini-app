@@ -1,0 +1,56 @@
+/* pages/common/bigListItem.wxss */
+
+.biglist-flex {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10rpx;
+}
+
+.biglist-flex>.biglist-item-outer, .biglist-flex.col-2>.biglist-item-outer {
+  width: 50%;
+}
+
+.biglist-flex.col-1>.biglist-item-outer {
+  width: 98%;
+}
+
+.biglist-flex.col-3>.biglist-item-outer {
+  width: 33%;
+}
+
+.biglist-flex.col-4>.biglist-item-outer {
+  width: 25%;
+}
+
+.biglist-item {
+  border: 2rpx solid rgba(0, 0, 0, 0.075);
+  border-radius: 24px;
+  box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  height: 92px;
+  margin: 24rpx;
+  max-width: 320rpx;
+  padding: 6px;
+  text-align: center;
+}
+
+.biglist-flex.col-3 .biglist-item {
+  margin-left: 16rpx;
+  margin-right: 16rpx;
+}
+
+.biglist-flex.col-4 .biglist-item {
+  border-radius: 16px;
+  font-size: 70%;
+  margin-left: 13rpx;
+  margin-right: 13rpx;
+}
+
+.biglist-item .biglist-item-icon {
+  height: 48px;
+  width: 48px;
+}
+
+.biglist-item .biglist-item-text {
+  vertical-align: middle;
+}

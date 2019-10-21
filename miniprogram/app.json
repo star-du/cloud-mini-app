@@ -6,11 +6,7 @@
     "pages/approval/exportApproval",
     "pages/approval/listApproval",
     "pages/approval/viewApproval",
-    "pages/materials/borrowThings",
-    "pages/materials/borrowThings_form",
-    "pages/materials/addThings",
     "pages/materials/materialsIndex",
-    "pages/materials/returnThings",
     "pages/progressCheck/printForm",
     "pages/progressCheck/progressCheck"
   ],

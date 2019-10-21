@@ -1,0 +1,9 @@
+<!--pages/common/bigListItem.wxml-->
+<view class="biglist-flex col-{{col}}">
+  <view wx:for="{{nodes}}" wx:for-item="it" wx:key="name" class="biglist-item-outer">
+    <view class="biglist-item" data-url="{{it.url}}" bindtap="tap">
+      <image class="biglist-item-icon" src="{{it.icon}}" mode="aspectFit"></image>
+      <view class="biglist-item-text">{{it.name}}</view>
+    </view>
+  </view>
+</view>

@@ -18,7 +18,24 @@ Page({
     }, {
       num: null,
       text: "已通过"
-    }]
+    }],
+    bigItems: [{
+        name: "教室借用查询",
+        url: "listBorrow",
+        icon: "../../assets/availableClassroom.png"
+      },
+      {
+        name: "教室借用",
+        url: "borrowClassroom",
+        icon: "../../assets/borrowClassroom.png"
+      },
+      {
+        name: "进度查询",
+        url: "../progressCheck/progressCheck?type=facilities",
+        icon: "../../assets/progressCheck.png"
+      }
+    ],
+    isLogin: false
   },
   /**
    * 加载页面
@@ -57,6 +74,7 @@ Page({
       this.callCloudLogin(true);
     }
   },
+  
   /** 
    * 检查是否有授权并获取 userInfo 
    */
@@ -78,32 +96,19 @@ Page({
       }
     });
   },
-  /** 链接至教室申请/进度查询 */
-  navToBorrow: function(e) {
-    // console.log(e);
-    const data = e.currentTarget.dataset;
-    if (this.data.isLogin) {
-      console.log("navigateTo", data.url);
-      wx.navigateTo(data);
-    } else {
-      wx.showToast({
-        title: "请先登录",
-        icon: "none",
-        duration: 2000
-      });
-    }
-  },
+
   /** 链接至 listApproval */
   navToApproval: function(e) {
     // console.log(e);
     const data = e.currentTarget.dataset;
-    if (this.data.exam[data.idx].num && data.urlget.length > 0) {    
+    if (this.data.exam[data.idx].num && data.urlget.length > 0) {
       wx.navigateTo({
         url: '../approval/listApproval?' + data.urlget + '&type=facilities'
       });
       //console.log("navigateTo", data);
     }
   },
+
   /** 
    * 更新符合条件的审批的数量
    */
@@ -138,8 +143,7 @@ Page({
               resolve("Promise done " + callLoginCnt);
             }, 40 * callLoginCnt * callLoginCnt);
           });
-          promise1.then(console.log);
-          promise1();
+          Promise.resolve().then(promise1).then(console.log)
         } else {
           that.callCloudLogin(false);
         }
