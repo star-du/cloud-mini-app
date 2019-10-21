@@ -22,7 +22,7 @@
           </view>
         </view>
         <view class="weui-flex">
-          <view class="weui-flex__item" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="../progressCheck/progressCheck">
+          <view class="weui-flex__item" hover-class="weui-cell_active" bindtap="navToBorrow" data-url="../progressCheck/progressCheck?type=facilities">
             <image class="flex-icon" src="../../assets/progressCheck.png" mode="aspectFit"></image>
             <view>进度查询</view>
           </view>
@@ -41,7 +41,9 @@
             <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{exam}}" wx:for-index="i" wx:for-item="it" wx:key="id" bindtap="navToApproval" data-idx="{{i}}" data-urlget="flag={{i}}&expireSubmit=30">
               <view class="weui-cell__bd">
                 <text class="cell-text">{{it.text}}</text>
-                <view wx:if="{{it.num !== null}}" class="weui-badge" style="margin-left: 5px;">{{it.num}}</view>
+                <view wx:if="{{it.num !== 0 & i == 0}}" class="weui-badge" style="margin-left: 5px;">{{it.num}}</view>
+                <view wx:elif="{{it.num == 0 & i == 0}}" class="weui-badge" style="margin-left: 5px;background-color: #576b95;">全部完成</view>
+                <view wx:elif="{{i!=0 }}" class="weui-badge" style="margin-left: 5px;background-color: #576b95;">{{it.num}}</view>
               </view>
               <view class="weui-cell__ft weui-cell__ft_in-access"></view>
             </view>
