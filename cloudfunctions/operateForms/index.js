@@ -78,7 +78,7 @@ function toFilter(ft) {
           obj.eventDate = ft.date;
         } else return false;
         break; // date
-      
+
       case "quantityGreaterThan":
         x = Number(ft.quantityGreaterThan);
         if (isNaN(x)) return false;
@@ -86,7 +86,7 @@ function toFilter(ft) {
         break;
 
       case "_id":
-        // skip _id field because if using '_id', it's better to try 'doc' mode
+        // skip _id field because if using '_id', it's better to use 'doc' mode
         break; // _id
 
       default:
@@ -174,7 +174,7 @@ function hasPermission(perm, collction) {
     case "items":
       return perm.isAdmin;
     case "addNewMaterials":
-        return perm.isAdmin      
+      return perm.isAdmin
     default:
       return false;
   }
@@ -215,7 +215,7 @@ async function readMain(event) {
 
   // 设置返回字段
   if (event.hasOwnProperty("field") && Object.keys(event.field).length)
-    c = c.field(collectionField[event.field]);
+    c = c.field(event.field);
 
   // 获取数据并返回
   if (event.isDoc) {
@@ -298,10 +298,11 @@ async function updateMain(event) {
     c = c.where(filter);
   }
 
-  var updateObj = toUpdateObj(event);
+
   // 对于不同的 caller 可有不同的操作 
   switch (event.caller) {
     case "updateAppr":
+      let updateObj = toUpdateObj(event);
       if (updateObj.err) return updateObj;
 
       return await c.update(updateObj).then(res => {
@@ -311,7 +312,7 @@ async function updateMain(event) {
           errMsg: res.errMsg,
           updated: res.stats.updated
         }
-      }); 
+      });
       // end updateAppr
     case "addMaterials":
       // console.log("[update]", c)
@@ -320,6 +321,21 @@ async function updateMain(event) {
           quantity: db.command.inc(event.update.addQuantity)
         }
       }).catch(console.error)
+      // end addMaterials
+
+    case "superUpdateUser":
+      console.info("[userList]", event.update.userList, "[c]", c._id);
+      return await c.update({
+        data: event.update
+      }).then(res => {
+        console.log("[update superUpdateUser]", res);
+        return {
+          err: false,
+          errMsg: res.errMsg,
+          updated: res.stats.updated
+        }
+      });
+      // end superUpdateUser
 
     default:
       return {
@@ -332,6 +348,149 @@ async function updateMain(event) {
     errMsg: "Runtime null."
   };
 }
+
+/**
+ * "bindUser" 操作主函数
+ */
+async function bindUserMain(event) {
+  // 设置 collection
+  if (!inCollections(event.collection)) return new utils.EMsg("Collection error.");
+  let c = db.collection(event.collection);
+
+  // 设置 管理员openid
+  if (!utils.isIDString(event.filter.superOpenid, [28])) return new utils.EMsg("Invalid user.");
+  return await c.where({
+    openid: event.filter.superOpenid
+  }).limit(1).get().then(resSuper => {
+    /** return of get superUser */
+    console.log("[super]", resSuper);
+
+    if (resSuper.data && resSuper.data.length === 1) {
+      let superUser = resSuper.data[0],
+        l = superUser.tokens.length;
+
+      for (let i = 0; i < l; i++)
+        if (superUser.tokens[i].key === event.filter.key) {
+          // token found
+          superUser.tokens[i].key = "expired=" + (new Date().getTime()) + ";" + Math.random();
+          superUser.tokens[i].name = event.update.name;
+          superUser.tokens[i].tel = event.update.tel;
+          superUser.tokens[i].openid = event.openid;
+
+          // update superUser
+          return c.doc(superUser._id).update({
+            data: {
+              tokens: superUser.tokens
+            }
+          }).then(retUpdate => {
+            /** return of update superUser */
+            console.log("[update super]", retUpdate);
+            if (retUpdate.stats.updated === 1) {
+              return c.where({
+                openid: event.openid
+              }).count().then(resCnt => {
+                console.log("[update count]", resCnt);
+                if (resCnt.total > 0) {
+                  // User existed, update a doc
+                  return c.where({
+                    openid: event.openid
+                  }).update({
+                    data: {
+                      name: event.update.name,
+                      openid: event.openid,
+                      tel: event.update.tel,
+                      isAdmin: superUser.tokens[i].isAdmin
+                    }
+                  }).then(res => {
+                    console.log("[update user]", res);
+                    return {
+                      err: false,
+                      errMsg: res.errMsg,
+                      updated: res.stats.updated
+                    }
+                  }).catch(err => {
+                    console.error("[update user err]", err);
+                    return new utils.EMsg(err.errMsg);
+                  });
+                } else {
+                  // User does not exist, add a doc
+                  return c.add({
+                    data: {
+                      name: event.update.name,
+                      openid: event.openid,
+                      tel: event.update.tel,
+                      isAdmin: superUser.tokens[i].isAdmin
+                    }
+                  }).then(res => {
+                    console.log("[add user]", res);
+                    return {
+                      err: false,
+                      errMsg: res.errMsg
+                    }
+                  }).catch(err => {
+                    console.error("[add user err]", err);
+                    return new utils.EMsg(err.errMsg);
+                  });
+                }
+              });
+            } else return new utils.EMsg("Write database error.");
+            /** end return of update superUser */
+          });
+        }
+      /** end for */
+
+      return new utils.EMsg("Invalid request."); // not found
+    } else return new utils.EMsg("Invalid user.");
+
+    /** end return of get superUser */
+  });
+}
+
+/**
+ * "remove" 操作主函数
+ */
+async function removeMain(event) {
+  // 设置 collection
+  if (!inCollections(event.collection)) return new utils.EMsg("Collection error.");
+  let c = db.collection(event.collection);
+
+  // 设置取值
+  if (event.isDoc) {
+    // 删除单个记录
+    if (!utils.isIDString(event.docID, [16, 32, 36]))
+      return {
+        err: true,
+        errMsg: "Error docID format.",
+        doc: event.docID
+      };
+    c = c.doc(event.docID);
+  } else {
+    // 删除多条记录
+    const filter = toFilter(event.filter);
+    if (filter === false) return new utils.EMsg("Filter error.");
+    c = c.where(filter);
+  }
+
+  // 对于不同的 caller 可有不同的操作 
+  switch (event.caller) {
+    case "superRemoveUser":
+      return await c.remove().then(res => {
+        console.log("[remove]", res);
+        return {
+          err: false,
+          errMsg: res.errMsg,
+          removed: res.stats.removed
+        }
+      });
+      // end superRemoveUser
+
+    default:
+      return new utils.EMsg("Caller error.");
+  }
+
+  return new utils.EMsg("Runtime error.");
+}
+
 
 /**
  * 云函数入口函数
@@ -371,6 +530,18 @@ exports.main = async(event, context) => {
       }
       break;
       // end update case
+    case "bindUser":
+      return await bindUserMain(event);
+      break;
+      // end bindUser case
+    case "remove":
+      const permRv = await getUserPermission(event.openid);
+      console.log("[permission]", permRv);
+      if (hasPermission(permRv, event.collection)) {
+        return await removeMain(event);
+      } else return new utils.EMsg("Promision denied.");
+      break;
+      // end remove case
     default:
       return {
         err: true,

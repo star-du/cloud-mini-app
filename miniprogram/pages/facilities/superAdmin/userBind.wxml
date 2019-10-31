@@ -1,0 +1,46 @@
+<!--facilities/superAdmin/userBind.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">绑定</view>
+    <view class="page__desc">{{scanKey}}</view>
+  </view>
+  <form class="page__bd" bindsubmit="submit">
+    <view class="weui-cells__title">个人信息</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <view class="weui-label">验证码</view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="token" type="number" maxlength="6" placeholder="请输入数字验证码" />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <view class="weui-label">姓名</view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="name" placeholder="请输入真实姓名" />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <view class="weui-label">联系电话</view>
+        </view>
+        <view class="weui-cell__ft">
+          <input class="weui-input" name="tel" placeholder="请输入电话号码" />
+        </view>
+      </view>
+    </view>
+
+    <!-- form submit -->
+    <view class="weui-flex" style="margin-top: 28rpx;margin-bottom: 100px;">
+      <view class="weui-flex__item">
+        <button class="weui-btn" type="primary" form-type="submit">确定</button>
+      </view>
+      <view class="weui-flex__item">
+        <button class="weui-btn" type="default" bindtap="navBack">取消</button>
+      </view>
+    </view>
+  </form>
+</view>

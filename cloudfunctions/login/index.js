@@ -18,22 +18,22 @@ exports.main = async(event, context) => {
     openid: wxContext.OPENID
   }).get().then(r => {
     console.log("[result]", r);
-    const isAdmin = r.data.length && r.data[0].isAdmin;
-    if (isAdmin) {
-      return {
-        openid: wxContext.OPENID,
-        unionid: wxContext.UNIONID,
-        isAdmin: true,
-        name: r.data[0].name,
-        isSuper: r.data[0].isSuper
-      };
-    } else {
-      return {
-        openid: wxContext.OPENID,
-        unionid: wxContext.UNIONID,
-        isAdmin: false
-      };
+
+    let ret = {
+      openid: wxContext.OPENID,
+      unionid: wxContext.UNIONID,
+      isAdmin: r.data.length && r.data[0].isAdmin
+    };
+
+    if (ret.isAdmin) {
+      ret.name = r.data[0].name;
+      ret.isSuper = r.data[0].isSuper;
+      if (ret.isSuper) {
+        ret.userList = r.data[0].tokens;
+      }
     }
+
+    return ret;
   }).catch(err => {
     return {
       err: true,

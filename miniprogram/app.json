@@ -3,12 +3,14 @@
     "pages/facilities/index",
     "pages/facilities/borrowClassroom",
     "pages/facilities/listBorrow",
+    "pages/facilities/superAdmin/superAdmin",
     "pages/approval/exportApproval",
     "pages/approval/listApproval",
     "pages/approval/viewApproval",
     "pages/materials/materialsIndex",
     "pages/progressCheck/printForm",
-    "pages/progressCheck/progressCheck"
+    "pages/progressCheck/progressCheck",
+    "pages/facilities/superAdmin/userBind"
   ],
   "window": {
     "backgroundColor": "#f6f6f6",
@@ -37,5 +39,5 @@
       }
     ]
   },
-  "sitemapLocation": "sitemap95.json"
+  "sitemapLocation": "sitemap.json"
 }

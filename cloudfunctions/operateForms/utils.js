@@ -49,5 +49,11 @@
     return !isNaN(num) && (num >= 0) && (num < U.maxExamNumber);
   }
 
+  /** error msg */
+  U.EMsg = function(msg = "") {
+    this.err = true;
+    this.errMsg = msg;
+  };
+
   module.exports = U;
 }).call(this);

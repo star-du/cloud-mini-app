@@ -1,0 +1,50 @@
+<!--pages/facilities/superAdmin/superAdmin.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">超级管理员</view>
+    <view class="page__desc">可以绑定审批人员</view>
+  </view>
+  <view class="page__bd">
+    <view class="weui-cells__title">绑定记录</view>
+    <view class="weui-cells weui-cells_after-title">
+
+      <block wx:if="{{userList.length}}">
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{userList}}" wx:for-index="i" wx:for-item="u" wx:key="token" bindtap="tapUserBind" data-idx="{{i}}">
+          <view class="weui-cell__bd">
+            <text class="cell-text" decode>{{u.token}} &ensp; {{u.openid ? u.name + ' ' + u.tel : '未绑定'}}</text>
+          </view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">{{u.openid ? '设置' : '绑定'}}</view>
+        </view>
+
+      </block>
+      <view wx:else class="weui-cell">
+        <view class="weui-cell__bd">暂无</view>
+        <view class="weui-cell__ft"></view>
+      </view>
+
+      <view wx:if="{{showAddInput}}" class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <input class="weui-input" name="token" type="number" maxlength="6" bindinput="inputToken" placeholder="请输入6位数字" />
+        </view>
+        <view class="weui-cell__ft">
+          <view class="weui-vcode-btn" type="primary" bindtap="tapAddToken">添加</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- form submit -->
+    <view class="weui-flex" style="margin-top: 28rpx;margin-bottom: 100px;">
+      <view class="weui-flex__item">
+        <button class="weui-btn" type="primary" bindtap="tapShowAddToken">添加记录</button>
+      </view>
+      <view class="weui-flex__item">
+        <button class="weui-btn" type="default" bindtap="tapExport" disabled="{{available > 0 ? false : true}}">导出xlsx</button>
+      </view>
+    </view>
+
+    <view style="width: 100%; ">
+      <canvas canvas-id="canvas" style="width: 300px; height: 300px;margin: auto"></canvas>
+    </view>
+
+  </view>
+</view>

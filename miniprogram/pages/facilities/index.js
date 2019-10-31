@@ -35,7 +35,12 @@ Page({
         icon: "../../assets/progressCheck.png"
       }
     ],
-    isLogin: false
+    isLogin: false,
+    touch: {
+      start: 0,
+      direct: 0,
+      class: ""
+    }
   },
   /**
    * 加载页面
@@ -74,7 +79,7 @@ Page({
       this.callCloudLogin(true);
     }
   },
-  
+
   /** 
    * 检查是否有授权并获取 userInfo 
    */
@@ -208,5 +213,73 @@ Page({
         isLogin: false
       });
     });
+  },
+
+  // ListTouch触摸开始
+  ListTouchStart(e) {
+    this.setData({
+      "touch.start": e.touches[0].pageX
+    });
+  },
+
+  // ListTouch计算方向. < 0: left, > 0 : right
+  ListTouchMove(e) {
+    this.setData({
+      "touch.direction": e.touches[0].pageX - this.data.touch.start
+    });
+  },
+
+  // ListTouch计算滚动
+  ListTouchEnd(e) {
+    this.setData({
+      touch: {
+        direction: 0,
+        class: this.data.touch.direction < 0 ? e.currentTarget.dataset.target : ""
+      }
+    });
+  },
+
+  // ListTouch按下扫码
+  ListTouchScan(e) {
+    const that = this;
+    if(!this.data.isLogin){
+      wx.showToast({
+        title: "请先登录",
+        icon: "none",
+        duration: 2000
+      });
+      return;
+    }
+    wx.scanCode({
+      onlyFromCamera: true,
+      scanType: ["qrCode"],
+      success(res) {
+        console.log(res);
+        if (res.scanType === "QR_CODE" && res.result) {
+          // scan success
+          that.handleScanSuccess(res.result);
+        } else {
+          wx.showToast({
+            title: "Unexpected.",
+            icon: "none",
+            duration: 2000
+          });
+        }
+      },
+      fail() {
+        wx.showToast({
+          title: "Unexpected.",
+          icon: "none",
+          duration: 2000
+        });
+      }
+    });
+  },
+  handleScanSuccess(code) {
+    if(this.data.isLogin){
+      wx.navigateTo({
+        url: 'superAdmin/userBind?&code=' + code
+      });
+    }
   }
 });

@@ -1,0 +1,6 @@
+/* pages/facilities/superAdmin/superAdmin.wxss */
+@import "../../../assets/weui.wxss";
+
+.weui-cell__ft {
+  color: #000;
+}
