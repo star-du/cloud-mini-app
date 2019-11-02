@@ -1,1 +1,7 @@
-{}
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "rulePanel": "../common/rulePanel",
+    "bigList": "../common/bigList"
+  }
+}

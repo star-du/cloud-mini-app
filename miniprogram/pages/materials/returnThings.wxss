@@ -1,0 +1,29 @@
+/* miniprogram/pages/materials/returnThings.wxss */
+@import "../../assets/weui.wxss";
+@import "../facilities/borrowClassroom.wxss";
+#head{
+  font-size: x-large;
+  padding: 5px 27% 0px;
+  background-color:#FFFFFF;
+}
+
+.titles{
+  background-color: #F8F8F8;
+  font-size: large;
+}
+
+#to{
+  font-size:small;
+}
+
+.inputbox{
+  background-color: #FFFFFF;
+  height: 15mm;
+}
+
+.largerinputbox{
+  height: 40mm;
+  background-color: #FFFFFF;
+  width: 100%;
+}
+

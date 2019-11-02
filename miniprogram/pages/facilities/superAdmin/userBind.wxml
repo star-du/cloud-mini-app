@@ -2,7 +2,6 @@
 <view class="page">
   <view class="page__hd">
     <view class="page__title">绑定</view>
-    <view class="page__desc">{{scanKey}}</view>
   </view>
   <form class="page__bd" bindsubmit="submit">
     <view class="weui-cells__title">个人信息</view>

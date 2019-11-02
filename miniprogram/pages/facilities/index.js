@@ -242,7 +242,7 @@ Page({
   // ListTouch按下扫码
   ListTouchScan(e) {
     const that = this;
-    if(!this.data.isLogin){
+    if (!this.data.isLogin) {
       wx.showToast({
         title: "请先登录",
         icon: "none",
@@ -275,10 +275,19 @@ Page({
       }
     });
   },
+  /**
+   * 扫码成功后跳转函数
+   */
   handleScanSuccess(code) {
-    if(this.data.isLogin){
+    if (this.data.isLogin && /[0-9A-Za-z_-]{28},\d{6},\d+/.test(code)) {
       wx.navigateTo({
         url: 'superAdmin/userBind?&code=' + code
+      });
+    } else {
+      wx.showToast({
+        title: "未知操作",
+        icon: "none",
+        duration: 2000
       });
     }
   }

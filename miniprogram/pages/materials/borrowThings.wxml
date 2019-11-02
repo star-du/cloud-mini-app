@@ -1,0 +1,52 @@
+<view class="goods">
+
+  <view class="menu-wrapper">
+    <view style="height: 100%;">
+      <view wx:for="{{availableItemsGenres}}" class="menu-item border-1px" wx:for-index="idx" wx:for-item="genreName"> 
+      <!-- TODO: menu 跳转 -->
+        <view class="text" bindtap="selectMenu" id="number{{idx}}">{{genreToChineseName[genreName]}}</view>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view scroll-y style="height: 100vh;" scroll-into-view="{{toView}}" class="items-wrapper" enable-back-to-top>
+    <view wx:for="{{availableItemsGenres}}" class="food-list food-list-hook" wx:for-index="idx" wx:for-item="genreName">
+      <!-- <view id="order{{parentIndex}}" class="title">{{item.genre}}</view> -->
+      <view class="title" id="number{{idx}}">{{genreToChineseName[genreName]}}</view>
+      <view wx:for="{{availableItems[genreName]}}" class="food-item"  wx:for-item="singleItem">
+        <view class="content">
+          <view class="name">{{singleItem.itemName}}</view>
+          <view class="desc">{{singleItem.description}}</view>
+          <view class="extra">
+            <text class="count">剩余{{singleItem.quantity}}</text>
+          </view>
+
+          <!-- <view class="cartControl-wrapper">
+            <view class="cartControl">
+              <view name="fade">
+                <view class="cart-decrease" wx:if="{{food.Count > 0}}" data-item-index="{{index}}" data-parentIndex="{{parentIndex}}" catchtap="decreaseCart">
+                  <view class="inner iconfont icon-jian" style="font-size:24px;color:#00A0DC;"></view>
+                </view>
+                <view class="cart-count" wx:if="{{food.Count > 0 }}">{{food.Count}}</view>
+
+              </view>
+            </view>
+          </view> -->
+            <view wx:if="{{selectOriginalMaterial}}" class="itemControllerWrapper">
+              <navigator catchtap="navtoForm" class=" iconfont icon-jia cart-add" 
+              hover-class="none" style="color:#00A0DC;"
+              url="./{{navBackTo}}?itemName={{singleItem.itemName}}&itemId={{singleItem.itemId}}&itemDocId={{singleItem._id}}{{navBackExtraData}}"
+             ></navigator>
+            </view>
+
+            <view wx:else class="itemControllerWrapper">
+              <navigator catchtap="navtoForm" class=" iconfont icon-jia cart-add" 
+              hover-class="none" style="color:#00A0DC;"
+              url="./borrowThings_form?itemname={{singleItem.itemName}}&itemcount={{singleItem.quantity}}&itemId={{singleItem.itemId}}&itemDocId={{singleItem._id}}"
+             ></navigator>
+            </view>
+        </view> <!--end of content--> 
+      </view>
+    </view>
+  </scroll-view>
+</view>

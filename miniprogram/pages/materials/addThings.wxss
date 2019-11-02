@@ -1,0 +1,8 @@
+/* pages/addThings/addThings.wxss */
+@import "../../assets/weui.wxss";
+@import "../facilities/borrowClassroom.wxss";
+@import "../approval/listApproval.wxss";
+
+.weui-cell__ft {
+    color: #000;
+  }
