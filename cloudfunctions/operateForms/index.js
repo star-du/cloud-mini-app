@@ -425,6 +425,7 @@ async function bindUserMain(event) {
                     console.log("[add user]", res);
                     return {
                       err: false,
+                      updated:1,
                       errMsg: res.errMsg
                     }
                   }).catch(err => {
