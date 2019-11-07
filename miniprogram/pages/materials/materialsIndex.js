@@ -48,12 +48,12 @@ Page({
     const data = e.currentTarget.dataset;
     if (1){
       console.log("navTo",data.url)
-      //wx.navigateTo(data);
+      wx.navigateTo(data);
       //物资清点中，暂时禁用借用入口
-      wx.showToast({
-        title: '开发中！',
-        icon: 'loading'
-      })
+      // wx.showToast({
+      //   title: '开发中！',
+      //   icon: 'loading'
+      // })
     } else {
 
     }
