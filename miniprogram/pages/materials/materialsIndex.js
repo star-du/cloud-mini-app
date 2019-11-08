@@ -1,11 +1,5 @@
 // miniprogram/pages/materialsIndex/materialsIndex.js
-/*
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-借用入口被禁用！
-修改完成后注意修改！
-位于51行！
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-*/
+
 const app = getApp();
 const db = wx.cloud.database();
 Page({
