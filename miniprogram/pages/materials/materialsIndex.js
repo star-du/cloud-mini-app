@@ -1,4 +1,5 @@
 // miniprogram/pages/materialsIndex/materialsIndex.js
+
 const app = getApp();
 const db = wx.cloud.database();
 Page({
@@ -42,6 +43,11 @@ Page({
     if (1){
       console.log("navTo",data.url)
       wx.navigateTo(data);
+      //物资清点中，暂时禁用借用入口
+      // wx.showToast({
+      //   title: '开发中！',
+      //   icon: 'loading'
+      // })
     } else {
 
     }

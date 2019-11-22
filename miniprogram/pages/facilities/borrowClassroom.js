@@ -19,7 +19,7 @@ Page({
       return [hr, mi];
     })(),
     index: 0,
-    array: ["请选择", "201", "202", "203", "204", "205", "206", "207", "208"],
+    array: ["请选择", "201", "205", "207", "208"],
     maxContentLength: 300,
     contentLength: 0
   },

@@ -4,23 +4,25 @@ Page({
   data: {
     items: 0,
     // tags: ["锦旗", "灯", "电子设备", "杂物"],
-    availableItems:{},
-    availableItemsGenres:[],
+    availableItems: {},
+    availableItemsGenres: [],
     // goods: [],
     toView: 'number0',
     scrollTop: 100,
     // foodCounts: 0,
     // carArray: [],
-    item:[],
-    genreToChineseName: {"A" : "服饰类", 
-        "B" : "宣传类",
-        "C" : "奖品类",
-        "D" : "工具类",
-        "E" : "装饰类",
-        "F" : "文本类",
-        "G" : "其他"
-  }
+    item: [],
+    genreToChineseName: {
+      "A": "服饰类",
+      "B": "宣传类",
+      "C": "奖品类",
+      "D": "工具类",
+      "E": "装饰类",
+      "F": "文本类",
+      "G": "其他"
+    }
   },
+
   //点击加号跳转至表单
   navtoForm(e) {
     // var index = e.currentTarget.dataset.itemIndex;
@@ -41,31 +43,31 @@ Page({
     // wx.navigateTo(data);  
     // wxml中已设置navigator url
   },
-  
-  onLoad: function (options) {
+
+  onLoad: function(options) {
     // this.getDatabase();
     this.fetchItemsData();
-    if (options.extra == "selectOriginalMaterial" ){
+    if (options.extra == "selectOriginalMaterial") {
       this.setData({
-        navBackTo:options.navBack,
+        navBackTo: options.navBack,
         selectOriginalMaterial: true
       });
 
       if (options.navBack == '../approval/viewApproval')
-      this.setData({
-        navBackExtraData: '&id=' + options.itemDocId + '&type=newMaterials' + '&isOriginalMaterials=true' 
-      });
-      
+        this.setData({
+          navBackExtraData: '&id=' + options.itemDocId + '&type=newMaterials' + '&isOriginalMaterials=true'
+        });
+
     }
-    
-    console.log('[borrowThings]',this.data)
-    },
+
+    console.log('[borrowThings]', this.data)
+  },
 
   //导航栏跳转
-  selectMenu: function (e) {
+  selectMenu: function(e) {
     console.log(e);
     this.setData({
-      toView:e.target.id
+      toView: e.target.id
     })
   },
 
@@ -91,7 +93,9 @@ Page({
       data: {
         caller: "fetchItemsData",
         collection: "items",
-		    filter: {"quantityGreaterThan":0},	
+        filter: {
+          "quantityGreaterThan": 0
+        },
         operate: "read"
       }
     }).then(res => {
@@ -100,55 +104,55 @@ Page({
         console.log("[fetchItemsData] error", res.result.err);
         return;
       }
-    
+
       let x = res.result.data;
       let categorizedItems = {};
-      if (x.length){
-          for (let i=0;i<x.length;i++){
-              let itemGenre = x[i].genre
-              if (!categorizedItems[itemGenre]) categorizedItems[itemGenre] = [];
-              categorizedItems[itemGenre].push(x[i])
-          }
-          
-          // console.log(Object.keys(categorizedItems))
-          PAGE.setData({
-            availableItems : categorizedItems,
-            availableItemsGenres: Object.keys(categorizedItems)
-          });          
+      if (x.length) {
+        for (let i = 0; i < x.length; i++) {
+          let itemGenre = x[i].genre
+          if (!categorizedItems[itemGenre]) categorizedItems[itemGenre] = [];
+          categorizedItems[itemGenre].push(x[i])
+        }
+
+        // console.log(Object.keys(categorizedItems))
+        PAGE.setData({
+          availableItems: categorizedItems,
+          availableItemsGenres: Object.keys(categorizedItems)
+        });
       }
       // console.log('categorizedItems', categorizedItems)
       console.log(PAGE.data)
-      
-    //   if (x.length) {
-    //     for (let i = 0; i < x.length; i++)
-    //       {x[i].eventTime1 = app._toDateStr(new Date(x[i].eventTime1));
-    //       x[i].eventTime2 = app._toDateStr(new Date(x[i].eventTime2));}          
-    //     PAGE.setData({
-    //       apprList: x,
-    //       flagGet: x.length ? 2 : 0
-    //     });
-    //   } else {
-    //     PAGE.setData({
-    //       apprList: [],
-    //       flagGet: 0
-    //     });
-    //   }
-    //   console.log(PAGE.data.apprList);
-    // }).catch(err => {
-    //   console.error("[newFetchData]failed", err);
+
+      //   if (x.length) {
+      //     for (let i = 0; i < x.length; i++)
+      //       {x[i].eventTime1 = app._toDateStr(new Date(x[i].eventTime1));
+      //       x[i].eventTime2 = app._toDateStr(new Date(x[i].eventTime2));}          
+      //     PAGE.setData({
+      //       apprList: x,
+      //       flagGet: x.length ? 2 : 0
+      //     });
+      //   } else {
+      //     PAGE.setData({
+      //       apprList: [],
+      //       flagGet: 0
+      //     });
+      //   }
+      //   console.log(PAGE.data.apprList);
+      // }).catch(err => {
+      //   console.error("[newFetchData]failed", err);
     });
   },
 
-  onReady: function () {
+  onReady: function() {
     // 页面渲染完成
   },
-  onShow: function () {
+  onShow: function() {
     // 页面显示
   },
-  onHide: function () {
+  onHide: function() {
     // 页面隐藏
   },
-  onUnload: function () {
+  onUnload: function() {
     // 页面关闭
   }
 })
