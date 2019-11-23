@@ -41,6 +41,17 @@ Page({
       const PAGE = this
       const formsData = e.detail.value;
       console.log("[formsData]",formsData);
+      if (!formsData.returnQuantity)
+      {
+        wx.showModal({
+          title: "信息不完整",
+          content: "请填写归还数量",
+          showCancel: false,
+          confirmText: "确定"
+        });
+        return;
+      }
+        
       db.collection("formsForMaterials").doc(PAGE.data.itemToReturn._id).update({
         data: {
           // 表示将 done 字段置为 true
