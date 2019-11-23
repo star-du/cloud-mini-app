@@ -93,6 +93,7 @@ Page({
     }
   },
 
+
   getUserInfo: function () {
     const that = this;
     wx.getSetting({
@@ -314,6 +315,14 @@ Page({
    */
   onPullDownRefresh: function () {
 
+    Promise.all([this.checkLogin(), this.getUserInfo()])
+  .then(() => {
+    wx.stopPullDownRefresh({
+      complete() {
+        console.log("[onPullDownRefresh] Finish refreshing.");
+      }
+    });
+    return true;})
   },
 
   /**

@@ -174,7 +174,9 @@ function hasPermission(perm, collction) {
     case "items":
       return perm.isAdmin;
     case "addNewMaterials":
-        return perm.isAdmin      
+        return perm.isAdmin  
+    case "addNewMaterials":
+        return perm.isAdmin  
     default:
       return false;
   }
@@ -314,10 +316,16 @@ async function updateMain(event) {
       }); 
       // end updateAppr
     case "addMaterials":
-      // console.log("[update]", c)
-      return await db.collection(event.collection).doc(event.docID).update({
+      return await c.update({
         data: {
           quantity: db.command.inc(event.update.addQuantity)
+        }
+      }).catch(console.error)
+
+    case "updateMaterialsQuantity":
+      return await c.update({
+        data: {
+          quantity: db.command.inc(event.update.quantityChange)
         }
       }).catch(console.error)
 

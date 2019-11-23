@@ -221,10 +221,10 @@ Page({
     }
     this.setData(options);
     // console.log('[viewApproval] type = ', this.data.type);
-    console.log('onLoad options',options);
+    // console.log('onLoad options',options);
     // get database
     fetchDB(this).then(() =>{
-      console.log('fetch DB back!PAGE.data is',PAGE.data)
+      // console.log('fetch DB back!PAGE.data is',PAGE.data)
       // HACK: 如果页面是从borrowThings导航而来，则表明该物品被管理员认为是原有物资 
       // 于是覆盖掉表单上关于物品是否为原有物资的信息
       if (PAGE.data.isOriginalMaterials)
@@ -233,6 +233,8 @@ Page({
         "appr.itemDocId":PAGE.data.itemDocId
       })
     }) //end of then
+
+    console.log("[viewApproval] Page data: ", PAGE.data);
     },
   /* 用户下拉动作刷新 */
   onPullDownRefresh: function() {
@@ -249,49 +251,121 @@ Page({
     if (value.returnComment) value.returnComment = value.returnComment.trim();
     
 
-    if (PAGE.data.appr.exam == 4) flag = flag == 3 ? 5:6; //若同意 则归还的flag设为5
+    if (PAGE.data.appr.exam == 4) flag = (flag == 3 ? 5:6); //若同意 则归还的flag设为5
     console.log("[update]", this.data.id, " [flag]", flag, " [value]", value);
 
-    // switch db.collection
-    if (PAGE.data.type == 'facilities') var collectionName = "forms";
-    else if (PAGE.data.type == 'materials') var collectionName = "formsForMaterials";
     wx.showLoading({
       title: "提交中",
       mask: true
     });
-    // call cloud function
-    wx.cloud.callFunction({
-      name: "operateForms",
-      data: {
-        caller: "updateAppr",
-        collection: collectionName,
-        docID: this.data.id,
-        isDoc: true,
-        operate: "update",
-        update: {
-          check: value,
-          exam: flag
-        }
-      }
-    }).then(res => {
-      console.log("[updateApproval]", res);
-      wx.hideLoading();
-      // [Boolean]res.error indicates if calling has error
-      if (res.err || res.updated < 1) wx.showToast({
-        title: "出错了, 请稍后重试",
-        icon: "none",
-        duration: 3000,
-        mask: true
-      });
-      else wx.showToast({
-        title: "更新成功",
-        icon: "success",
-        duration: 2000,
-        mask: true
-      });
-      fetchDB(PAGE);
-    }).catch(console.error);
-  },
+
+    // switch db.collection
+    if (PAGE.data.type == 'facilities') 
+    {
+      // update approval form status
+        wx.cloud.callFunction({
+          name: "operateForms",
+          data: {
+            caller: "updateAppr",
+            collection: "forms",
+            docID: this.data.id,
+            isDoc: true,
+            operate: "update",
+            update: {
+              check: value,
+              exam: flag
+            }
+          }
+        }).then(res => {
+          console.log("[updateApproval]", res);
+          wx.hideLoading();
+          // [Boolean]res.error indicates if calling has error
+          if (res.err || res.updated < 1) wx.showToast({
+            title: "出错了, 请稍后重试",
+            icon: "none",
+            duration: 3000,
+            mask: true
+          });
+          else wx.showToast({
+            title: "更新成功",
+            icon: "success",
+            duration: 2000,
+            mask: true
+          });
+          fetchDB(PAGE);
+        }).catch(console.error);
+      } // end of if
+
+    else if (PAGE.data.type == 'materials') 
+    {
+      const PAGE = this;
+      const apprData = PAGE.data.appr;
+      console.log("apprData", apprData);
+
+      // update items' quantity: 如果有return quantity 则表明为归还，数量增加 return quantity，
+      // 否则数量减少quantity (quantityChange: -quantity)
+
+        wx.cloud.callFunction({
+          name: "operateForms",
+          data: {
+            caller: "updateMaterialsQuantity",
+            collection: "items",
+            filter: {itemId: apprData.itemId} ,
+            operate: "update",
+            update: {
+              quantityChange: apprData.returnQuantity ? Number(apprData.returnQuantity) : -Number(apprData.quantity) 
+            }
+          }
+        }).then(res => {
+          console.log("[addMaterials] callFunction", res);
+          // [Boolean]res.error indicates if calling has error
+          if (res.result.err || res.result.stats.updated < 1) {
+            wx.showToast({
+              title: "出错了, 请稍后重试",
+              icon: "none",
+              duration: 3000,
+              mask: true
+            });
+            return;
+          }
+
+      // update approval form status
+        wx.cloud.callFunction({
+          name: "operateForms",
+          data: {
+            caller: "updateAppr",
+            collection: "formsForMaterials",
+            docID: this.data.id,
+            isDoc: true,
+            operate: "update",
+            update: {
+              check: value,
+              exam: flag
+            }
+          }
+        }).then(res => {
+          console.log("[updateApproval]", res);
+          wx.hideLoading();
+          // [Boolean]res.error indicates if calling has error
+          if (res.err || res.updated < 1) wx.showToast({
+            title: "出错了, 请稍后重试",
+            icon: "none",
+            duration: 3000,
+            mask: true
+          });
+          else wx.showToast({
+            title: "更新成功",
+            icon: "success",
+            duration: 2000,
+            mask: true
+          });
+          fetchDB(PAGE);
+        }).catch(console.error);
+      },
+      );  
+    } // end of else if
+
+},
 
   submitNewMaterials: function(e){
   // Note: formsData中itemName和itemId直接可用 
