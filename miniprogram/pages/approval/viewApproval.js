@@ -480,16 +480,6 @@ Page({
           title: "提交中",
           mask: true
         });
-        db.collection("items").add({
-          data: formObj,
-          success(res) {
-            console.log("Successfully add to db!");
-            console.log("res:", res)
-          }, fail(res) {
-            console.error;
-            return
-          }
-        });
 
         // call cloud function
         wx.cloud.callFunction({
@@ -506,22 +496,34 @@ Page({
             }
           }
         }).then(res => {
-          console.log("[updateApproval]", res);
-          wx.hideLoading();
-          // [Boolean]res.error indicates if calling has error
-          if (res.result.err || res.updated < 1) wx.showToast({
-            title: "出错了, 请稍后重试",
-            icon: "none",
-            duration: 3000,
-            mask: true
+          if (res.result.err) {
+            wx.showToast({
+              title: "出错了, 请稍后重试",
+              icon: "none",
+              duration: 3000,
+              mask: true
+            });
+            wx.hideLoading();
+            return;
+          }
+
+          db.collection("items").add({
+            data: formObj,
+            success(res) {
+              console.log("Successfully add to db!");
+              wx.hideLoading();
+              wx.showToast({
+                title: "数据库已更新",
+                icon: "success",
+                duration: 2000,
+                mask: true
+              });
+            }, fail(res) {
+              console.error(res);
+              return
+            }
           });
-          else wx.showToast({
-            title: "数据库已更新",
-            icon: "success",
-            duration: 2000,
-            mask: true
-          });
-          fetchDB(PAGE);
+          // fetchDB(PAGE);
         }).catch(console.error);
       } // end of if(!res.total) 
         else {     
